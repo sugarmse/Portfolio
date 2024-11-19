@@ -1,0 +1,138 @@
+.banner {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	background-color: #002347;
+	color: #e6e6e6;
+	height: 40rem;
+	justify-content: center;
+	align-items: center;
+}
+.mainIntro {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 5.5rem;
+	background-color: #003366;
+	color: #a6a6a6;
+}
+.intro1 {
+	display: flex;
+}
+.intro2 {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 2rem;
+	gap: 4rem;
+}
+.asymSection {
+	background-color: #002347;
+	color: #e6e6e6;
+	display: flex;
+	justify-content: space-between;
+	color: #ff5003;
+	padding: 5.5rem;
+}
+.column1 {
+	width: 25%;
+}
+.column2 {
+	width: 25%;
+}
+.column3 {
+	width: 25%;
+}
+.edu {
+	height: 28rem;
+	background: #fff;
+}
+.exp {
+	height: 15rem;
+	background: #fff;
+}
+.soft {
+	height: 10rem;
+	background: #fff;
+}
+.skills {
+	height: 19rem;
+	background: #fff;
+}
+.hobb {
+	height: 10rem;
+	background: #fff;
+}
+.resume {
+	text-align: center;
+	height: 47rem;
+	background: #fff;
+}
+.edu,
+.exp,
+.soft,
+.skills,
+.hobb,
+.resume {
+	border-radius: 10px;
+	margin-top: 4rem;
+}
+.projects {
+	background: #003366;
+	color: #e6e6e6;
+	padding: 5.5rem;
+}
+.projCards {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin-top: 2rem;
+}
+.card1 {
+	background: #fff;
+	height: 25rem;
+	width: 20%;
+	border-radius: 10px;
+}
+.contact {
+	background: #002347;
+	color: #e6e6e6;
+	padding: 5.5rem;
+}
+.subText {
+	margin-top: 1rem;
+}
+.contactForm {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.formLbInp {
+	display: flex;
+	flex-direction: column;
+}
+.formLbInp label {
+	margin-top: 3rem;
+}
+.formLbInp input {
+	height: 3.5rem;
+	width: 25rem;
+	border-radius: 8px;
+	margin-top: 1rem;
+}
+.formLbInp textarea {
+	height: 7.5rem;
+	width: 25rem;
+	border-radius: 8px;
+	margin-top: 1rem;
+}
+.rightSide {
+	width: 25rem;
+	background: #fff;
+	color: #ff5003;
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 5rem;
+}
