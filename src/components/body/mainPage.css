@@ -7,6 +7,10 @@
 	height: 40rem;
 	justify-content: center;
 	align-items: center;
+	background-image: url("/graphics1.png");
+	background-size: cover; /* Ensures the image covers the entire element */
+	background-repeat: no-repeat; /* Prevents the image from repeating */
+	background-position: center; /* Centers the image within the element */
 }
 .mainIntro {
 	display: flex;
@@ -14,7 +18,7 @@
 	justify-content: center;
 	padding: 5.5rem;
 	background-color: #003366;
-	color: #a6a6a6;
+	color: #e6e6e6;
 }
 .intro1 {
 	display: flex;
@@ -44,28 +48,28 @@
 }
 .edu {
 	height: 28rem;
-	background: #fff;
+	background: #e6e6e6;
 }
 .exp {
 	height: 15rem;
-	background: #fff;
+	background: #e6e6e6;
 }
 .soft {
 	height: 10rem;
-	background: #fff;
+	background: #e6e6e6;
 }
 .skills {
 	height: 19rem;
-	background: #fff;
+	background: #e6e6e6;
 }
 .hobb {
 	height: 10rem;
-	background: #fff;
+	background: #e6e6e6;
 }
 .resume {
 	text-align: center;
 	height: 47rem;
-	background: #fff;
+	background: #e6e6e6;
 }
 .edu,
 .exp,
@@ -75,6 +79,7 @@
 .resume {
 	border-radius: 10px;
 	margin-top: 4rem;
+	padding:1rem;
 }
 .projects {
 	background: #003366;
@@ -88,7 +93,7 @@
 	margin-top: 2rem;
 }
 .card1 {
-	background: #fff;
+	background: #e6e6e6;
 	height: 25rem;
 	width: 20%;
 	border-radius: 10px;
@@ -128,7 +133,7 @@
 }
 .rightSide {
 	width: 25rem;
-	background: #fff;
+	background: #e6e6e6;
 	color: #ff5003;
 	border-radius: 10px;
 	display: flex;

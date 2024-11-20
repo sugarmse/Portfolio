@@ -1,40 +1,20 @@
-@font-face {
-	font-family: "Futura Std";
-	src: url("/FuturaStd.ttf") format("ttf");
-	font-weight: normal;
-	font-style: normal;
-}
+@import url("https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300..800;1,300..800&family=Libre+Franklin:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap");
 html,
 body {
 	margin: 0;
 	padding: 0;
 	width: 100%;
 	height: 100%;
-	font-family: Futura Std;
+	font-family: "Noto Sans", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: <weight>;
+	font-style: normal;
+	font-variation-settings: "wdth" 100;
 }
 * {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-}
-// <uniquifier>: Use a unique and descriptive class name
-// <weight>: Use a value from 300 to 800
-
-.host-grotesk-<uniquifier > {
-	font-family: "Host Grotesk", sans-serif;
-	font-optical-sizing: auto;
-	font-weight: <weight>;
-	font-style: normal;
-}
-
-// <uniquifier>: Use a unique and descriptive class name
-// <weight>: Use a value from 100 to 900
-
-.libre-franklin-<uniquifier > {
-	font-family: "Libre Franklin", serif;
-	font-optical-sizing: auto;
-	font-weight: <weight>;
-	font-style: normal;
 }
 h1 {
 	font-size: 3rem;

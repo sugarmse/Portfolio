@@ -5,11 +5,11 @@ function Mainpage() {
 	return (
 		<>
 			<div className="mainBox">
-				<div className="banner">
+				<div className="banner" id="banner">
 					<h1>SARTHAK SHAKYA</h1>
 					<div className="normaltext">UI / UX DESIGNER AND WEB DEVELOPER</div>
 				</div>
-				<div className="mainIntro">
+				<div className="mainIntro" id="mainIntro">
 					<div className="intro1">
 						<h2>INTRODUCTION</h2>
 					</div>
@@ -35,7 +35,7 @@ function Mainpage() {
 						</div>
 					</div>
 				</div>
-				<div className="asymSection">
+				<div className="asymSection" id="asymSection">
 					<div className="column1">
 						<div className="edu">
 							<h2>EDUCATION</h2>
@@ -61,7 +61,7 @@ function Mainpage() {
 						</div>
 					</div>
 				</div>
-				<div className="projects">
+				<div className="projects" id="projects">
 					<h2>PROJECTS</h2>
 					<div className="projCards">
 						<div className="card1">a</div>
@@ -70,11 +70,11 @@ function Mainpage() {
 						<div className="card1">a</div>
 					</div>
 				</div>
-				<div className="contact">
+				<div className="contact" id="contact">
 					<h2>I’D LOVE TO HEAR FROM YOU.</h2>
 					<div className="subText">
 						<div className="normaltext">
-							LEAVE A MESSAGE BELOW, AND I’LL GETBACK TO YOU AS SOON AS
+							LEAVE A MESSAGE BELOW, AND I’LL GET BACK TO YOU AS SOON AS
 							POSSIBLE.
 						</div>
 					</div>
