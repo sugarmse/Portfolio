@@ -9,13 +9,21 @@ function Footer() {
 						COPYRIGHT @ 2024 SARTHAK, ALL RIGHTS RESERVED.
 					</div>
 					<div className="content1">|</div>
-					<div className="content1">HOME</div>
+					<div className="content1">
+						<a href="#navBar">HOME</a>
+					</div>
 					<div className="content1">|</div>
-					<div className="content1">ABOUT</div>
+					<div className="content1">
+						<a href="#mainIntro">ABOUT</a>
+					</div>
 					<div className="content1">|</div>
-					<div className="content1">PROJECTS</div>
+					<div className="content1">
+						<a href="#projects">PROJECTS</a>
+					</div>
 					<div className="content1">|</div>
-					<div className="content1">CONTACT</div>
+					<div className="content1">
+						<a href="#contact">CONTACT</a>
+					</div>
 				</div>
 			</div>
 		</>

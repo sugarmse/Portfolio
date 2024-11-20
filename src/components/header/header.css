@@ -1,8 +1,8 @@
 .navBar {
 	display: flex;
 	width: 100%;
-	background-color: #002347;
-	color: #e6e6e6;
+	background-color: #0d0d0d;
+	color: #e0e0e0;
 }
 .contents {
 	display: flex;
@@ -20,14 +20,14 @@ a {
 	color: #e6e6e6;
 }
 a:hover {
-	color: #ff5003 !important;
+	color: #ff5722;
 }
 .contactBtn:hover {
-	color: #002347 !important;
-	background: #ff5003 !important;
+	background: #ff5722 !important;
 }
 .contactBtn {
 	padding: 1rem 1.5rem;
-	background-color: #ff8e00;
+	background-color: #ffc107;
 	border-radius: 8px;
+	color: #002347 !important;
 }

@@ -6,7 +6,7 @@ function Mainpage() {
 		<>
 			<div className="mainBox">
 				<div className="banner" id="banner">
-					<h1>SARTHAK SHAKYA</h1>
+					<h1 className="bannerName">SARTHAK SHAKYA</h1>
 					<div className="normaltext">UI / UX DESIGNER AND WEB DEVELOPER</div>
 				</div>
 				<div className="mainIntro" id="mainIntro">

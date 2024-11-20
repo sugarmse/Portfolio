@@ -1,15 +1,15 @@
 .sepa {
 	height: 1px;
-	background: #ff5003;
-	width:96%;
+	background: #ffc107;
+	width: 96%;
 }
 .footer {
-	background: #002347;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
+	background: #0d0d0d;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
 }
 .contents {
 	color: #e6e6e6;

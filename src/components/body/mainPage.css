@@ -2,23 +2,36 @@
 	display: flex;
 	flex-direction: column;
 	width: 100%;
-	background-color: #002347;
-	color: #e6e6e6;
-	height: 40rem;
+	height: 30rem; /* Adjusted height */
+	background-color: #0d0d0d;
+	color: #e0e0e0;
 	justify-content: center;
 	align-items: center;
-	background-image: url("/graphics1.png");
-	background-size: cover; /* Ensures the image covers the entire element */
-	background-repeat: no-repeat; /* Prevents the image from repeating */
-	background-position: center; /* Centers the image within the element */
+	//background-image: url("/monobg.png");
+	//background-size: contain; /* Adjust image size */
+	//background-repeat: no-repeat;
+	//background-position: center;
+	//position: relative;
+}
+
+/*.banner::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}*/
+.bannerName {
+	margin-top: 12rem;
 }
 .mainIntro {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	padding: 5.5rem;
-	background-color: #003366;
-	color: #e6e6e6;
+	background-color: #1a1a1a;
+	color: #e0e0e0;
 }
 .intro1 {
 	display: flex;
@@ -30,11 +43,10 @@
 	gap: 4rem;
 }
 .asymSection {
-	background-color: #002347;
-	color: #e6e6e6;
+	background-color: #0d0d0d;
+	color: #1a1a1a;
 	display: flex;
 	justify-content: space-between;
-	color: #ff5003;
 	padding: 5.5rem;
 }
 .column1 {
@@ -48,28 +60,28 @@
 }
 .edu {
 	height: 28rem;
-	background: #e6e6e6;
+	background: #e0e0e0;
 }
 .exp {
 	height: 15rem;
-	background: #e6e6e6;
+	background: #e0e0e0;
 }
 .soft {
 	height: 10rem;
-	background: #e6e6e6;
+	background: #e0e0e0;
 }
 .skills {
 	height: 19rem;
-	background: #e6e6e6;
+	background: #e0e0e0;
 }
 .hobb {
 	height: 10rem;
-	background: #e6e6e6;
+	background: #e0e0e0;
 }
 .resume {
 	text-align: center;
 	height: 47rem;
-	background: #e6e6e6;
+	background: #e0e0e0;
 }
 .edu,
 .exp,
@@ -79,11 +91,11 @@
 .resume {
 	border-radius: 10px;
 	margin-top: 4rem;
-	padding:1rem;
+	padding: 1rem;
 }
 .projects {
-	background: #003366;
-	color: #e6e6e6;
+	background: #1a1a1a;
+	color: #e0e0e0;
 	padding: 5.5rem;
 }
 .projCards {
@@ -93,14 +105,14 @@
 	margin-top: 2rem;
 }
 .card1 {
-	background: #e6e6e6;
+	background: #e0e0e0;
 	height: 25rem;
 	width: 20%;
 	border-radius: 10px;
 }
 .contact {
-	background: #002347;
-	color: #e6e6e6;
+	background: #0d0d0d;
+	color: #e0e0e0;
 	padding: 5.5rem;
 }
 .subText {
@@ -124,6 +136,7 @@
 	width: 25rem;
 	border-radius: 8px;
 	margin-top: 1rem;
+	padding: 1rem;
 }
 .formLbInp textarea {
 	height: 7.5rem;
@@ -133,8 +146,8 @@
 }
 .rightSide {
 	width: 25rem;
-	background: #e6e6e6;
-	color: #ff5003;
+	background: #e0e0e0;
+	color: #1a1a1a;
 	border-radius: 10px;
 	display: flex;
 	flex-direction: column;

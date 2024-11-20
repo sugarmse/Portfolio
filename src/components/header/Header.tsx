@@ -16,7 +16,7 @@ function Header() {
 					<div className="content1">.</div>
 					<div className="content1">
 						<a href="#navBar">
-							<img className="logo" src="/sslogo.png" alt="SS" />
+							<img className="logo" src="/logobg.png" alt="SS" />
 						</a>
 					</div>
 					<div className="content1">.</div>
