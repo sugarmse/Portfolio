@@ -101,9 +101,13 @@ ul {
 }
 .softList svg,
 .skillList svg {
-	height: 3.5rem;
-	width: auto;
+	height: 3rem;
+	width: 3rem;
 }
+.icon:hover path {
+	fill: red; /* Replace with your desired color */
+}
+
 .skills {
 	height: 15rem;
 	background: #e0e0e0;
