@@ -1,0 +1,16 @@
+.resumeDownload {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+}
+.resumeImg {
+	border: 1px solid #000;
+	width: 350px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.resumeDownload:hover {
+	cursor: pointer;
+}

@@ -26,7 +26,7 @@ function Header() {
 					<div className="content1">.</div>
 					<div className="content1">
 						<a className="contactBtn" href="#contact">
-							CONTACT
+							<button>CONTACT</button>
 						</a>
 					</div>
 				</div>

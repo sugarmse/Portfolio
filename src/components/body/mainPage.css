@@ -40,15 +40,22 @@
 	display: flex;
 	justify-content: space-between;
 	margin-top: 2rem;
-	gap: 4rem;
 	text-align: justify;
+	gap: 4rem;
 }
 .asymSection {
 	background-color: #0d0d0d;
 	color: #1a1a1a;
 	display: flex;
-	justify-content: space-between;
-	padding: 5.5rem;
+	justify-content: center;
+	gap: 4rem;
+	padding-bottom: 4rem;
+}
+.section1 {
+	width: 220rem;
+}
+.section2 {
+	width: 220rem;
 }
 .column1 {
 	width: 25%;
