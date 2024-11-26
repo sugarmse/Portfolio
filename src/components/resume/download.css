@@ -6,10 +6,11 @@
 }
 .resumeImg {
 	border: 1px solid #000;
-	width: 350px;
+	width: 25rem;
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	border-radius: 10px;
 }
 .resumeDownload:hover {
 	cursor: pointer;
