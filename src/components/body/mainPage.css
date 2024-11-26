@@ -41,6 +41,7 @@
 	justify-content: space-between;
 	margin-top: 2rem;
 	gap: 4rem;
+	text-align: justify;
 }
 .asymSection {
 	background-color: #0d0d0d;
@@ -59,23 +60,64 @@
 	width: 25%;
 }
 .edu {
-	height: 28rem;
+	height: 25rem;
 	background: #e0e0e0;
+	border: 16px solid #333;
+	border-radius: 32px !important;
+	position: relative;
+	overflow: hidden;
+}
+.inner {
+	width: 100%;
+	height: 100%;
+	background: white;
+	border-radius: 10px; /* Inner edge radius */
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 1rem;
+}
+ul {
+	list-style-type: none;
+}
+.liTitle {
+	font-size: 1.5rem;
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	margin-top: 1rem;
+}
+.liSubtxt {
+	padding-left: 1.8rem;
+	font-size: 1.2rem;
 }
 .exp {
-	height: 15rem;
+	height: 18rem;
 	background: #e0e0e0;
 }
 .soft {
-	height: 10rem;
+	height: 12rem;
 	background: #e0e0e0;
+}
+.softList svg,
+.skillList svg {
+	height: 3.5rem;
+	width: auto;
 }
 .skills {
-	height: 19rem;
+	height: 15rem;
 	background: #e0e0e0;
 }
+.skillList,
+.softList {
+	margin-top: 1rem;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: stretch;
+	justify-content: space-between;
+}
 .hobb {
-	height: 10rem;
+	height: 12rem;
 	background: #e0e0e0;
 }
 .resume {
@@ -89,9 +131,12 @@
 .skills,
 .hobb,
 .resume {
-	border-radius: 10px;
 	margin-top: 4rem;
 	padding: 1rem;
+	border: 16px solid #333;
+	border-radius: 32px !important;
+	position: relative;
+	overflow: hidden;
 }
 .projects {
 	background: #1a1a1a;
@@ -143,6 +188,7 @@
 	width: 25rem;
 	border-radius: 8px;
 	margin-top: 1rem;
+	padding: 1rem;
 }
 .rightSide {
 	width: 25rem;
