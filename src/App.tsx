@@ -6,9 +6,9 @@ import Asym from "./components/body/asymSection";
 function App() {
 	return (
 		<>
-			{/* <Header />
+			<Header />
 			<Mainpage />
-			<Footer/> */}
+			<Footer />
 			<Asym />
 		</>
 	);

@@ -1,5 +1,5 @@
 import ContactForm from "../contactForm/ContactForm";
-import Asym from "./asymSection";
+import DownloadOnClick from "../resume/downloadResume";
 import "./mainPage.css";
 
 function Mainpage() {
@@ -40,7 +40,7 @@ function Mainpage() {
 					</div>
 				</div>
 				<div className="asymSection" id="asymSection">
-					{/* <div className="column1">
+					<div className="column1">
 						<div className="edu">
 							<div className="inner">
 								<h2>EDUCATION</h2>
@@ -381,7 +381,7 @@ function Mainpage() {
 								<DownloadOnClick />
 							</div>
 						</div>
-					</div> */}
+					</div>
 					{/* <div className="grid-container">
 						<div className="grid-item">
 							<h2>EDUCATION</h2>
@@ -446,8 +446,8 @@ function Mainpage() {
 						</div>
 						<div className="grid-item">2</div>
 						<div className="grid-item">3</div>
-					</div> */}
-<Asym/>
+					</div>
+{/* <Asym/> */}
 				</div>
 				<div className="projects" id="projects">
 					<h2>PROJECTS</h2>
