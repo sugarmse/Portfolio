@@ -1,0 +1,49 @@
+.grid-container2 {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
+	grid-template-rows: auto; /* Rows adjust to content size */
+	gap: 2rem; /* Space between grid items */
+	margin: 20px auto; /* Center the container */
+}
+
+.box {
+	background-color: #ff8e00;
+	color: white;
+	padding: 3rem;
+	text-align: center;
+	font-size: 1rem;
+	border-radius: 5px;
+}
+
+/* First Column: Position items in first column */
+.box1 {
+	grid-column: 1;
+	grid-row: 1 / span 2; /* First row */
+}
+
+.box2 {
+	grid-column: 1;
+	grid-row: 3; /* Second row */
+}
+
+/* Second Column: Position items in second column */
+.box3 {
+	grid-column: 2;
+	grid-row: 1; /* First row */
+}
+
+.box4 {
+	grid-column: 2;
+	grid-row: 2; /* Second row */
+}
+
+.box5 {
+	grid-column: 2;
+	grid-row: 3; /* Third row */
+}
+
+/* Third Column: Position the item in the third column */
+.box6 {
+	grid-column: 3;
+	grid-row: 1 / span 3; /* Span all rows in this column */
+}

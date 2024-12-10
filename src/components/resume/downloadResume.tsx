@@ -1,18 +1,23 @@
 import React, { useState } from "react";
 import "./download.css";
+
 const DownloadOnClick = () => {
 	const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
 	const [showTooltip, setShowTooltip] = useState(false);
 
 	// Handle mouse movement to update tooltip position
 	const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-		setTooltipPosition({ x: e.clientX, y: e.clientY });
+		// Calculate position relative to the scaled element
+		const rect = e.currentTarget.getBoundingClientRect();
+		const x = e.clientX - rect.left;
+		const y = e.clientY - rect.top;
+		setTooltipPosition({ x, y });
 	};
 
 	// Handle file download
 	const handleDownload = () => {
 		const link = document.createElement("a");
-		link.href = "/"; // Replace with the path to your file
+		link.href = "/CV.pdf"; // Replace with the correct file path
 		link.download = "CV.pdf"; // The name of the file when downloaded
 		link.click();
 	};
@@ -35,18 +40,10 @@ const DownloadOnClick = () => {
 			{/* Tooltip */}
 			{showTooltip && (
 				<div
+					className="tooltip"
 					style={{
-						position: "fixed",
-						top: tooltipPosition.y + 10, // Slight offset from the cursor
-						left: tooltipPosition.x + 10,
-						backgroundColor: "#333",
-						color: "#fff",
-						padding: "5px 10px",
-						borderRadius: "5px",
-						fontSize: "12px",
-						whiteSpace: "nowrap",
-						zIndex: 1000,
-						pointerEvents: "none", // Prevent blocking mouse events
+						top: tooltipPosition.y + 88,
+						left: tooltipPosition.x - 34,
 					}}
 				>
 					Click to download

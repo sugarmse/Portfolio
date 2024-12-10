@@ -4,14 +4,37 @@
 	justify-content: center;
 	height: 100%;
 }
+
 .resumeImg {
 	border: 1px solid #000;
-	width: 25rem;
+	width: 20rem;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	border-radius: 10px;
+	transition: all 0.3s ease-in-out;
+	transform: scale(1);
 }
-.resumeDownload:hover {
+.resumeImg:hover {
+	transform: scale(1.1);
 	cursor: pointer;
+}
+
+.tooltip {
+	position: absolute;
+	background-color: #333;
+	color: #fff;
+	padding: 5px 10px;
+	border-radius: 5px;
+	font-size: 12px;
+	white-space: nowrap;
+	z-index: 1000;
+	pointer-events: none;
+	box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+
+	/* Position below the element */
+
+	top: 100%; /* Place it below the target element */
+	left: 50%; /* Center it horizontally */
+	margin-top: 10px; /* Add space below the element */
 }

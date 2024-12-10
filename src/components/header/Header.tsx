@@ -16,7 +16,7 @@ function Header() {
 					<div className="content1">.</div>
 					<div className="content1">
 						<a href="#navBar">
-							<img className="logo" src="/logobg.png" alt="SS" />
+							<img className="logo" src="/logobg.png" alt="" />
 						</a>
 					</div>
 					<div className="content1">.</div>
@@ -27,6 +27,11 @@ function Header() {
 					<div className="content1">
 						<a className="contactBtn" href="#contact">
 							<button>CONTACT</button>
+						</a>
+					</div>
+					<div className="contents2">
+						<a href="#navBar">
+							<img className="logo" src="/logobg.png" alt="" />
 						</a>
 					</div>
 				</div>

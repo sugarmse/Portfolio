@@ -1,0 +1,21 @@
+.formBtn {
+	display: flex;
+	justify-content: center;
+}
+.submitBtn {
+	margin-top: 3rem;
+}
+.submitBtn:hover {
+	background: #ff5722 !important;
+	cursor: pointer;
+	transform: scale(1.2); /* Increase size to 120% */
+}
+.submitBtn {
+	padding: 1rem 1.5rem;
+	background-color: #ffc107;
+	border-radius: 8px;
+	color: #002347 !important;
+	font-weight: 800;
+	border: none;
+	transition: transform 0.3s ease; /* Smooth scaling */
+}

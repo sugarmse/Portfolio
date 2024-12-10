@@ -46,10 +46,7 @@
 .asymSection {
 	background-color: #0d0d0d;
 	color: #1a1a1a;
-	display: flex;
-	justify-content: center;
-	gap: 4rem;
-	padding-bottom: 4rem;
+	padding: 5.5rem;
 }
 .section1 {
 	width: 220rem;
@@ -59,6 +56,7 @@
 }
 .column1 {
 	width: 25%;
+	display: grid;
 }
 .column2 {
 	width: 25%;
@@ -67,7 +65,7 @@
 	width: 25%;
 }
 .edu {
-	height: 25rem;
+	height: auto;
 	background: #e0e0e0;
 	border: 16px solid #333;
 	border-radius: 32px !important;
@@ -79,9 +77,6 @@
 	height: 100%;
 	background: white;
 	border-radius: 10px; /* Inner edge radius */
-	position: absolute;
-	top: 0;
-	left: 0;
 	padding: 1rem;
 }
 ul {
@@ -99,24 +94,29 @@ ul {
 	font-size: 1.2rem;
 }
 .exp {
-	height: 18rem;
+	height: auto;
 	background: #e0e0e0;
 }
 .soft {
-	height: 12rem;
+	height: auto;
 	background: #e0e0e0;
 }
 .softList svg,
 .skillList svg {
 	height: 3rem;
 	width: 3rem;
+	transition: transform 0.3s ease; /* Smooth scaling */
+}
+.softList svg:hover,
+.skillList svg:hover {
+	transform: scale(1.2); /* Increase size to 120% */
 }
 .icon:hover path {
 	fill: red; /* Replace with your desired color */
 }
 
 .skills {
-	height: 15rem;
+	height: auto;
 	background: #e0e0e0;
 }
 .skillList,
@@ -128,12 +128,12 @@ ul {
 	justify-content: space-between;
 }
 .hobb {
-	height: 12rem;
+	height: auto;
 	background: #e0e0e0;
 }
 .resume {
 	text-align: center;
-	height: 47rem;
+	height: auto;
 	background: #e0e0e0;
 }
 .edu,
@@ -143,7 +143,6 @@ ul {
 .hobb,
 .resume {
 	margin-top: 4rem;
-	padding: 1rem;
 	border: 16px solid #333;
 	border-radius: 32px !important;
 	position: relative;
@@ -160,12 +159,22 @@ ul {
 	justify-content: space-between;
 	margin-top: 2rem;
 }
-.card1 {
-	background: #e0e0e0;
-	height: 25rem;
-	width: 20%;
+
+.card2 {
+	width: 300px;
+	height: 200px;
+	margin: 20px;
+	background-color: #fff;
 	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	transition: transform 0.4s, box-shadow 0.3s;
 }
+
+.card2:hover {
+	transform: translateY(-20px);
+	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
 .contact {
 	background: #0d0d0d;
 	color: #e0e0e0;
@@ -210,4 +219,11 @@ ul {
 	flex-direction: column;
 	align-items: center;
 	margin-top: 5rem;
+}
+.row1 {
+	display: flex;
+	align-items: center;
+	margin-top: 3rem;
+	gap: 2rem;
+	justify-content: start;
 }
