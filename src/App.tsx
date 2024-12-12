@@ -2,14 +2,13 @@ import "./App.css";
 import Mainpage from "./components/body/mainPage";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
-import Asym from "./components/body/asymSection";
 function App() {
 	return (
 		<>
 			<Header />
 			<Mainpage />
 			<Footer />
-			<Asym />
+			
 		</>
 	);
 }

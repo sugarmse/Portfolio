@@ -3,11 +3,12 @@
 	align-items: center;
 	justify-content: center;
 	height: 100%;
+	padding: 3.5rem;
 }
 
 .resumeImg {
 	border: 1px solid #000;
-	width: 20rem;
+	width: 22rem;
 	display: flex;
 	align-items: center;
 	justify-content: center;

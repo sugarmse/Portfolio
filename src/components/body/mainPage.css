@@ -46,6 +46,9 @@
 .asymSection {
 	background-color: #0d0d0d;
 	color: #1a1a1a;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 	padding: 5.5rem;
 }
 .section1 {
@@ -55,14 +58,13 @@
 	width: 220rem;
 }
 .column1 {
-	width: 25%;
-	display: grid;
+	width: 30%;
 }
 .column2 {
-	width: 25%;
+	width: 32%;
 }
 .column3 {
-	width: 25%;
+	width: 30%;
 }
 .edu {
 	height: auto;
@@ -77,10 +79,7 @@
 	height: 100%;
 	background: white;
 	border-radius: 10px; /* Inner edge radius */
-	padding: 1rem;
-}
-ul {
-	list-style-type: none;
+	padding: 2rem;
 }
 .liTitle {
 	font-size: 1.5rem;
@@ -93,8 +92,9 @@ ul {
 	padding-left: 1.8rem;
 	font-size: 1.2rem;
 }
+
 .exp {
-	height: auto;
+	height: 20rem;
 	background: #e0e0e0;
 }
 .soft {
@@ -133,7 +133,7 @@ ul {
 }
 .resume {
 	text-align: center;
-	height: auto;
+	height: 46rem;
 	background: #e0e0e0;
 }
 .edu,
@@ -142,11 +142,16 @@ ul {
 .skills,
 .hobb,
 .resume {
-	margin-top: 4rem;
+	margin-top: 3rem;
 	border: 16px solid #333;
 	border-radius: 32px !important;
 	position: relative;
 	overflow: hidden;
+}
+.exp,
+.hobb,
+.resume {
+	margin-bottom: 3rem;
 }
 .projects {
 	background: #1a1a1a;
