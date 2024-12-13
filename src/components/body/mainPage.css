@@ -49,7 +49,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 5.5rem;
+	padding: 1.5rem;
 }
 .section1 {
 	width: 220rem;
@@ -58,13 +58,15 @@
 	width: 220rem;
 }
 .column1 {
-	width: 30%;
+	width: 29%;
+	margin-left: 3rem;
 }
 .column2 {
-	width: 32%;
+	width: 30%;
 }
 .column3 {
-	width: 30%;
+	width: 29%;
+	margin-right: 3rem;
 }
 .edu {
 	height: auto;
