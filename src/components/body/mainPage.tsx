@@ -2,6 +2,7 @@ import ContactForm from "../contactForm/ContactForm";
 import Asym from "./asymSection";
 // import Asym from "./asymSection";
 import "./mainPage.css";
+import Projectcard from "./projectCard";
 
 function Mainpage() {
 	return (
@@ -45,12 +46,7 @@ function Mainpage() {
 				</div>
 				<div className="projects" id="projects">
 					<h2>PROJECTS</h2>
-					<div className="projCards">
-						<div className="card2">a</div>
-						<div className="card2">a</div>
-						<div className="card2">a</div>
-						<div className="card2">a</div>
-					</div>
+					<Projectcard/>
 				</div>
 				<div className="contact" id="contact">
 					<h2>I’D LOVE TO HEAR FROM YOU.</h2>
@@ -63,24 +59,6 @@ function Mainpage() {
 
 					<div className="contactForm">
 						<ContactForm />
-						{/* <div className="leftSide">
-							<div className="formLbInp">
-								<label htmlFor="fullName">
-									Name <span className="req">*</span>
-								</label>
-								<input type="text" name="fullName" id="fullName" />
-							</div>
-							<div className="formLbInp">
-								<label htmlFor="email">
-									Email <span className="req">*</span>
-								</label>
-								<input type="email" name="email" id="email" />
-							</div>
-							<div className="formLbInp">
-								<label htmlFor="message">Message</label>
-								<textarea name="message" id="message"></textarea>
-							</div>
-						</div> */}
 						<div className="rightSide">
 							<h3>CONTACT ME</h3>
 							<div className="contactDetails">

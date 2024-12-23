@@ -1,37 +1,50 @@
+/* header.css */
+
+/* Style the navigation bar */
 .navBar {
 	display: flex;
-	width: 100%;
-	background-color: #0d0d0d;
-	color: #e0e0e0;
-	align-items: center;
 	justify-content: center;
+	align-items: center;
+	background-color: #0d0d0d; /* Light background */
+	padding: 10px 20px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow */
 }
+
+/* Align and style the contents */
 .contents {
 	display: flex;
+	align-items: center;
+	gap: 15px;
 	justify-content: space-around;
 	width: 100%;
-	align-items: center;
-	padding: 1rem;
 }
 
+/* Style individual content items */
+.content1 a {
+	text-decoration: none;
+	color: #fff;
+	font-size: 16px;
+	font-weight: bold;
+	transition: color 0.3s ease;
+}
+
+.content1 a:hover {
+	color: #ff5722; /* Accent color on hover */
+}
+
+/* Style the logo */
 .logo {
-	height: 50px;
 	width: 50px;
+	height: auto;
+	cursor: pointer;
 	transition: opacity 0.3s ease-in-out, transform 0.2s ease-in-out; /* Transition for both opacity and scale */
 }
-
 .logo:hover {
 	content: url("/orangelogobg.png"); /* Path to your new logo */
 	transform: scale(1.3); /* Increase size to 120% */
 }
 
-a {
-	text-decoration: none;
-	color: #e6e6e6;
-}
-a:hover {
-	color: #ff5722;
-}
+/* Style the button */
 .contactBtn button:hover {
 	background: #ff5722 !important;
 	cursor: pointer;
@@ -46,19 +59,27 @@ a:hover {
 	border: none;
 	transition: transform 0.3s ease; /* Smooth scaling */
 }
-.logoBg {
-	width: 3rem;
-	height: 3rem;
-}
-.contents2 {
+.mobContents {
 	display: none;
 }
-/////////////////////////////for smaller screens
-@media (max-width: 480px) {
+/* Responsive design for smaller screens */
+@media screen and (max-width: 768px) {
 	.contents {
 		display: none;
 	}
-	.contents2 {
-		display: block;
+
+	.navBar {
+		padding: 1rem;
+	}
+	.mobContents {
+		display: flex;
+		width:100%;
+		padding:0 1rem;
+	}
+	.InsideMobContents {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		width: 100%;
 	}
 }
