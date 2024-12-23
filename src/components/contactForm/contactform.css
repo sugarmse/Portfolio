@@ -19,3 +19,6 @@
 	border: none;
 	transition: transform 0.3s ease; /* Smooth scaling */
 }
+@media screen and (max-width: 480px) and (orientation: portrait) {
+	
+}

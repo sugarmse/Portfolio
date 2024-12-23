@@ -11,7 +11,7 @@
 }
 
 /* Align and style the contents */
-.contents {
+.headerContents {
 	display: flex;
 	align-items: center;
 	gap: 15px;
@@ -64,7 +64,7 @@
 }
 /* Responsive design for smaller screens */
 @media screen and (max-width: 768px) {
-	.contents {
+	.headerContents {
 		display: none;
 	}
 
@@ -73,8 +73,8 @@
 	}
 	.mobContents {
 		display: flex;
-		width:100%;
-		padding:0 1rem;
+		width: 100%;
+		padding: 0 1rem;
 	}
 	.InsideMobContents {
 		display: flex;

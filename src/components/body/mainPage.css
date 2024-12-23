@@ -219,11 +219,77 @@
 	flex-direction: column;
 	align-items: center;
 	margin-top: 5rem;
+	padding: 2rem;
 }
 .row1 {
 	display: flex;
 	align-items: center;
 	margin-top: 3rem;
-	gap: 2rem;
+	gap: 1rem;
 	justify-content: start;
+}
+.contactDetails svg {
+	width: 2rem;
+}
+
+@media screen and (max-width: 480px) and (orientation: portrait) {
+	.section1 {
+		width: fit-content;
+	}
+	.section2 {
+		width: fit-content;
+	}
+	.intro2 {
+		flex-direction: column;
+		gap: 1rem;
+	}
+	.mainIntro {
+		padding: 3rem;
+	}
+	.asymSection {
+		flex-direction: column;
+	}
+	.column1 {
+		width: 100%;
+		margin: 0;
+	}
+	.column2 {
+		width: 100%;
+		margin: 0;
+	}
+	.column3 {
+		width: 100%;
+		margin: 0;
+	}
+	.exp,
+	.hobb,
+	.resume {
+		margin-bottom: 0;
+	}
+	.resume {
+		height: auto;
+		margin-bottom: 3rem;
+	}
+	.projects {
+		padding: 2rem;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	.intro1 {
+		justify-content: center;
+	}
+	.contact {
+		padding: 3rem;
+	}
+	.contactForm {
+		flex-direction: column;
+	}
+	.formLbInp input,
+	.formLbInp textarea {
+		width: 100%;
+	}
+	.rightSide {
+		width: 100%;
+	}
 }

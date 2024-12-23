@@ -5,7 +5,7 @@ function Header() {
 	return (
 		<>
 			<div className="navBar" id="navBar">
-				<div className="contents">
+				<div className="headerContents">
 					<div className="content1">
 						<a href="#mainIntro">ABOUT</a>
 					</div>

@@ -39,3 +39,13 @@
 	left: 50%; /* Center it horizontally */
 	margin-top: 10px; /* Add space below the element */
 }
+@media screen and (max-width: 480px) and (orientation: portrait) {
+	.resumeImg{
+		width:18rem;
+	}
+	.resumeDownload{
+		padding:3rem;
+		height:auto;
+	}
+	
+}

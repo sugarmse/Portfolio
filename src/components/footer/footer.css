@@ -11,6 +11,32 @@
 	justify-content: center;
 	width: 100%;
 }
-.contents {
+.footerContents {
 	color: #e6e6e6;
+	padding: 2rem;
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	gap: 5rem;
+}
+.footerLinks {
+	width: 68%;
+	display: flex;
+	justify-content: space-between;
+}
+.copyRight{
+	width:30rem;
+}
+@media screen and (max-width: 480px) and (orientation: portrait) {
+	.footerLinks {
+		justify-content: center;
+		gap: 1rem;
+		margin-top: 1rem;
+	}
+	.mobSlash {
+		display: none;
+	}
+	.content1 {
+		text-align: center;
+	}
 }
