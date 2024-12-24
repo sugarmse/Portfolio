@@ -359,10 +359,10 @@ function Asym() {
 											fill="#0D0D0D"
 										/>
 									</svg>
-									<p>BSc.CSIT</p>
+									<h3>BSc.CSIT</h3>
 								</li>
 								<li className="liSubtxt">
-									<p>NCIT (2019-2024)</p>
+									<div className="normaltext">NCIT (2019-2024)</div>
 								</li>
 								<li className="liTitle">
 									<svg
@@ -377,10 +377,10 @@ function Asym() {
 											fill="#0D0D0D"
 										/>
 									</svg>
-									<p>+2 Science</p>
+									<h3>+2 Science</h3>
 								</li>
 								<li className="liSubtxt">
-									<p>KMC (2017-2019)</p>
+									<div className="normaltext">KMC (2017-2019)</div>
 								</li>
 								<li className="liTitle">
 									<svg
@@ -395,10 +395,10 @@ function Asym() {
 											fill="#0D0D0D"
 										/>
 									</svg>
-									<p>SEE</p>
+									<h3>SEE</h3>
 								</li>
 								<li className="liSubtxt">
-									<p>IMS (Completed in 2017)</p>
+									<div className="normaltext">IMS (Completed in 2017)</div>
 								</li>
 							</ul>
 						</div>
@@ -421,10 +421,12 @@ function Asym() {
 										fill="#0D0D0D"
 									/>
 								</svg>
-								<p>Web Developer</p>
+								<h3>Web Developer</h3>
 							</li>
 							<li className="liSubtxt">
-								<p>Techmind Solutions(2024-Current)</p>
+								<div className="normaltext">
+									Techmind Solutions(2024-Current)
+								</div>
 							</li>
 							<li className="liTitle">
 								<svg
@@ -439,10 +441,10 @@ function Asym() {
 										fill="#0D0D0D"
 									/>
 								</svg>
-								<p>UI / UX Developer</p>
+								<h3>UI / UX Developer</h3>
 							</li>
 							<li className="liSubtxt">
-								<p>AwakeTech Solutions(2024-2024)</p>
+								<div className="normaltext">AwakeTech Solutions(2024-2024)</div>
 							</li>
 						</ul>
 					</div>
@@ -455,7 +457,7 @@ function Asym() {
 						<div className="softList">
 							<a href="https://www.figma.com/about" target="_blank">
 								<svg
-									className="icon"
+									className="figmaIcon"
 									name="figma"
 									width="24"
 									height="24"
@@ -480,7 +482,7 @@ function Asym() {
 							</a>
 							<a href="https://www.canva.com/about/" target="_blank">
 								<svg
-									className="icon"
+									className="canvaIcon"
 									name="canva"
 									width="56"
 									height="56"
@@ -506,7 +508,7 @@ function Asym() {
 								target="_blank"
 							>
 								<svg
-									className="icon"
+									className="premiereIcon"
 									name="premiere"
 									width="46"
 									height="46"
@@ -527,7 +529,7 @@ function Asym() {
 								target="_blank"
 							>
 								<svg
-									className="icon"
+									className="davinciIcon"
 									name="davinci"
 									width="54"
 									height="54"
@@ -557,7 +559,7 @@ function Asym() {
 						<div className="skillList">
 							<a href="https://react.dev/" target="_blank">
 								<svg
-									className="icon"
+									className="reactIcon"
 									name="react"
 									width="50"
 									height="46"
@@ -573,7 +575,7 @@ function Asym() {
 							</a>
 							<a href="https://html.com/" target="_blank">
 								<svg
-									className="icon"
+									className="HtmlIcon"
 									name="html5"
 									width="34"
 									height="48"
@@ -582,13 +584,14 @@ function Asym() {
 									xmlns="http://www.w3.org/2000/svg"
 								>
 									<path
+										className="HtmlIconPath"
 										d="M19.5668 4.16662L21.2001 6.73329L22.8334 4.16662V7.66662H25.1668V0.666626H22.8334L21.2001 3.23329L19.8001 0.666626H17.2334V7.66662H19.5668V4.16662ZM31.9334 7.66662V5.33329H28.6668V0.666626H26.3334V7.66662H31.9334ZM11.8668 7.66662H14.2001V2.99996H16.3001V0.666626H9.76675V2.99996H11.8668V7.66662ZM4.40008 5.33329H6.50008V7.66662H8.83342V0.666626H6.50008V2.99996H4.40008V0.666626H2.06675V7.66662H4.40008V5.33329ZM0.666748 9.99996L3.46675 43.5999L17.0001 47.3333L30.5334 43.5999L33.3334 9.99996H0.666748ZM27.0334 20.7333H11.1668L11.6334 24.9333H26.5668L25.4001 37.7666L17.0001 40.0999L8.60008 37.7666L7.90008 30.9999H12.1001L12.3334 34.4999L17.0001 35.6666L21.6668 34.4999L22.1334 29.1333H7.66675L6.50008 16.7666H27.5001L27.0334 20.7333Z"
 										fill="#0D0D0D"
 									/>
 								</svg>
 							</a>
 							<svg
-								className="icon"
+								className="cssIcon"
 								name="css"
 								width="42"
 								height="14"
@@ -603,7 +606,7 @@ function Asym() {
 							</svg>
 
 							<svg
-								className="icon"
+								className="jsIcon"
 								name="js"
 								width="24"
 								height="24"
@@ -621,7 +624,7 @@ function Asym() {
 								</g>
 							</svg>
 							<svg
-								className="icon"
+								className="tsIcon"
 								name="ts"
 								width="24"
 								height="24"
@@ -644,32 +647,31 @@ function Asym() {
 					<div className="inner">
 						<h2>HOBBIES</h2>
 						<div className="skillList">
-							<a href="https://react.dev/" target="_blank">
-								<svg
-									width="24"
-									height="24"
-									viewBox="0 0 24 24"
-									fill="none"
-									xmlns="http://www.w3.org/2000/svg"
-								>
-									<path
-										d="M12 16C13.6569 16 15 14.6569 15 13C15 11.3431 13.6569 10 12 10C10.3431 10 9 11.3431 9 13C9 14.6569 10.3431 16 12 16Z"
-										stroke="#0D0D0D"
-										stroke-width="1.5"
-									/>
-									<path
-										d="M9.778 21H14.222C17.343 21 18.904 21 20.025 20.265C20.5088 19.9482 20.9254 19.5391 21.251 19.061C22 17.961 22 16.428 22 13.364C22 10.3 22 8.76705 21.251 7.66705C20.9254 7.18904 20.5088 6.77991 20.025 6.46305C19.305 5.99005 18.403 5.82105 17.022 5.76105C16.363 5.76105 15.796 5.27105 15.667 4.63605C15.5684 4.17092 15.3123 3.75408 14.9418 3.456C14.5714 3.15791 14.1095 2.99686 13.634 3.00005H10.366C9.378 3.00005 8.527 3.68505 8.333 4.63605C8.204 5.27105 7.637 5.76105 6.978 5.76105C5.598 5.82105 4.696 5.99105 3.975 6.46305C3.49154 6.78001 3.07527 7.18914 2.75 7.66705C2 8.76705 2 10.299 2 13.364C2 16.429 2 17.96 2.749 19.061C3.073 19.537 3.489 19.946 3.975 20.265C5.096 21 6.657 21 9.778 21Z"
-										stroke="#0D0D0D"
-										stroke-width="1.5"
-									/>
-									<path
-										d="M19 10H18"
-										stroke="#0D0D0D"
-										stroke-width="1.5"
-										stroke-linecap="round"
-									/>
-								</svg>
-							</a>
+							<svg
+								className="cameraIcon"
+								width="24"
+								height="24"
+								viewBox="0 0 24 24"
+								fill="none"
+								xmlns="http://www.w3.org/2000/svg"
+							>
+								<path
+									d="M12 16C13.6569 16 15 14.6569 15 13C15 11.3431 13.6569 10 12 10C10.3431 10 9 11.3431 9 13C9 14.6569 10.3431 16 12 16Z"
+									stroke="#0D0D0D"
+									stroke-width="1.5"
+								/>
+								<path
+									d="M9.778 21H14.222C17.343 21 18.904 21 20.025 20.265C20.5088 19.9482 20.9254 19.5391 21.251 19.061C22 17.961 22 16.428 22 13.364C22 10.3 22 8.76705 21.251 7.66705C20.9254 7.18904 20.5088 6.77991 20.025 6.46305C19.305 5.99005 18.403 5.82105 17.022 5.76105C16.363 5.76105 15.796 5.27105 15.667 4.63605C15.5684 4.17092 15.3123 3.75408 14.9418 3.456C14.5714 3.15791 14.1095 2.99686 13.634 3.00005H10.366C9.378 3.00005 8.527 3.68505 8.333 4.63605C8.204 5.27105 7.637 5.76105 6.978 5.76105C5.598 5.82105 4.696 5.99105 3.975 6.46305C3.49154 6.78001 3.07527 7.18914 2.75 7.66705C2 8.76705 2 10.299 2 13.364C2 16.429 2 17.96 2.749 19.061C3.073 19.537 3.489 19.946 3.975 20.265C5.096 21 6.657 21 9.778 21Z"
+									stroke="#0D0D0D"
+									stroke-width="1.5"
+								/>
+								<path
+									d="M19 10H18"
+									stroke="#0D0D0D"
+									stroke-width="1.5"
+									stroke-linecap="round"
+								/>
+							</svg>
 						</div>
 					</div>
 				</div>

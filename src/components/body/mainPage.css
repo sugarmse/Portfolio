@@ -113,9 +113,7 @@
 .skillList svg:hover {
 	transform: scale(1.2); /* Increase size to 120% */
 }
-.icon:hover path {
-	fill: red; /* Replace with your desired color */
-}
+
 
 .skills {
 	height: auto;
@@ -291,5 +289,18 @@
 	}
 	.rightSide {
 		width: 100%;
+	}
+	.softList svg,
+	.skillList svg {
+		width: 2rem;
+		height: 2rem;
+	}
+	.edu,
+	.exp,
+	.soft,
+	.skills,
+	.hobb,
+	.resume {
+		height: auto;
 	}
 }

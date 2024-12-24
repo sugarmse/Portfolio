@@ -44,8 +44,9 @@
 		width:18rem;
 	}
 	.resumeDownload{
-		padding:3rem;
+		padding:0;
 		height:auto;
+		padding-top:2rem
 	}
 	
 }

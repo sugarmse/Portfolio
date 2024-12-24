@@ -186,7 +186,11 @@ function Projectcard() {
 						<img src="InnovativeLogo.png" alt="" />
 					</div>
 				</a>
-				<div className="card2">a</div>
+				<a href="">
+					<div className="card2">
+						<img src="newVisionLogo.png" alt="" />
+					</div>
+				</a>
 				<div className="card2">a</div>
 			</div>
 		</>

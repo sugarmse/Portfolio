@@ -6,7 +6,7 @@ function Header() {
 		<>
 			<div className="navBar" id="navBar">
 				<div className="headerContents">
-					<div className="content1">
+					<div className="content1 aboutNav">
 						<a href="#mainIntro">ABOUT</a>
 					</div>
 					<div className="content1">.</div>

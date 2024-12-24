@@ -49,3 +49,27 @@ ul {
 	grid-column: 3;
 	grid-row: 1 / span 3; /* Span all rows in this column */
 }
+.icon:hover path {
+	fill: red; /* Replace with your desired color */
+}
+.reactIcon:hover path {
+	fill: #4ad5ff;
+}
+.HtmlIcon:hover .HtmlIconPath {
+	fill: #ec6432; /* Change the color on hover */
+}
+.cssIcon:hover path{
+	fill:#264de4;
+}
+.jsIcon:hover path{
+	fill:#f7df1e;
+}
+.tsIcon:hover path{
+	fill:#3179c7;
+}
+.canvaIcon:hover path{
+	fill:#7d2ae8;
+}
+.premiereIcon:hover path{
+	fill:#9999ff;
+}
