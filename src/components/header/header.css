@@ -28,7 +28,7 @@
 	color: #fff;
 	font-size: 16px;
 	font-weight: bold;
-	transition: color 0.3s ease;
+	transition: color 0.3s ease-in-out;
 }
 
 .content1 a:hover {
@@ -56,21 +56,21 @@
 	transform: scale(1.1); /* Increase size to 120% */
 }
 .contactBtn button {
-	width:7rem;
-	height:3rem;
+	width: 7rem;
+	height: 3rem;
 	background-color: #ffc107;
 	border-radius: 8px;
 	color: #002347 !important;
 	font-weight: 800;
 	border: none;
-	transition: transform 0.3s ease; /* Smooth scaling */
+	transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out; /* Smooth scaling */
 }
-.aboutNav{
-	width:7rem;
-	height:3rem;
-	display:flex;
-	align-items:center;
-	justify-content:center;
+.aboutNav {
+	width: 7rem;
+	height: 3rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 .mobContents {
 	display: none;

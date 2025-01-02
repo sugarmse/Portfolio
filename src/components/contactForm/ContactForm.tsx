@@ -1,5 +1,6 @@
 // ContactForm.tsx
-import React, { useState, ChangeEvent, FormEvent } from "react";
+import React, { useState, ChangeEvent, FormEvent, useRef } from "react";
+import emailjs from "@emailjs/browser";
 import "./contactform.css";
 // Define the types for form data and errors
 interface FormData {
@@ -27,6 +28,35 @@ const ContactForm: React.FC = () => {
 		email: "",
 		message: "",
 	});
+
+	const form = useRef<HTMLFormElement | null>(null);
+
+	interface EmailJSResponseStatus {
+		text: string;
+	}
+
+	const sendEmail = (e: FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		console.log(form.current);
+		if (!form.current) return;
+		emailjs
+			.sendForm(
+				"service_o1v4dll",
+				"template_fneo06m",
+				form.current as HTMLFormElement,
+				{
+					publicKey: "pwY_zEPyNwhKSPxBt",
+				}
+			)
+			.then(
+				() => {
+					console.log("SUCCESS!");
+				},
+				(error: EmailJSResponseStatus) => {
+					console.log("FAILED...", error.text);
+				}
+			);
+	};
 
 	// Handle input changes
 	const handleChange = (
@@ -65,6 +95,7 @@ const ContactForm: React.FC = () => {
 	const handleSubmit = (e: FormEvent) => {
 		e.preventDefault();
 		if (validateForm()) {
+			sendEmail(e as FormEvent<HTMLFormElement>);
 			console.log("Form submitted:", formData);
 			setFormData({
 				fullName: "",
@@ -76,7 +107,7 @@ const ContactForm: React.FC = () => {
 	};
 
 	return (
-		<form onSubmit={handleSubmit}>
+		<form onSubmit={handleSubmit} ref={form}>
 			<div className="leftSide">
 				<div className="formLbInp">
 					<label htmlFor="fullName">

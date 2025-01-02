@@ -58,18 +58,24 @@ ul {
 .HtmlIcon:hover .HtmlIconPath {
 	fill: #ec6432; /* Change the color on hover */
 }
-.cssIcon:hover path{
-	fill:#264de4;
+.cssIcon:hover path {
+	fill: #264de4;
 }
-.jsIcon:hover path{
-	fill:#f7df1e;
+.jsIcon:hover path {
+	fill: #f7df1e;
 }
-.tsIcon:hover path{
-	fill:#3179c7;
+.tsIcon:hover path {
+	fill: #3179c7;
 }
-.canvaIcon:hover path{
-	fill:#7d2ae8;
+.canvaIcon:hover path {
+	fill: #7d2ae8;
 }
-.premiereIcon:hover path{
-	fill:#9999ff;
+.premiereIcon:hover path {
+	fill: #9999ff;
+}
+.davinciIcon:hover path {
+	fill: #f2465c;
+}
+.figmaIcon:hover path {
+	fill: #0acf83;
 }

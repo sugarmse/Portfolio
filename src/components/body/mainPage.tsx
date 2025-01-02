@@ -46,7 +46,7 @@ function Mainpage() {
 				</div>
 				<div className="projects" id="projects">
 					<h2>PROJECTS</h2>
-					<Projectcard/>
+					<Projectcard />
 				</div>
 				<div className="contact" id="contact">
 					<h2>I’D LOVE TO HEAR FROM YOU.</h2>
@@ -75,7 +75,7 @@ function Mainpage() {
 											fill="#0D0D0D"
 										/>
 									</svg>
-									<p>info.sarthak@gmail.com</p>
+									info.sarthakshakya@gmail.com
 								</div>
 								<div className="row1">
 									<svg
@@ -90,8 +90,7 @@ function Mainpage() {
 											fill="#0D0D0D"
 										/>
 									</svg>
-
-									<p>info.sarthak@gmail.com</p>
+									+977-9865375938
 								</div>
 								<div className="row1">
 									<svg
@@ -118,8 +117,7 @@ function Mainpage() {
 											fill="#0D0D0D"
 										/>
 									</svg>
-
-									<p>info.sarthak@gmail.com</p>
+									https://www.linkedin.com/in/sugarmse/
 								</div>
 							</div>
 						</div>

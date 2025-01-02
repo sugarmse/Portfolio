@@ -3,9 +3,9 @@
 	background: #ffc107;
 	width: 96%;
 }
-.footerContent1 a{
-	text-decoration:none;
-	color:#fff;
+.footerContent1 a {
+	text-decoration: none;
+	color: #fff;
 }
 .footer {
 	background: #0d0d0d;
@@ -28,8 +28,12 @@
 	display: flex;
 	justify-content: space-between;
 }
-.copyRight{
-	width:30rem;
+.copyRight {
+	width: 30rem;
+}
+.footerLinks a:hover {
+	color: #ff5722;
+	transition: color 0.3s ease-in-out;
 }
 @media screen and (max-width: 480px) and (orientation: portrait) {
 	.footerLinks {

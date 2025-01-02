@@ -181,6 +181,11 @@ function Projectcard() {
 						</svg>
 					</div>
 				</a>
+				<a href="">
+					<div className="card2">
+						<img src="newVisionLogo.png" alt="" />
+					</div>
+				</a>
 				<a href="#">
 					<div className="card2">
 						<img src="InnovativeLogo.png" alt="" />
@@ -188,10 +193,9 @@ function Projectcard() {
 				</a>
 				<a href="">
 					<div className="card2">
-						<img src="newVisionLogo.png" alt="" />
+						<img src="sslogo.png" alt="" />
 					</div>
 				</a>
-				<div className="card2">a</div>
 			</div>
 		</>
 	);
