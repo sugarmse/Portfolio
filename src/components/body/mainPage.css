@@ -238,12 +238,11 @@
 .linkIn {
 	text-decoration: none;
 	color: #000;
+	transition: color 0.3s ease-in-out;
 }
 .linkIn:hover {
 	text-decoration: none;
-	color: #;
+	color: #ff5722;
 }
 @media screen and (max-width: 480px) and (orientation: portrait) {
-	
-	
 }
