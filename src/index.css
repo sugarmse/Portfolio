@@ -14,6 +14,19 @@ body {
 	scroll-behavior: smooth;
 	overflow-x: hidden;
 }
+/* For modern browsers */
+::-webkit-scrollbar {
+	display: none;
+}
+
+html {
+	scrollbar-width: none; /* For Firefox */
+}
+
+/* Optional: Prevent content from being cut off */
+body {
+	overflow: auto;
+}
 
 * {
 	margin: 0;
@@ -31,6 +44,7 @@ h2 {
 
 h3 {
 	font-size: 1.5rem;
+	font-weight: 400;
 }
 
 .normaltext {
@@ -54,4 +68,167 @@ h3 {
 	.normaltext {
 		font-size: 0.7rem;
 	}
+	.softList svg,
+	.skillList svg {
+		width: 2rem;
+		height: 2rem;
+	}
+	.section1 {
+		width: fit-content;
+	}
+	.section2 {
+		width: fit-content;
+	}
+	.intro2 {
+		flex-direction: column;
+		gap: 1.5rem;
+	}
+	.mainIntro {
+		padding: 3rem;
+	}
+	.asymSection {
+		flex-direction: column;
+		padding: 3rem;
+	}
+	.column1 {
+		width: 100%;
+		margin: 0;
+	}
+	.column2 {
+		width: 100%;
+		margin: 0;
+	}
+	.column3 {
+		width: 100%;
+		margin: 0;
+	}
+	.exp,
+	.hobb,
+	.resume {
+		margin-bottom: 0;
+	}
+	.resume {
+		height: auto;
+	}
+	.projects {
+		padding: 2rem;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	.intro1 {
+		justify-content: center;
+	}
+	.contact {
+		padding: 3rem;
+	}
+	.contactForm {
+		flex-direction: column;
+	}
+	.formLbInp input,
+	.formLbInp textarea {
+		width: 100%;
+	}
+	.rightSide {
+		width: 100%;
+		margin-top: 3rem;
+	}
+	.soft,
+	.resume {
+		margin-top: 3rem;
+	}
+	.edu,
+	.exp,
+	.soft,
+	.skills,
+	.hobb,
+	.resume {
+		height: auto;
+	}
+	.contactForm form {
+		width: 100%;
+	}
+	.row1 {
+		gap: 2rem;
+	}
+	.leftSide {
+		width: 100%;
+	}
+	.inner {
+		padding: 1.5rem;
+	}
+	.inner1 {
+		padding: 1.5rem;
+	}
+}
+/* Large Desktops (1440px and above) */
+@media screen and (min-width: 1440px) {
+	/* Styles for large desktops */
+	.rightSide {
+		width: 30%;
+	}
+	.leftSide {
+		width: 75%;
+	}
+}
+
+/* Standard Desktops (1280px to 1439px) */
+@media screen and (min-width: 1280px) and (max-width: 1439px) {
+	/* Styles for standard desktops */
+	h2 {
+		font-size: 1.6rem;
+	}
+	h3 {
+		font-size: 1.2rem;
+	}
+	.normaltext {
+		font-size: 0.8rem;
+	}
+	.projects {
+		padding: 5.5rem;
+	}
+	.card2 svg {
+		height: 5rem;
+		width: auto;
+	}
+	.card2 img {
+		height: 6rem;
+		width: auto;
+	}
+	.card2 {
+		height: 10rem;
+		width: 15rem;
+	}
+	.softList svg,
+	.skillList svg {
+		width: 2rem;
+		height: 2rem;
+	}
+	.inner {
+		padding: 1.5rem;
+	}
+	.inner1 {
+		padding: 1.82rem;
+	}
+	.resumeDownload {
+		padding: 4.5rem 0;
+	}
+	.resumeImg {
+		width: 17rem;
+	}
+}
+
+/* Small Desktops (1024px to 1279px) */
+@media screen and (min-width: 1024px) and (max-width: 1279px) {
+	/* Styles for small desktops */
+}
+
+/* Extra Small Desktops (800px to 1023px) */
+@media screen and (min-width: 800px) and (max-width: 1023px) {
+	/* Styles for extra small desktops */
+}
+
+/* Tablets (768px to 799px) */
+@media screen and (min-width: 768px) and (max-width: 799px) {
+	/* Styles for tablets */
 }

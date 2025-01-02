@@ -40,13 +40,13 @@
 	margin-top: 10px; /* Add space below the element */
 }
 @media screen and (max-width: 480px) and (orientation: portrait) {
-	.resumeImg{
-		width:18rem;
+	.resumeImg {
+		width: 14rem;
 	}
-	.resumeDownload{
-		padding:0;
-		height:auto;
-		padding-top:2rem
+	.resumeDownload {
+		padding: 0;
+		height: auto;
+		padding-top: 2rem;
+		padding-bottom: 2rem;
 	}
-	
 }

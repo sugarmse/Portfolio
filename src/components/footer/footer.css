@@ -39,12 +39,20 @@
 	.footerLinks {
 		justify-content: center;
 		gap: 1rem;
-		margin-top: 1rem;
+		width: 100%;
 	}
 	.mobSlash {
 		display: none;
 	}
 	.footerContent1 {
 		text-align: center;
+	}
+	.footerContents {
+		flex-direction: column;
+		justify-content: center;
+		gap: 2rem;
+	}
+	.copyRight {
+		width: auto;
 	}
 }

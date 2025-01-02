@@ -10,7 +10,7 @@ function Mainpage() {
 			<div className="mainBox">
 				<div className="banner" id="banner">
 					<h1 className="bannerName">SARTHAK SHAKYA</h1>
-					<div className="normaltext">UI / UX DESIGNER AND WEB DEVELOPER</div>
+					<h3>UI / UX DESIGNER AND WEB DEVELOPER</h3>
 				</div>
 				<div className="mainIntro" id="mainIntro">
 					<div className="intro1">
@@ -75,7 +75,7 @@ function Mainpage() {
 											fill="#0D0D0D"
 										/>
 									</svg>
-									info.sarthakshakya@gmail.com
+									<div className="normaltext">info.sarthakshakya@gmail.com</div>
 								</div>
 								<div className="row1">
 									<svg
@@ -90,7 +90,7 @@ function Mainpage() {
 											fill="#0D0D0D"
 										/>
 									</svg>
-									+977-9865375938
+									<div className="normaltext">+977-9865375938</div>
 								</div>
 								<div className="row1">
 									<svg
@@ -117,7 +117,11 @@ function Mainpage() {
 											fill="#0D0D0D"
 										/>
 									</svg>
-									https://www.linkedin.com/in/sugarmse/
+									<div className="normaltext">
+										<a href="https://www.linkedin.com/in/sugarmse/" className="linkIn">
+											https://www.linkedin.com/in/sugarmse/
+										</a>
+									</div>
 								</div>
 							</div>
 						</div>

@@ -441,7 +441,27 @@ function Asym() {
 										fill="#0D0D0D"
 									/>
 								</svg>
-								<h3>UI / UX Developer</h3>
+								<h3>UI / UX Designer</h3>
+							</li>
+							<li className="liSubtxt">
+								<div className="normaltext">
+									Techmind Solutions(2024-Current)
+								</div>
+							</li>
+							<li className="liTitle">
+								<svg
+									width="11"
+									height="11"
+									viewBox="0 0 11 11"
+									fill="none"
+									xmlns="http://www.w3.org/2000/svg"
+								>
+									<path
+										d="M5.5 0.812515C6.1429 0.812515 6.74919 0.934586 7.31885 1.17873C7.88851 1.42287 8.38493 1.75653 8.80811 2.1797C9.23128 2.60288 9.56901 3.10337 9.82129 3.68117C10.0736 4.25897 10.1956 4.86525 10.1875 5.50002C10.1875 6.15106 10.0654 6.75734 9.82129 7.31886C9.57715 7.88039 9.24349 8.37681 8.82031 8.80812C8.39714 9.23944 7.89665 9.57716 7.31885 9.8213C6.74105 10.0654 6.13477 10.1875 5.5 10.1875C4.84896 10.1875 4.24268 10.0654 3.68115 9.8213C3.11963 9.57716 2.62321 9.2435 2.19189 8.82033C1.76058 8.39715 1.42285 7.90073 1.17871 7.33107C0.93457 6.76141 0.8125 6.15106 0.8125 5.50002C0.8125 4.85711 0.93457 4.25083 1.17871 3.68117C1.42285 3.11151 1.75651 2.61509 2.17969 2.19191C2.60286 1.76873 3.09928 1.431 3.66895 1.17873C4.23861 0.926448 4.84896 0.804377 5.5 0.812515Z"
+										fill="#0D0D0D"
+									/>
+								</svg>
+								<h3>UI / UX Designer</h3>
 							</li>
 							<li className="liSubtxt">
 								<div className="normaltext">AwakeTech Solutions(2024-2024)</div>
@@ -452,7 +472,7 @@ function Asym() {
 			</div>
 			<div className="column2">
 				<div className="soft">
-					<div className="inner">
+					<div className="inner1">
 						<h2>SOFTWARES</h2>
 						<div className="softList">
 							<a href="https://www.figma.com/about" target="_blank">
@@ -554,7 +574,7 @@ function Asym() {
 					</div>
 				</div>
 				<div className="skills">
-					<div className="inner">
+					<div className="inner1">
 						<h2>SKILLS</h2>
 						<div className="skillList">
 							<a href="https://react.dev/" target="_blank">
@@ -644,7 +664,7 @@ function Asym() {
 					</div>
 				</div>
 				<div className="hobb">
-					<div className="inner">
+					<div className="inner1">
 						<h2>HOBBIES</h2>
 						<div className="skillList">
 							<svg
