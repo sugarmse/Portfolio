@@ -17,7 +17,7 @@ function Mainpage() {
 						<h2>INTRODUCTION</h2>
 					</div>
 					<div className="intro2">
-						<div className="section1">
+						<div className="section1 normaltext">
 							Hello! I'm a passionate Web Developer with a knack for creating
 							visually appealing and user-friendly websites. With a strong
 							foundation in HTML, CSS, and JavaScript, along with hands-on
@@ -29,7 +29,7 @@ function Mainpage() {
 							contribute to building dynamic web solutions that make a lasting
 							impact.
 						</div>
-						<div className="section2">
+						<div className="section2 normaltext">
 							When I’m not coding, you’ll find me exploring new creative outlets
 							or hitting the open road on my motorcycle. As a motorcycle
 							enthusiast, I enjoy capturing and blending my love for technology

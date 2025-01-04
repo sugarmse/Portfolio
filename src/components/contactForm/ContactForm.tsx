@@ -109,7 +109,7 @@ const ContactForm: React.FC = () => {
 	return (
 		<form onSubmit={handleSubmit} ref={form}>
 			<div className="leftSide">
-				<div className="formLbInp">
+				<div className="formLbInp normaltext">
 					<label htmlFor="fullName">
 						Name <span className="req">*</span>
 					</label>
@@ -123,7 +123,7 @@ const ContactForm: React.FC = () => {
 					{errors.fullName && <p className="error">{errors.fullName}</p>}
 				</div>
 
-				<div className="formLbInp">
+				<div className="formLbInp normaltext">
 					<label htmlFor="email">
 						Email <span className="req">*</span>
 					</label>
@@ -137,7 +137,7 @@ const ContactForm: React.FC = () => {
 					{errors.email && <p className="error">{errors.email}</p>}
 				</div>
 
-				<div className="formLbInp">
+				<div className="formLbInp normaltext">
 					<label htmlFor="message">Message</label>
 					<textarea
 						name="message"
@@ -147,9 +147,9 @@ const ContactForm: React.FC = () => {
 					></textarea>
 					{errors.message && <p className="error">{errors.message}</p>}
 				</div>
-				<div className="formBtn">
-					<button className="submitBtn" type="submit">
-						Submit
+				<div className="formBtn ">
+					<button className="submitBtn normaltext" type="submit">
+						Send
 					</button>
 				</div>
 			</div>

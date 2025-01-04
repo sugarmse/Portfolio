@@ -76,7 +76,7 @@
 	display: none;
 }
 /* Responsive design for smaller screens */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1050px) {
 	.headerContents {
 		display: none;
 	}
