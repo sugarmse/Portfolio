@@ -60,7 +60,7 @@ function Mainpage() {
 					<div className="contactForm">
 						<ContactForm />
 						<div className="rightSide">
-							<h3>CONTACT ME</h3>
+							<h2>CONTACT ME</h2>
 							<div className="contactDetails">
 								<div className="row1">
 									<svg
@@ -118,7 +118,10 @@ function Mainpage() {
 										/>
 									</svg>
 									<div className="normaltext">
-										<a href="https://www.linkedin.com/in/sugarmse/" className="linkIn">
+										<a
+											href="https://www.linkedin.com/in/sugarmse/"
+											className="linkIn"
+										>
 											https://www.linkedin.com/in/sugarmse/
 										</a>
 									</div>

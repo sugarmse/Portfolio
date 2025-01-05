@@ -7,7 +7,9 @@ function Header() {
 			<div className="navBar" id="navBar">
 				<div className="headerContents">
 					<div className="content1 aboutNav">
-						<a href="#mainIntro">ABOUT</a>
+						<a href="#mainIntro">
+							<h3>ABOUT</h3>
+						</a>
 					</div>
 					<div className="content1">
 						<svg
@@ -24,7 +26,9 @@ function Header() {
 						</svg>
 					</div>
 					<div className="content1">
-						<a href="#projects">PROJECTS</a>
+						<a href="#projects">
+							<h3>PROJECTS</h3>
+						</a>
 					</div>
 					<div className="content1">
 						<svg
@@ -60,7 +64,9 @@ function Header() {
 						</svg>
 					</div>
 					<div className="content1">
-						<a href="#asymSection">SERVICES</a>
+						<a href="#asymSection">
+							<h3>SERVICES</h3>
+						</a>
 					</div>
 					<div className="content1">
 						<svg
@@ -78,7 +84,9 @@ function Header() {
 					</div>
 					<div className="content1">
 						<a className="contactBtn" href="#contact">
-							<button>CONTACT</button>
+							<button>
+								<h3>CONTACT</h3>
+							</button>
 						</a>
 					</div>
 				</div>

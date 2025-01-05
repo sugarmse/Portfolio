@@ -421,7 +421,7 @@ function Asym() {
 										fill="#0D0D0D"
 									/>
 								</svg>
-								<h3>Web Developer</h3>
+								<h3>Front-end Web Developer</h3>
 							</li>
 							<li className="liSubtxt">
 								<div className="normaltext">
