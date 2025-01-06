@@ -8,7 +8,7 @@ function Header() {
 				<div className="headerContents">
 					<div className="content1 aboutNav">
 						<a href="#mainIntro">
-							<h3>ABOUT</h3>
+							ABOUT
 						</a>
 					</div>
 					<div className="content1">
@@ -27,7 +27,7 @@ function Header() {
 					</div>
 					<div className="content1">
 						<a href="#projects">
-							<h3>PROJECTS</h3>
+							PROJECTS
 						</a>
 					</div>
 					<div className="content1">
@@ -65,7 +65,7 @@ function Header() {
 					</div>
 					<div className="content1">
 						<a href="#asymSection">
-							<h3>SERVICES</h3>
+							SERVICES
 						</a>
 					</div>
 					<div className="content1">
@@ -85,7 +85,7 @@ function Header() {
 					<div className="content1">
 						<a className="contactBtn" href="#contact">
 							<button>
-								<h3>CONTACT</h3>
+								CONTACT
 							</button>
 						</a>
 					</div>
