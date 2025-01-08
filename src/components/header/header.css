@@ -56,7 +56,7 @@
 	transform: scale(1.1); /* Increase size to 120% */
 }
 .contactBtn button {
-	padding:1rem 2rem;
+	padding: 1rem 2rem;
 	background-color: #ffc107;
 	border-radius: 8px;
 	color: #002347 !important;
@@ -65,7 +65,7 @@
 	transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out; /* Smooth scaling */
 }
 .aboutNav {
-	padding:1rem 2rem;
+	padding: 1rem 2rem;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -92,5 +92,73 @@
 		justify-content: space-between;
 		align-items: center;
 		width: 100%;
+	}
+	@keyframes slideDown {
+		from {
+			opacity: 0;
+			transform: translateY(-20px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	@keyframes slideUp {
+		from {
+			opacity: 1;
+			transform: translateY(0);
+		}
+		to {
+			opacity: 0;
+			transform: translateY(-20px);
+		}
+	}
+
+	.dropdownMenu {
+		position: absolute;
+		top: 75px;
+		left: 0;
+		width: 100vw;
+		background-color: #333;
+		padding: 1rem;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		z-index: 1000;
+		visibility: hidden; /* Hidden by default */
+		opacity: 0;
+		transition: opacity 0.3s ease, visibility 0.3s ease;
+		text-align: right;
+	}
+
+	.dropdownMenu.open {
+		visibility: visible;
+		opacity: 1;
+		animation: slideDown 0.3s ease-in-out forwards;
+	}
+
+	.dropdownMenu.close {
+		visibility: visible; /* Keep it visible during the animation */
+		opacity: 0;
+		animation: slideUp 0.3s ease-in-out forwards;
+	}
+
+	.dropdownMenu ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: flex; /* Use flexbox for horizontal alignment */
+		justify-content: space-around; /* Space items evenly */
+		flex-direction: column;
+	}
+
+	.dropdownMenu ul li {
+		margin: 0; /* Remove margin for better alignment */
+	}
+
+	.dropdownMenu ul li a {
+		color: white;
+		text-decoration: none;
+		padding: 10px 20px;
+		display: block;
 	}
 }

@@ -1,15 +1,39 @@
+import { useState } from "react";
 import "./header.css";
 
 function Header() {
 	console.log("header loaded");
+	// State to track dropdown visibility
+	const [isOpen, setIsOpen] = useState(false);
+	const [animationClass, setAnimationClass] = useState(""); // Track animation class
+
+	const toggleDropdown = () => {
+		if (isOpen) {
+			// If menu is open, play slide-up animation before hiding it
+			setAnimationClass("close");
+			setTimeout(() => {
+				setIsOpen(false); // Hide menu after animation completes
+				setAnimationClass(""); // Reset animation class
+			}, 300); // Duration should match the CSS animation time
+		} else {
+			// If menu is closed, immediately show and play slide-down animation
+			setIsOpen(true);
+			setAnimationClass("open");
+		}
+	};
+	const handleLinkClick = () => {
+		setAnimationClass("close");
+		setTimeout(() => {
+			setIsOpen(false);
+			setAnimationClass("");
+		}, 300);
+	};
 	return (
 		<>
 			<div className="navBar" id="navBar">
 				<div className="headerContents">
 					<div className="content1 aboutNav">
-						<a href="#mainIntro">
-							ABOUT
-						</a>
+						<a href="#mainIntro">ABOUT</a>
 					</div>
 					<div className="content1">
 						<svg
@@ -26,9 +50,7 @@ function Header() {
 						</svg>
 					</div>
 					<div className="content1">
-						<a href="#projects">
-							PROJECTS
-						</a>
+						<a href="#projects">PROJECTS</a>
 					</div>
 					<div className="content1">
 						<svg
@@ -64,9 +86,7 @@ function Header() {
 						</svg>
 					</div>
 					<div className="content1">
-						<a href="#asymSection">
-							SERVICES
-						</a>
+						<a href="#asymSection">SERVICES</a>
 					</div>
 					<div className="content1">
 						<svg
@@ -84,9 +104,7 @@ function Header() {
 					</div>
 					<div className="content1">
 						<a className="contactBtn" href="#contact">
-							<button>
-								CONTACT
-							</button>
+							<button>CONTACT</button>
 						</a>
 					</div>
 				</div>
@@ -99,6 +117,7 @@ function Header() {
 						</div>
 						<div>
 							<svg
+								onClick={toggleDropdown}
 								width="24"
 								height="24"
 								viewBox="0 0 24 24"
@@ -115,6 +134,34 @@ function Header() {
 							</svg>
 						</div>
 					</div>
+					{/* Dropdown menu */}
+
+					{isOpen && (
+						<div className={`dropdownMenu ${animationClass}`}>
+							<ul>
+								<li>
+									<a href="#mainIntro" onClick={handleLinkClick}>
+										ABOUT
+									</a>
+								</li>
+								<li>
+									<a href="#projects" onClick={handleLinkClick}>
+										PROJECTS
+									</a>
+								</li>
+								<li>
+									<a href="#asymSection" onClick={handleLinkClick}>
+										SERVICES
+									</a>
+								</li>
+								<li>
+									<a href="#contact" onClick={handleLinkClick}>
+										CONTACT
+									</a>
+								</li>
+							</ul>
+						</div>
+					)}
 				</div>
 			</div>
 		</>
