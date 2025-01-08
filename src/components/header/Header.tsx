@@ -33,9 +33,9 @@ function Header() {
 	// 		}
 	// 	}, 300);
 	// };
-	const handleLinkClick = (e) => {
+	const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
 		e.preventDefault(); // Prevent default anchor behavior
-		const target = document.querySelector(e.target.getAttribute("href"));
+		const target = document.querySelector((e.target as HTMLAnchorElement).getAttribute("href"));
 		if (target) {
 			window.scrollTo({
 				top: target.offsetTop,
