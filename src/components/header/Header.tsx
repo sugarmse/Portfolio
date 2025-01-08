@@ -21,18 +21,7 @@ function Header() {
 			setAnimationClass("open");
 		}
 	};
-	const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
-		e.preventDefault();
-		setAnimationClass("close");
-		setTimeout(() => {
-			setIsOpen(false);
-			setAnimationClass("");
-			const targetElement = document.getElementById(targetId);
-			if (targetElement) {
-				targetElement.scrollIntoView({ });
-			}
-		}, 300);
-	};
+	
 
 	return (
 		<>
@@ -146,36 +135,16 @@ function Header() {
 						<div className={`dropdownMenu ${animationClass}`}>
 							<ul>
 								<li>
-									<a
-										href="#mainIntro"
-										onClick={(e) => handleLinkClick(e, "mainIntro")}
-									>
-										ABOUT
-									</a>
+									<a href="#mainIntro">ABOUT</a>
 								</li>
 								<li>
-									<a
-										href="#projects"
-										onClick={(e) => handleLinkClick(e, "projects")}
-									>
-										PROJECTS
-									</a>
+									<a href="#projects">PROJECTS</a>
 								</li>
 								<li>
-									<a
-										href="#asymSection"
-										onClick={(e) => handleLinkClick(e, "asymSection")}
-									>
-										SERVICES
-									</a>
+									<a href="#asymSection">SERVICES</a>
 								</li>
 								<li>
-									<a
-										href="#contact"
-										onClick={(e) => handleLinkClick(e, "contact")}
-									>
-										CONTACT
-									</a>
+									<a href="#contact">CONTACT</a>
 								</li>
 							</ul>
 						</div>
