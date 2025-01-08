@@ -21,13 +21,19 @@ function Header() {
 			setAnimationClass("open");
 		}
 	};
-	const handleLinkClick = () => {
+	const handleLinkClick = (e, targetId) => {
+		e.preventDefault();
 		setAnimationClass("close");
 		setTimeout(() => {
 			setIsOpen(false);
 			setAnimationClass("");
+			const targetElement = document.getElementById(targetId);
+			if (targetElement) {
+				targetElement.scrollIntoView({ behavior: "smooth" });
+			}
 		}, 300);
 	};
+
 	return (
 		<>
 			<div className="navBar" id="navBar">
@@ -140,22 +146,34 @@ function Header() {
 						<div className={`dropdownMenu ${animationClass}`}>
 							<ul>
 								<li>
-									<a href="#mainIntro" onClick={handleLinkClick}>
+									<a
+										href="#mainIntro"
+										onClick={(e) => handleLinkClick(e, "mainIntro")}
+									>
 										ABOUT
 									</a>
 								</li>
 								<li>
-									<a href="#projects" onClick={handleLinkClick}>
+									<a
+										href="#projects"
+										onClick={(e) => handleLinkClick(e, "projects")}
+									>
 										PROJECTS
 									</a>
 								</li>
 								<li>
-									<a href="#asymSection" onClick={handleLinkClick}>
+									<a
+										href="#asymSection"
+										onClick={(e) => handleLinkClick(e, "asymSection")}
+									>
 										SERVICES
 									</a>
 								</li>
 								<li>
-									<a href="#contact" onClick={handleLinkClick}>
+									<a
+										href="#contact"
+										onClick={(e) => handleLinkClick(e, "contact")}
+									>
 										CONTACT
 									</a>
 								</li>
