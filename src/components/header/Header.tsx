@@ -21,17 +21,27 @@ function Header() {
 			setAnimationClass("open");
 		}
 	};
-	const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
-		e.preventDefault();
-		setAnimationClass("close");
-		setTimeout(() => {
-			setIsOpen(false);
-			setAnimationClass("");
-			const targetElement = document.getElementById(targetId);
-			if (targetElement) {
-				targetElement.scrollIntoView({ behavior: "smooth" });
-			}
-		}, 300);
+	// const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+	// 	e.preventDefault();
+	// 	setAnimationClass("close");
+	// 	setTimeout(() => {
+	// 		setIsOpen(false);
+	// 		setAnimationClass("");
+	// 		const targetElement = document.getElementById(targetId);
+	// 		if (targetElement) {
+	// 			targetElement.scrollIntoView({ behavior: "smooth" });
+	// 		}
+	// 	}, 300);
+	// };
+	const handleLinkClick = (e) => {
+		e.preventDefault(); // Prevent default anchor behavior
+		const target = document.querySelector(e.target.getAttribute("href"));
+		if (target) {
+			window.scrollTo({
+				top: target.offsetTop,
+				behavior: "smooth",
+			});
+		}
 	};
 
 	return (
