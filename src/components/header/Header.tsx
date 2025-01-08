@@ -21,7 +21,7 @@ function Header() {
 			setAnimationClass("open");
 		}
 	};
-	const handleLinkClick = (e, targetId) => {
+	const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
 		e.preventDefault();
 		setAnimationClass("close");
 		setTimeout(() => {
