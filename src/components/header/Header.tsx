@@ -29,7 +29,7 @@ function Header() {
 			setAnimationClass("");
 			const targetElement = document.getElementById(targetId);
 			if (targetElement) {
-				targetElement.scrollIntoView({ behavior: "smooth" });
+				targetElement.scrollIntoView({ });
 			}
 		}, 300);
 	};
