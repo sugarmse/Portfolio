@@ -2,6 +2,7 @@ import ContactForm from "../contactForm/ContactForm";
 import Asym from "./asymSection";
 // import Asym from "./asymSection";
 import "./mainPage.css";
+import ProjCard1 from "./projCard1";
 import Projectcard from "./projectCard";
 
 function Mainpage() {
@@ -49,7 +50,8 @@ function Mainpage() {
 
 				<div className="projects" id="projects">
 					<h2>PROJECTS</h2>
-					<Projectcard />
+					{/* <Projectcard /> */}
+					<ProjCard1/>
 				</div>
 
 				<div className="contact" id="contact">

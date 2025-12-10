@@ -1,0 +1,90 @@
+.grid-container {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 20px;
+	width: 100%;
+	margin-top: 2rem;
+}
+
+.card {
+	width: 100%;
+	height: 200px;
+	position: relative;
+	perspective: 1000px;
+	cursor: pointer;
+}
+
+.card-inner {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	transition: transform 0.6s ease-in-out;
+	transform-style: preserve-3d;
+	border-radius: 10px;
+}
+
+.card.active .card-inner {
+	transform: rotateY(180deg);
+}
+
+/* Floating effect on the front of the card only */
+.card:hover .card-front {
+	animation: float 1.5s infinite ease-in-out;
+}
+
+/* Glow effect on the front of the card only */
+.card:hover .card-front {
+	box-shadow: 0 0 20px 10px #888888; /* Soft green glow */
+	transition: box-shadow 0.3s ease-in-out;
+}
+
+/* Floating animation */
+@keyframes float {
+	0% {
+		transform: translateY(0px);
+	}
+	50% {
+		transform: translateY(-12px);
+	}
+	100% {
+		transform: translateY(0px);
+	}
+}
+
+.card-front,
+.card-back {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	backface-visibility: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.card-front {
+	background: white;
+	color: black;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.card-back {
+	background: #2e3593;
+	color: white;
+	transform: rotateY(180deg);
+	padding: 10px;
+	text-align: center;
+}
+.card-front svg {
+	width: 100px; /* Adjust width */
+	height: 100px; /* Adjust height */
+	fill: #00b26b; /* Change color of the SVG */
+	transition: transform 0.3s ease;
+}
+
+.card-front svg:hover {
+	transform: scale(1.1); /* Slight scaling effect on hover */
+}
