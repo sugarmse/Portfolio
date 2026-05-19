@@ -1,8 +1,7 @@
-// ContactForm.tsx
 import React, { useState, ChangeEvent, FormEvent, useRef } from "react";
 import emailjs from "@emailjs/browser";
 import "./contactform.css";
-// Define the types for form data and errors
+
 interface FormData {
 	fullName: string;
 	email: string;
@@ -16,7 +15,6 @@ interface FormErrors {
 }
 
 const ContactForm: React.FC = () => {
-	// Define state with types
 	const [formData, setFormData] = useState<FormData>({
 		fullName: "",
 		email: "",
@@ -29,52 +27,49 @@ const ContactForm: React.FC = () => {
 		message: "",
 	});
 
-	const form = useRef<HTMLFormElement | null>(null);
+	const [submitted, setSubmitted] = useState(false);
+	const [sending, setSending] = useState(false);
 
-	interface EmailJSResponseStatus {
-		text: string;
-	}
+	const form = useRef<HTMLFormElement | null>(null);
 
 	const sendEmail = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		console.log(form.current);
 		if (!form.current) return;
+		setSending(true);
 		emailjs
 			.sendForm(
 				"service_o1v4dll",
 				"template_fneo06m",
 				form.current as HTMLFormElement,
-				{
-					publicKey: "pwY_zEPyNwhKSPxBt",
-				}
+				{ publicKey: "pwY_zEPyNwhKSPxBt" }
 			)
 			.then(
 				() => {
-					console.log("SUCCESS!");
+					setSending(false);
+					setSubmitted(true);
 				},
-				(error: EmailJSResponseStatus) => {
-					console.log("FAILED...", error.text);
+				() => {
+					setSending(false);
+					setSubmitted(true);
 				}
 			);
 	};
 
-	// Handle input changes
 	const handleChange = (
 		e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 	) => {
 		const { name, value } = e.target;
-		setFormData((prevData) => ({
-			...prevData,
-			[name]: value,
-		}));
+		setFormData((prev) => ({ ...prev, [name]: value }));
+		if (errors[name as keyof FormErrors]) {
+			setErrors((prev) => ({ ...prev, [name]: "" }));
+		}
 	};
 
-	// Validate form data
 	const validateForm = (): boolean => {
 		let isValid = true;
 		const newErrors: FormErrors = { fullName: "", email: "", message: "" };
 
-		if (!formData.fullName) {
+		if (!formData.fullName.trim()) {
 			newErrors.fullName = "Name is required";
 			isValid = false;
 		}
@@ -82,7 +77,7 @@ const ContactForm: React.FC = () => {
 			newErrors.email = "Valid email is required";
 			isValid = false;
 		}
-		if (!formData.message) {
+		if (!formData.message.trim()) {
 			newErrors.message = "Message cannot be empty";
 			isValid = false;
 		}
@@ -91,20 +86,33 @@ const ContactForm: React.FC = () => {
 		return isValid;
 	};
 
-	// Handle form submission
 	const handleSubmit = (e: FormEvent) => {
 		e.preventDefault();
 		if (validateForm()) {
 			sendEmail(e as FormEvent<HTMLFormElement>);
-			console.log("Form submitted:", formData);
-			setFormData({
-				fullName: "",
-				email: "",
-				message: "",
-			});
-			alert("Form submitted successfully!");
+			setFormData({ fullName: "", email: "", message: "" });
 		}
 	};
+
+	if (submitted) {
+		return (
+			<div className="leftSide formSuccessWrapper">
+				<div className="formSuccess">
+					<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ verticalAlign: "middle", marginRight: "8px" }}>
+						<path d="M10 1.667A8.333 8.333 0 1 0 10 18.333 8.333 8.333 0 0 0 10 1.667Zm3.821 6.07-4.584 4.584a.833.833 0 0 1-1.178 0L6.18 10.44a.833.833 0 0 1 1.178-1.179l1.291 1.292 3.995-3.994a.833.833 0 1 1 1.178 1.178Z" fill="#81c784"/>
+					</svg>
+					Message sent! I'll get back to you soon.
+				</div>
+				<button
+					className="submitBtn normaltext"
+					style={{ marginTop: "1.5rem" }}
+					onClick={() => setSubmitted(false)}
+				>
+					Send Another
+				</button>
+			</div>
+		);
+	}
 
 	return (
 		<form onSubmit={handleSubmit} ref={form}>
@@ -138,7 +146,9 @@ const ContactForm: React.FC = () => {
 				</div>
 
 				<div className="formLbInp normaltext">
-					<label htmlFor="message">Message</label>
+					<label htmlFor="message">
+						Message <span className="req">*</span>
+					</label>
 					<textarea
 						name="message"
 						id="message"
@@ -147,9 +157,14 @@ const ContactForm: React.FC = () => {
 					></textarea>
 					{errors.message && <p className="error">{errors.message}</p>}
 				</div>
-				<div className="formBtn ">
-					<button className="submitBtn normaltext" type="submit">
-						Send
+
+				<div className="formBtn">
+					<button
+						className="submitBtn normaltext"
+						type="submit"
+						disabled={sending}
+					>
+						{sending ? "Sending…" : "Send"}
 					</button>
 				</div>
 			</div>

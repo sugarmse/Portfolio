@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./projcard1.css";
 const ProjCard1 = () => {
 	// State to handle active card (flip effect)

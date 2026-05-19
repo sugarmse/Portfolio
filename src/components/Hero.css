@@ -1,0 +1,196 @@
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding-top: 72px; /* header height */
+}
+
+/* ── Animated orb background ── */
+.hero-orbs {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.18;
+}
+.orb-1 {
+  width: min(600px, 70vw);
+  height: min(600px, 70vw);
+  background: radial-gradient(circle, #f97316, #ea580c);
+  top: -15%;
+  right: -10%;
+  animation: orb-drift-1 18s ease-in-out infinite;
+}
+.orb-2 {
+  width: min(500px, 60vw);
+  height: min(500px, 60vw);
+  background: radial-gradient(circle, #7c3aed, #4f46e5);
+  bottom: -10%;
+  left: -8%;
+  animation: orb-drift-2 22s ease-in-out infinite;
+}
+.orb-3 {
+  width: min(350px, 50vw);
+  height: min(350px, 50vw);
+  background: radial-gradient(circle, #f97316, transparent);
+  top: 50%;
+  left: 40%;
+  animation: orb-drift-3 14s ease-in-out infinite;
+  opacity: 0.08;
+}
+
+/* ── Subtle grid overlay ── */
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+}
+
+/* ── Hero content ── */
+.hero-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.hero-greeting {
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  color: var(--text-2);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.hero-name {
+  font-size: clamp(2.8rem, 8vw, 6.5rem);
+  font-weight: 800;
+  line-height: 1.05;
+  margin-bottom: 1rem;
+  color: var(--text-1);
+}
+.hero-name-accent {
+  background: linear-gradient(135deg, #f97316, #fb923c, #fbbf24);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Typing role ── */
+.hero-role-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  min-height: 2.4rem;
+  margin-bottom: 1.5rem;
+}
+.hero-role {
+  font-size: clamp(1rem, 3vw, 1.5rem);
+  color: var(--text-2);
+  font-weight: 400;
+  letter-spacing: 0.03em;
+}
+.hero-cursor {
+  font-size: clamp(1rem, 3vw, 1.5rem);
+  color: var(--accent);
+  font-weight: 300;
+  animation: blink 1s step-end infinite;
+  line-height: 1;
+}
+
+.hero-bio {
+  max-width: 520px;
+  margin: 0 auto 2.5rem;
+  color: var(--text-2);
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  line-height: 1.75;
+}
+
+/* ── CTAs ── */
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 2.5rem;
+}
+
+/* ── Social links ── */
+.hero-socials {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+.hero-social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  color: var(--text-2);
+  transition: color var(--tr), border-color var(--tr), background var(--tr), transform var(--tr);
+}
+.hero-social-link:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-glow);
+  transform: translateY(-3px);
+}
+
+/* ── Scroll indicator ── */
+.hero-scroll {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-3);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  z-index: 1;
+  transition: color var(--tr);
+}
+.hero-scroll:hover { color: var(--text-2); }
+.scroll-mouse {
+  width: 22px;
+  height: 36px;
+  border: 1.5px solid var(--text-3);
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  padding-top: 6px;
+}
+.scroll-dot {
+  width: 4px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 2px;
+  animation: scroll-bounce 1.6s ease-in-out infinite;
+}
+
+@media (max-width: 600px) {
+  .hero-name { line-height: 1.08; }
+  .hero-scroll { bottom: 1.5rem; }
+}

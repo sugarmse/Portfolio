@@ -1,939 +1,159 @@
-@import url("https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300..800;1,300..800&family=Libre+Franklin:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,300..700;1,300..700&display=swap");
 
-html,
-body {
-	margin: 0;
-	padding: 0;
-	width: 100%;
-	height: 100%;
-	font-family: "Noto Sans", sans-serif;
-	font-optical-sizing: auto;
-	font-weight: normal; /* Corrected font-weight */
-	font-style: normal;
-	font-variation-settings: "wdth" 100;
-	scroll-behavior: smooth;
+@font-face {
+  font-family: 'Futura';
+  src: url('/FuturaStd.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
-/* For modern browsers */
-::-webkit-scrollbar {
-	display: none;
+
+/* ── Design tokens ─────────────────────────────────── */
+:root {
+  --bg:           #06060f;
+  --bg-2:         #0c0c1b;
+  --surface:      rgba(255, 255, 255, 0.04);
+  --surface-hov:  rgba(255, 255, 255, 0.07);
+  --border:       rgba(255, 255, 255, 0.09);
+  --accent:       #f97316;
+  --accent-2:     #fb923c;
+  --accent-glow:  rgba(249, 115, 22, 0.2);
+  --text-1:       #f0f0ff;
+  --text-2:       #9090b8;
+  --text-3:       #50507a;
+  --radius-sm:    8px;
+  --radius-md:    16px;
+  --radius-lg:    24px;
+  --tr:           0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --max-w:        1160px;
 }
+
+/* ── Reset ─────────────────────────────────────────── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 html {
-	scrollbar-width: none; /* For Firefox */
+  scroll-behavior: smooth;
+  scrollbar-width: none;
 }
+::-webkit-scrollbar { display: none; }
 
-/* Optional: Prevent content from being cut off */
 body {
-	overflow: auto;
+  background: var(--bg);
+  color: var(--text-1);
+  font-family: 'Noto Sans', sans-serif;
+  line-height: 1.7;
+  overflow-x: hidden;
 }
 
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
+h1, h2, h3, h4 {
+  font-family: 'Futura', 'Noto Sans', sans-serif;
+  line-height: 1.15;
+  letter-spacing: 0.01em;
 }
 
-h1 {
-	font-size: 3rem;
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+/* ── Layout helpers ────────────────────────────────── */
+.container {
+  width: 100%;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 clamp(1.5rem, 5vw, 4rem);
 }
 
-h2 {
-	font-size: 2rem;
+section { padding: clamp(4.5rem, 9vw, 7rem) 0; }
+
+/* ── Buttons ───────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 2rem;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: 0.875rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: transform var(--tr), box-shadow var(--tr), background var(--tr), color var(--tr), border-color var(--tr);
+  border: 1.5px solid transparent;
+}
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+.btn-primary:hover {
+  background: var(--accent-2);
+  border-color: var(--accent-2);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px var(--accent-glow);
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--text-1);
+  border-color: var(--border);
+}
+.btn-ghost:hover {
+  background: var(--surface-hov);
+  border-color: rgba(255,255,255,0.22);
+  transform: translateY(-2px);
 }
 
-h3 {
-	font-size: 1.5rem;
-	font-weight: 400;
+/* ── Section header ────────────────────────────────── */
+.section-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.6rem;
+}
+.section-title {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  color: var(--text-1);
+}
+.section-divider {
+  width: 2.5rem;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 2px;
+  margin-top: 0.9rem;
 }
 
-.normaltext {
-	font-size: 1rem;
+/* ── Scroll-reveal ─────────────────────────────────── */
+.fade-up {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.65s var(--tr), transform 0.65s var(--tr);
 }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
 
-.req {
-	color: #ff5003;
+/* ── Keyframes ─────────────────────────────────────── */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-14px); }
 }
-@media screen and (max-width: 375px) and (orientation: portrait) {
-	h1 {
-		font-size: 1.7rem;
-	}
-	h2 {
-		font-size: 1.2rem;
-	}
-	h3 {
-		font-size: 0.8rem;
-	}
-	.normaltext {
-		font-size: 0.7rem;
-	}
-	.mobContents svg {
-		height: 1.5rem;
-	}
-	.mobContents img {
-		height: 2.5rem;
-		width: auto;
-	}
-	.banner {
-		height: 24rem;
-	}
-	.mainIntro {
-		padding: 2rem;
-	}
-	.intro2 {
-		flex-direction: column;
-		gap: 1rem;
-	}
-	.section1 {
-		width: auto;
-	}
-	.section2 {
-		width: auto;
-	}
-	.asymSection {
-		padding: 2rem;
-		flex-direction: column;
-	}
-	.soft svg,
-	.skills svg,
-	.hobb svg {
-		height: 2rem;
-	}
-	.softList,
-	.skillList {
-		gap: 1rem;
-	}
-	.column1 {
-		width: 100%;
-	}
-	.column2 {
-		width: 100%;
-	}
-	.column3 {
-		width: 100%;
-	}
-	.exp,
-	.soft,
-	.skills,
-	.hobb,
-	.resume {
-		margin-top: 2rem;
-	}
-	.resumeImg {
-		width: 10rem;
-	}
-	.resumeDownload {
-		padding: 2rem 0 1rem 0;
-	}
-	.projects {
-		padding: 2rem;
-	}
-	.projCards {
-		flex-direction: column;
-		gap: 3rem;
-	}
-	.projCards a {
-		width: 100%;
-	}
-	.card2 {
-		width: 100%;
-		height: 12rem;
-	}
-	.card2 svg {
-		height: 5rem;
-	}
-	.card2 img {
-		height: 6rem;
-	}
-	.contact {
-		padding: 2rem;
-	}
-	.contactForm {
-		flex-direction: column;
-	}
-	.contactForm form {
-		width: 100%;
-	}
-	.rightSide {
-		width: 100%;
-		margin-top: 2rem;
-	}
-	.row1 {
-		gap: 0.5rem;
-	}
-	.row1 svg {
-		width: 1rem;
-	}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
 }
-@media screen and (min-width: 376px) and (max-width: 480px) and (orientation: portrait) {
-	h1 {
-		font-size: 2rem;
-	}
-	h2 {
-		font-size: 1.5rem;
-	}
-	h3 {
-		font-size: 1rem;
-	}
-	.normaltext {
-		font-size: 0.8rem;
-	}
-	.softList svg,
-	.skillList svg {
-		width: 2rem;
-		height: 2rem;
-	}
-	.section1 {
-		width: fit-content;
-	}
-	.section2 {
-		width: fit-content;
-	}
-	.intro2 {
-		flex-direction: column;
-		gap: 1rem;
-	}
-	.mainIntro {
-		padding: 3rem;
-	}
-	.asymSection {
-		flex-direction: column;
-		padding: 3rem;
-	}
-	.column1 {
-		width: 100%;
-		margin: 0;
-	}
-	.column2 {
-		width: 100%;
-		margin: 0;
-	}
-	.column3 {
-		width: 100%;
-		margin: 0;
-	}
-	.exp,
-	.hobb,
-	.resume {
-		margin-bottom: 0;
-	}
-	.resume {
-		height: auto;
-	}
-	.projects {
-		padding: 3rem;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-	}
-	.projCards {
-		width: 100%;
-		flex-direction: column;
-		gap: 3rem;
-	}
-	.projCards a {
-		width: 100%;
-	}
-	.card2 {
-		width: 100%;
-		height: 16rem;
-	}
-	.intro1 {
-		justify-content: center;
-	}
-	.contact {
-		padding: 3rem;
-	}
-	.contactForm {
-		flex-direction: column;
-	}
-	.formLbInp input,
-	.formLbInp textarea {
-		width: 100%;
-	}
-	.rightSide {
-		width: 100%;
-		margin-top: 3rem;
-	}
-	.soft,
-	.resume {
-		margin-top: 3rem;
-	}
-	.edu,
-	.exp,
-	.soft,
-	.skills,
-	.hobb,
-	.resume {
-		height: auto;
-	}
-	.contactForm form {
-		width: 100%;
-	}
-	.row1 {
-		gap: 1rem;
-	}
-	.leftSide {
-		width: 100%;
-	}
-	.inner {
-		padding: 1.5rem;
-	}
-	.inner1 {
-		padding: 1.5rem;
-	}
+@keyframes scroll-bounce {
+  0%, 100% { transform: translateY(0); opacity: 0.7; }
+  50%       { transform: translateY(8px); opacity: 0.2; }
 }
-@media screen and (min-width: 481px) and (max-width: 767px) and (orientation: portrait) {
-	h1 {
-		font-size: 2.3rem;
-	}
-	h2 {
-		font-size: 1.7rem;
-	}
-	h3 {
-		font-size: 1.2rem;
-	}
-	.normaltext {
-		font-size: 1rem;
-	}
-	.mainIntro {
-		padding: 3rem;
-	}
-	.softList svg,
-	.skillList svg {
-		width: 2.5rem;
-		height: 2.5rem;
-	}
-	.section1 {
-		width: fit-content;
-	}
-	.section2 {
-		width: fit-content;
-	}
-	.intro2 {
-		flex-direction: column;
-		gap: 1rem;
-	}
-	.mainIntro {
-		padding: 3rem;
-	}
-	.asymSection {
-		flex-direction: column;
-		padding: 3rem;
-	}
-	.column1 {
-		width: 100%;
-		margin: 0;
-	}
-	.column2 {
-		width: 100%;
-		margin: 0;
-	}
-	.column3 {
-		width: 100%;
-		margin: 0;
-	}
-	.exp,
-	.hobb,
-	.resume {
-		margin-bottom: 0;
-	}
-	.resume {
-		height: auto;
-	}
-	.projects {
-		padding: 3rem;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-	}
-	.projCards {
-		width: 100%;
-		display: flex;
-		flex-direction: column;
-		gap: 4rem;
-	}
-	.projCards a {
-		width: 100%;
-	}
-	.card2 {
-		width: 100%;
-		height: 16rem;
-	}
-	.intro1 {
-		justify-content: center;
-	}
-	.contact {
-		padding: 3rem;
-	}
-	.contactForm {
-		flex-direction: column;
-	}
-	.formLbInp input,
-	.formLbInp textarea {
-		width: 100%;
-	}
-	.rightSide {
-		width: 100%;
-		margin-top: 3rem;
-	}
-	.soft,
-	.resume {
-		margin-top: 3rem;
-	}
-	.edu,
-	.exp,
-	.soft,
-	.skills,
-	.hobb,
-	.resume {
-		height: auto;
-	}
-	.contactForm form {
-		width: 100%;
-	}
-	.row1 {
-		gap: 2rem;
-	}
-	.leftSide {
-		width: 100%;
-	}
-	.inner {
-		padding: 1.5rem;
-	}
-	.inner1 {
-		padding: 1.5rem;
-	}
-	.resumeImg {
-		width: 28rem;
-	}
-	.resumeDownload {
-		padding: 3rem 0 2rem 0;
-	}
+@keyframes orb-drift-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(60px, -40px) scale(1.05); }
+  66%       { transform: translate(-30px, 30px) scale(0.95); }
 }
-@media screen and (min-width: 1900px) {
-	.resume {
-		height: 49rem;
-	}
-	.resumeImg {
-		width: 25rem;
-	}
-	.logo {
-		width: 4rem;
-	}
+@keyframes orb-drift-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(-50px, 50px) scale(1.08); }
+  66%       { transform: translate(40px, -20px) scale(0.92); }
 }
-@media screen and (min-width: 1489px) and (max-width: 1899px) {
-	.skills {
-		height: auto;
-	}
-	.soft {
-		height: auto;
-	}
-	.resume {
-		height: 49rem;
-	}
-	.resumeDownload {
-		padding: 0;
-	}
-	.resumeImg {
-		width: 20rem;
-	}
-	.logo {
-		width: 4rem;
-	}
-}
-/* Large Desktops (1440px and above) */
-@media screen and (min-width: 1440px) and (max-width: 1488px) {
-	/* Styles for large desktops */
-	.rightSide {
-		width: 30%;
-	}
-	.leftSide {
-		width: 75%;
-	}
-	.skills {
-		height: 17rem;
-	}
-	.soft {
-		height: 17rem;
-	}
-	.resume {
-		height: 53rem;
-	}
-	.logo {
-		width: 4rem;
-	}
-}
-
-/* Standard Desktops (1280px to 1439px) */
-@media screen and (min-width: 1280px) and (max-width: 1439px) {
-	/* Styles for standard desktops */
-	h2 {
-		font-size: 1.6rem;
-	}
-	h3 {
-		font-size: 1.2rem;
-	}
-	.normaltext {
-		font-size: 0.8rem;
-	}
-	.projects {
-		padding: 5.5rem;
-	}
-	.card2 svg {
-		height: 5rem;
-		width: auto;
-	}
-	.card2 img {
-		height: 6rem;
-		width: auto;
-	}
-	.card2 {
-		height: 10rem;
-		width: 15rem;
-	}
-	.softList svg,
-	.skillList svg {
-		width: 2rem;
-		height: 2rem;
-	}
-	.inner {
-		padding: 1.5rem;
-	}
-	.inner1 {
-		padding: 1.82rem;
-	}
-	.resumeDownload {
-		padding: 4.5rem 0;
-	}
-	.resumeImg {
-		width: 17rem;
-	}
-}
-
-/* Small Desktops (1024px to 1279px) */
-@media screen and (min-width: 1024px) and (max-width: 1279px) {
-	/* Styles for small desktops */
-	h1 {
-		font-size: 2.3rem;
-	}
-	h2 {
-		font-size: 1.2rem;
-	}
-	h3 {
-		font-size: 1rem;
-	}
-	.normaltext {
-		font-size: 0.7rem;
-	}
-	.navBar {
-		padding: 2rem;
-	}
-	.logo {
-		width: 3rem;
-	}
-	.mainIntro {
-		padding: 3rem;
-	}
-	.section1 {
-		width: fit-content;
-	}
-	.section2 {
-		width: fit-content;
-	}
-	.intro2 {
-		flex-direction: column;
-		gap: 1rem;
-	}
-	.mainIntro {
-		padding: 3rem;
-	}
-	.asymSection {
-		padding: 3rem;
-		gap: 3rem;
-	}
-	.column1 {
-		width: 100%;
-		margin: 0;
-	}
-	.column2 {
-		width: 100%;
-		margin: 0;
-	}
-	.column3 {
-		width: 30%;
-		margin: 0;
-	}
-	.edu,
-	.exp {
-		width: 100%;
-	}
-	.exp,
-	.hobb,
-	.resume {
-		margin-bottom: 0;
-	}
-	.resume {
-		height: 36rem;
-	}
-	.projects {
-		padding: 3rem;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-	}
-	.projCards {
-		width: 100%;
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: 3rem;
-	}
-	.projCards a {
-		width: 100%;
-	}
-	.card2 {
-		width: 100%;
-		height: 16rem;
-	}
-	.intro1 {
-		justify-content: center;
-	}
-	.contact {
-		padding: 3rem;
-	}
-	.contactForm {
-		flex-direction: row;
-		gap: 3rem;
-	}
-	.formLbInp input,
-	.formLbInp textarea {
-		width: 100%;
-	}
-	.rightSide {
-		width: 70%;
-		margin-top: 3rem;
-	}
-	.contactForm form {
-		width: 100%;
-	}
-	.row1 {
-		gap: 2rem;
-	}
-	.leftSide {
-		width: 80%;
-	}
-	.inner {
-		padding: 1.5rem;
-	}
-	.inner1 {
-		padding: 1.2rem;
-	}
-	.resumeImg {
-		width: 15rem;
-	}
-	.resumeDownload {
-	}
-
-	.soft,
-	.skills,
-	.hobb {
-		width: 100%;
-	}
-	.skillList,
-	.softList {
-		gap: 1rem;
-	}
-	.skillList svg,
-	.softList svg {
-		width: 2rem;
-		height: auto;
-	}
-	.exp {
-		margin: 3rem 0 0 0;
-	}
-}
-
-/* Extra Small Desktops (801px to 1023px) */
-@media screen and (min-width: 801px) and (max-width: 1023px) {
-	/* Styles for extra small desktops */
-	h1 {
-		font-size: 2.3rem;
-	}
-	h2 {
-		font-size: 1.7rem;
-	}
-	h3 {
-		font-size: 1.2rem;
-	}
-	.normaltext {
-		font-size: 1rem;
-	}
-	.mainIntro {
-		padding: 3rem;
-	}
-	.softList svg,
-	.skillList svg {
-		width: 2.5rem;
-		height: 2.5rem;
-	}
-	.section1 {
-		width: fit-content;
-	}
-	.section2 {
-		width: fit-content;
-	}
-	.intro2 {
-		flex-direction: column;
-		gap: 1rem;
-	}
-	.mainIntro {
-		padding: 3rem;
-	}
-	.asymSection {
-		flex-direction: column;
-		padding: 3rem;
-	}
-	.column1 {
-		width: 100%;
-		margin: 0;
-	}
-	.column2 {
-		width: 100%;
-		margin: 0;
-	}
-	.column3 {
-		width: 100%;
-		margin: 0;
-	}
-	.edu,
-	.exp {
-		width: 100%;
-	}
-	.exp,
-	.hobb,
-	.resume {
-		margin-bottom: 0;
-	}
-	.resume {
-		height: auto;
-	}
-	.projects {
-		padding: 3rem;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-	}
-
-	.projCards {
-		display: grid;
-		grid-template-columns: repeat(
-			2,
-			1fr
-		); /* 2 columns, each taking up 1 fraction of the available space */
-		gap: 3rem;
-		width: 100%;
-	}
-
-	.projCards a {
-		width: 100%;
-	}
-	.card2 {
-		width: 100%;
-	}
-	.intro1 {
-		justify-content: center;
-	}
-	.contact {
-		padding: 3rem;
-	}
-	.contactForm {
-		flex-direction: column;
-	}
-	.formLbInp input,
-	.formLbInp textarea {
-		width: 100%;
-	}
-	.rightSide {
-		width: 100%;
-		margin-top: 3rem;
-	}
-	.soft,
-	.resume {
-		margin-top: 3rem;
-	}
-
-	.contactForm form {
-		width: 100%;
-	}
-	.row1 {
-		gap: 2rem;
-	}
-	.leftSide {
-		width: 100%;
-	}
-	.inner {
-		padding: 1.5rem;
-	}
-	.inner1 {
-		padding: 1.5rem;
-	}
-	.resumeImg {
-		width: 28rem;
-	}
-	.resumeDownload {
-		padding: 3rem 0 2rem 0;
-	}
-	.column1 {
-		display: flex;
-		gap: 3rem;
-	}
-	.column2 {
-		display: flex;
-		gap: 3rem;
-	}
-	.soft,
-	.skills,
-	.hobb {
-		width: 100%;
-	}
-	.skillList,
-	.softList {
-		gap: 1rem;
-	}
-	.exp {
-		margin: 0;
-	}
-}
-
-/* Tablets (768px to 799px) */
-@media screen and (min-width: 768px) and (max-width: 800px) {
-	/* Styles for tablets */
-	h1 {
-		font-size: 2.3rem;
-	}
-	h2 {
-		font-size: 1.7rem;
-	}
-	h3 {
-		font-size: 1.2rem;
-	}
-	.normaltext {
-		font-size: 1rem;
-	}
-	.mainIntro {
-		padding: 3rem;
-	}
-	.softList svg,
-	.skillList svg {
-		width: 2.5rem;
-		height: 2.5rem;
-	}
-	.section1 {
-		width: fit-content;
-	}
-	.section2 {
-		width: fit-content;
-	}
-	.intro2 {
-		flex-direction: column;
-		gap: 1rem;
-	}
-	.mainIntro {
-		padding: 3rem;
-	}
-	.asymSection {
-		flex-direction: column;
-		padding: 3rem;
-	}
-	.column1 {
-		width: 100%;
-		margin: 0;
-	}
-	.column2 {
-		width: 100%;
-		margin: 0;
-	}
-	.column3 {
-		width: 100%;
-		margin: 0;
-	}
-	.exp,
-	.hobb,
-	.resume {
-		margin-bottom: 0;
-	}
-	.resume {
-		height: auto;
-	}
-	.projects {
-		padding: 3rem;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-	}
-	.projCards {
-		display: grid;
-		grid-template-columns: repeat(
-			2,
-			1fr
-		); /* 2 columns, each taking up 1 fraction of the available space */
-		gap: 3rem;
-	}
-
-	.projCards a {
-		width: 100%;
-	}
-	.card2 {
-		width: 20rem;
-		height: 16rem;
-	}
-	.intro1 {
-		justify-content: center;
-	}
-	.contact {
-		padding: 3rem;
-	}
-	.contactForm {
-		flex-direction: column;
-	}
-	.formLbInp input,
-	.formLbInp textarea {
-		width: 100%;
-	}
-	.rightSide {
-		width: 100%;
-		margin-top: 3rem;
-	}
-	.soft,
-	.resume {
-		margin-top: 3rem;
-	}
-
-	.contactForm form {
-		width: 100%;
-	}
-	.row1 {
-		gap: 2rem;
-	}
-	.leftSide {
-		width: 100%;
-	}
-	.inner {
-		padding: 1.5rem;
-	}
-	.inner1 {
-		padding: 1.5rem;
-	}
-	.resumeImg {
-		width: 28rem;
-	}
-	.resumeDownload {
-		padding: 3rem 0 2rem 0;
-	}
-	.column1 {
-		display: flex;
-		gap: 3rem;
-	}
-	.exp {
-		margin: 0;
-	}
+@keyframes orb-drift-3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%       { transform: translate(30px, 30px) scale(1.06); }
 }

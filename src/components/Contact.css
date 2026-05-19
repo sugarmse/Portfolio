@@ -1,0 +1,217 @@
+.contact-section { background: var(--bg-2); }
+
+/* ── Two-column layout ── */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 5rem;
+  align-items: start;
+}
+
+.contact-desc {
+  color: var(--text-2);
+  font-size: 0.95rem;
+  line-height: 1.75;
+  margin-top: 1.25rem;
+  margin-bottom: 2.5rem;
+}
+
+/* ── Scroll reveal ── */
+.contact-grid .fade-up { opacity: 0; transform: translateY(24px); }
+.contact-grid.in-view .fade-up {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.65s var(--tr), transform 0.65s var(--tr);
+}
+
+/* ── Form ── */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Floating label field */
+.field {
+  position: relative;
+}
+.field input,
+.field textarea {
+  width: 100%;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-1);
+  font-size: 0.95rem;
+  font-family: inherit;
+  padding: 1.1rem 1rem 0.5rem;
+  outline: none;
+  resize: none;
+  transition: border-color var(--tr), background var(--tr), box-shadow var(--tr);
+  line-height: 1.5;
+}
+.field textarea { padding-top: 1.4rem; }
+
+.field input:focus,
+.field textarea:focus {
+  border-color: var(--accent);
+  background: var(--surface-hov);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+/* Floating label */
+.field label {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  font-size: 0.9rem;
+  color: var(--text-3);
+  pointer-events: none;
+  transition: top 0.2s var(--tr), font-size 0.2s var(--tr), color 0.2s var(--tr);
+  line-height: 1;
+}
+.field input:focus + label,
+.field input:not(:placeholder-shown) + label,
+.field textarea:focus + label,
+.field textarea:not(:placeholder-shown) + label {
+  top: 0.4rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+}
+.field label span { color: var(--accent); }
+
+/* Error state */
+.field.has-error input,
+.field.has-error textarea {
+  border-color: #f87171;
+}
+.field-error {
+  display: block;
+  font-size: 0.75rem;
+  color: #f87171;
+  margin-top: 0.35rem;
+  padding-left: 0.25rem;
+}
+
+/* Submit button */
+.contact-submit {
+  align-self: flex-start;
+  gap: 0.6rem;
+}
+.contact-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none !important;
+}
+.spin {
+  animation: spin-btn 0.8s linear infinite;
+}
+@keyframes spin-btn {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ── Success message ── */
+.contact-success {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 2rem;
+  background: rgba(74, 222, 128, 0.06);
+  border: 1px solid rgba(74, 222, 128, 0.25);
+  border-radius: var(--radius-md);
+  color: #86efac;
+}
+.contact-success svg { flex-shrink: 0; }
+.contact-success strong { display: block; font-size: 1rem; margin-bottom: 0.25rem; color: #4ade80; }
+.contact-success p { font-size: 0.88rem; color: var(--text-2); }
+
+/* ── Info card ── */
+.contact-info-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem;
+  position: sticky;
+  top: 90px;
+}
+.contact-info-card h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-1);
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-sm);
+  transition: background var(--tr), color var(--tr);
+  color: var(--text-2);
+  text-decoration: none;
+}
+.info-item:hover {
+  background: var(--surface-hov);
+  color: var(--accent);
+}
+
+.info-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface-hov);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--accent);
+  flex-shrink: 0;
+  transition: background var(--tr), border-color var(--tr);
+}
+.info-item:hover .info-icon {
+  background: var(--accent-glow);
+  border-color: var(--accent);
+}
+
+.info-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+.info-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+.info-value {
+  font-size: 0.88rem;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: inherit;
+}
+
+/* ── Responsive ── */
+@media (max-width: 860px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  .contact-info-card { position: static; }
+}

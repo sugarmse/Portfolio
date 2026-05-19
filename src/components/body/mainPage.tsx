@@ -3,7 +3,6 @@ import Asym from "./asymSection";
 // import Asym from "./asymSection";
 import "./mainPage.css";
 import ProjCard1 from "./projCard1";
-import Projectcard from "./projectCard";
 
 function Mainpage() {
 	return (

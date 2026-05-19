@@ -1,58 +1,108 @@
-.sepa {
-	height: 1px;
-	background: #ffc107;
-	width: 96%;
+.site-footer {
+  background: var(--bg);
+  border-top: 1px solid var(--border);
 }
-.footerContent1 a {
-	text-decoration: none;
-	color: #fff;
+
+.footer-inner {
+  padding-top: 4rem;
+  padding-bottom: 2.5rem;
 }
-.footer {
-	background: #0d0d0d;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	width: 100%;
+
+/* ── Top block ── */
+.footer-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.25rem;
+  margin-bottom: 2.5rem;
 }
-.footerContents {
-	color: #e6e6e6;
-	padding: 2rem;
-	display: flex;
-	flex-direction: row;
-	width: 100%;
-	gap: 5rem;
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: opacity var(--tr);
 }
-.footerLinks {
-	width: 68%;
-	display: flex;
-	justify-content: space-between;
+.footer-brand:hover { opacity: 0.75; }
+.footer-logo {
+  height: 32px;
+  width: auto;
 }
-.copyRight {
-	width: 30rem;
+.footer-name {
+  font-family: 'Futura', 'Noto Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-1);
+  letter-spacing: 0.04em;
 }
-.footerLinks a:hover {
-	color: #ff5722;
-	transition: color 0.3s ease-in-out;
+
+.footer-tagline {
+  font-size: 0.88rem;
+  color: var(--text-3);
+  max-width: 340px;
+  line-height: 1.6;
 }
-@media screen and (max-width: 480px) and (orientation: portrait) {
-	.footerLinks {
-		justify-content: center;
-		gap: 1rem;
-		width: 100%;
-	}
-	.mobSlash {
-		display: none;
-	}
-	.footerContent1 {
-		text-align: center;
-	}
-	.footerContents {
-		flex-direction: column;
-		justify-content: center;
-		gap: 2rem;
-	}
-	.copyRight {
-		width: auto;
-	}
+
+.footer-socials {
+  display: flex;
+  gap: 0.75rem;
+}
+.footer-social {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  color: var(--text-3);
+  transition: color var(--tr), border-color var(--tr), background var(--tr);
+}
+.footer-social:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-glow);
+}
+
+/* ── Divider ── */
+.footer-divider {
+  height: 1px;
+  background: var(--border);
+  margin-bottom: 2rem;
+}
+
+/* ── Bottom row ── */
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.footer-copy {
+  font-size: 0.8rem;
+  color: var(--text-3);
+}
+
+.footer-nav {
+  display: flex;
+  gap: 1.75rem;
+  flex-wrap: wrap;
+}
+.footer-link {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--text-3);
+  transition: color var(--tr);
+}
+.footer-link:hover { color: var(--accent); }
+
+/* ── Responsive ── */
+@media (max-width: 540px) {
+  .footer-top { align-items: center; }
+  .footer-bottom { flex-direction: column; align-items: center; text-align: center; }
+  .footer-nav { gap: 1rem; justify-content: center; }
 }
