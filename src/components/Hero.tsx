@@ -54,9 +54,8 @@ export default function Hero() {
         </div>
 
         <p className="hero-bio">
-          A passionate Web Developer &amp; UI/UX Designer crafting responsive,
-          visually compelling digital experiences — currently building at
-          Techmind Solutions.
+          Full-stack developer turned entrepreneur — building products, shooting
+          moto-vlogs, and crafting immersive digital experiences.
         </p>
 
         <div className="hero-actions">

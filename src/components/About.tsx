@@ -4,7 +4,7 @@ import './About.css';
 const STATS = [
   { value: '3+',  label: 'Years Experience' },
   { value: '10+', label: 'Projects Delivered' },
-  { value: '2',   label: 'Companies Worked' },
+  { value: '3',   label: 'Companies Worked' },
   { value: '5+',  label: 'Tech Stacks' },
 ];
 
@@ -20,24 +20,24 @@ export default function About() {
             <h2 className="section-title">Introduction</h2>
             <div className="section-divider" />
             <p>
-              Hello! I'm a passionate Web Developer with a knack for creating
-              visually appealing and user-friendly websites. With a strong
-              foundation in HTML, CSS, and JavaScript, along with hands-on
-              experience in frameworks like React, I thrive on developing
-              responsive and engaging digital experiences.
+              Hello! I'm a full-stack developer turned entrepreneur with a
+              passion for clean UI/UX and visual storytelling. After wrapping up
+              my time as a developer at Kathmandu Codes in early 2026, I shifted
+              gears to manage and scale my own business.
             </p>
             <p>
-              My journey in web development began with internships in UI/UX and
-              web design, where I honed my skills in crafting intuitive
-              interfaces and seamless user experiences. Currently, I work at
-              Techmind Solutions, building dynamic web solutions that make a
-              lasting impact.
+              I still write a lot of code, but my workflow looks a bit different
+              now. I actively collaborate with AI tools to automate the heavy
+              lifting and optimise my architecture, keeping me focused on
+              execution and design rather than getting bogged down in syntax.
             </p>
             <p>
-              When I'm not coding, you'll find me exploring new creative outlets
-              or hitting the open road on my motorcycle. This passion for
-              storytelling and attention to detail inspires my approach to
-              design — whether it's a polished website or the smallest UI detail.
+              Outside of tech and business, I'm a massive motorcycle enthusiast
+              and visual creator. You'll usually find me shooting moto-vlogs and
+              travel stories, or taking my photography into the professional realm
+              through a new platform I built for real estate and 360-degree
+              virtual tours. I thrive on creating immersive experiences — whether
+              that's through a beautifully coded website or a perfectly framed lens.
             </p>
             <a href="/SS.pdf" download className="btn btn-ghost about-cv-btn">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
