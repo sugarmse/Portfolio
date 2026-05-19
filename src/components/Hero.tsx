@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './Hero.css';
 
-const ROLES = ['UI / UX Designer', 'Web Developer', 'Creative Coder'];
+const ROLES = ['UI / UX Designer', 'Web Developer', 'Creative Coder', 'Motorcycle Enthusiast'];
 
 export default function Hero() {
   const [roleIdx, setRoleIdx] = useState(0);
