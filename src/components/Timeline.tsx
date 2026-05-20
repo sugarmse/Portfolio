@@ -5,19 +5,19 @@ const EXPERIENCE = [
   {
     role: 'Software Developer',
     company: 'Kathmandu Codes',
-    period: 'Aug 2025 – Jan 2026',
+    period: 'Feb 2025 – Jan 2026',
     desc: 'Developed and maintained software applications, collaborating with cross-functional teams to deliver high-quality solutions.',
   },
   {
     role: 'Web Developer',
     company: 'Techmind Solutions',
-    period: 'Jan 2024 – Jul 2025',
+    period: 'Aug 2024 – Jan 2025',
     desc: 'Building dynamic, responsive web applications using React and TypeScript. Developing scalable front-end solutions that make a lasting impact.',
   },
   {
     role: 'UI / UX Developer',
     company: 'AwakeTech Solutions',
-    period: 'Jan 2024 – Dec 2024',
+    period: 'Mar 2024 – Jul 2024',
     desc: 'Designed and implemented intuitive user interfaces, focusing on seamless user experience and modern design principles.',
   },
 ];

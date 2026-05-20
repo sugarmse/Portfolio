@@ -51,7 +51,7 @@ export default function About() {
 
           <div className="about-right">
             <div className="about-img-wrap">
-              <img src="/mono.jpg" alt="Sarthak Shakya" className="about-img" />
+              <img src="/pfp.jpeg" alt="Sarthak Shakya" className="about-img" />
               <div className="about-img-glow" />
             </div>
             <div className="about-stats">
