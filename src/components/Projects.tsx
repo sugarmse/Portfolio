@@ -75,12 +75,47 @@ export default function Projects() {
             <div className="proj-feat-thumb gopanora-thumb">
               <div className="proj-feat-bg">
                 <svg className="proj-feat-sphere" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="58" y="56" width="284" height="188" rx="18" fill="rgba(255,255,255,0.04)" stroke="rgba(249,115,22,0.28)" />
-                  <circle cx="156" cy="150" r="54" stroke="rgba(249,115,22,0.55)" strokeWidth="2" />
-                  <circle cx="156" cy="150" r="28" stroke="rgba(255,255,255,0.18)" strokeWidth="1" />
-                  <path d="M208 116h82M208 150h68M208 184h96" stroke="rgba(255,255,255,0.55)" strokeWidth="8" strokeLinecap="round" />
-                  <path d="M138 150l24-18v36l-24-18z" fill="rgba(249,115,22,0.9)" />
-                  <text x="200" y="261" textAnchor="middle" fontSize="20" fontWeight="800" fontFamily="Arial, sans-serif" fill="rgba(255,255,255,0.82)">GoPanora</text>
+                  <defs>
+                    <linearGradient id="gopanoraSky" x1="70" y1="74" x2="328" y2="210" gradientUnits="userSpaceOnUse">
+                      <stop stopColor="#7dd3fc" />
+                      <stop offset="0.42" stopColor="#38bdf8" />
+                      <stop offset="1" stopColor="#f97316" />
+                    </linearGradient>
+                    <linearGradient id="gopanoraRoom" x1="76" y1="108" x2="326" y2="220" gradientUnits="userSpaceOnUse">
+                      <stop stopColor="#12324a" />
+                      <stop offset="0.52" stopColor="#152033" />
+                      <stop offset="1" stopColor="#3f1d16" />
+                    </linearGradient>
+                    <filter id="gopanoraGlow" x="-20%" y="-20%" width="140%" height="140%">
+                      <feGaussianBlur stdDeviation="6" result="blur" />
+                      <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0.98 0 1 0 0 0.45 0 0 1 0 0.1 0 0 0 0.65 0" />
+                      <feBlend in="SourceGraphic" mode="screen" />
+                    </filter>
+                  </defs>
+
+                  <rect x="36" y="38" width="332" height="224" rx="24" fill="#080b14" stroke="rgba(249,115,22,0.4)" />
+                  <rect x="54" y="58" width="292" height="184" rx="18" fill="rgba(255,255,255,0.045)" stroke="rgba(255,255,255,0.1)" />
+                  <rect x="54" y="58" width="292" height="32" rx="18" fill="rgba(255,255,255,0.06)" />
+                  <circle cx="76" cy="74" r="4" fill="#f97316" />
+                  <circle cx="92" cy="74" r="4" fill="rgba(255,255,255,0.35)" />
+                  <circle cx="108" cy="74" r="4" fill="rgba(255,255,255,0.22)" />
+                  <text x="320" y="79" textAnchor="end" fontSize="12" fontWeight="800" fontFamily="Arial, sans-serif" fill="rgba(255,255,255,0.8)">GoPanora</text>
+
+                  <rect x="70" y="106" width="178" height="106" rx="16" fill="url(#gopanoraRoom)" />
+                  <path d="M70 132C98 110 131 118 159 135C189 153 214 146 248 120V106H70V132Z" fill="url(#gopanoraSky)" opacity="0.92" />
+                  <path d="M70 178C111 152 146 158 183 176C205 187 226 190 248 178V212H70V178Z" fill="#0b1220" opacity="0.85" />
+                  <path d="M86 196L132 154L176 196M152 196L198 138L238 196" stroke="rgba(255,255,255,0.26)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  <circle cx="132" cy="151" r="8" fill="#f97316" filter="url(#gopanoraGlow)" />
+                  <circle cx="207" cy="143" r="8" fill="#38bdf8" />
+                  <circle cx="207" cy="143" r="15" stroke="rgba(56,189,248,0.45)" />
+
+                  <rect x="262" y="106" width="68" height="46" rx="12" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.12)" />
+                  <path d="M278 139V120H313V139M278 129H313M291 120V139" stroke="rgba(255,255,255,0.55)" strokeWidth="2" strokeLinecap="round" />
+                  <circle cx="312" cy="121" r="5" fill="#f97316" />
+
+                  <rect x="262" y="164" width="68" height="48" rx="12" fill="rgba(249,115,22,0.16)" stroke="rgba(249,115,22,0.35)" />
+                  <path d="M283 183L296 170L309 183M296 170V205" stroke="rgba(255,255,255,0.8)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                  <text x="296" y="229" textAnchor="middle" fontSize="12" fontWeight="700" fontFamily="Arial, sans-serif" fill="rgba(255,255,255,0.65)">Share tour</text>
                 </svg>
               </div>
               <div className="proj-feat-thumb-overlay" />

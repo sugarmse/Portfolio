@@ -52,6 +52,14 @@
     radial-gradient(ellipse at 70% 70%, rgba(99,179,237,0.16) 0%, transparent 42%),
     #070a12;
 }
+.gopanora-thumb .proj-feat-sphere {
+  width: 94%;
+  max-width: 430px;
+  opacity: 1;
+}
+.gopanora-thumb .proj-feat-thumb-overlay {
+  background: linear-gradient(to right, transparent 78%, var(--surface) 100%);
+}
 .proj-feat-bg {
   position: absolute;
   inset: 0;
