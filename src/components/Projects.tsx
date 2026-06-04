@@ -99,7 +99,7 @@ export default function Projects() {
                   <circle cx="76" cy="74" r="4" fill="#f97316" />
                   <circle cx="92" cy="74" r="4" fill="rgba(255,255,255,0.35)" />
                   <circle cx="108" cy="74" r="4" fill="rgba(255,255,255,0.22)" />
-                  <text x="320" y="79" textAnchor="end" fontSize="12" fontWeight="800" fontFamily="Arial, sans-serif" fill="rgba(255,255,255,0.8)">Panora</text>
+                  <text x="320" y="79" textAnchor="end" fontSize="12" fontWeight="800" fontFamily="Arial, sans-serif" fill="rgba(255,255,255,0.8)">GoPanora</text>
 
                   <rect x="70" y="106" width="178" height="106" rx="16" fill="url(#gopanoraRoom)" />
                   <path d="M70 132C98 110 131 118 159 135C189 153 214 146 248 120V106H70V132Z" fill="url(#gopanoraSky)" opacity="0.92" />
@@ -124,15 +124,15 @@ export default function Projects() {
             {/* Content */}
             <div className="proj-feat-body">
               <span className="proj-category">SaaS &amp; Virtual Tour Builder</span>
-              <h3 className="proj-feat-title">Panora</h3>
+              <h3 className="proj-feat-title">GoPanora</h3>
               <p className="proj-feat-desc">
-                Panora is a 360° virtual tour builder for real estate, hotels, rentals, and
-                property photographers, available at GoPanora.com. It helps users turn panorama images into interactive
+                GoPanora is a 360° virtual tour builder for real estate, hotels, rentals, and
+                property photographers. Its Panora Tour Builder helps users turn panorama images into interactive
                 virtual tours with hotspots, floor plans, share links, embeds, QR codes, and
                 custom branding.
               </p>
               <div className="proj-tags proj-tags-visible">
-                {['Panora', 'GoPanora.com', '360° Tours', 'Real Estate SaaS', 'React'].map(t => (
+                {['GoPanora', 'Panora Tour Builder', '360° Tours', 'Real Estate SaaS', 'React'].map(t => (
                   <span key={t} className="proj-tag">{t}</span>
                 ))}
               </div>
@@ -142,7 +142,7 @@ export default function Projects() {
                 rel="noopener noreferrer"
                 className="btn btn-primary proj-feat-btn"
               >
-                Panora virtual tour builder
+                GoPanora virtual tour builder
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
                   <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
