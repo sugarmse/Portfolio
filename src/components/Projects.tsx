@@ -68,6 +68,54 @@ export default function Projects() {
             </div>
 
           </div>
+
+          <div className="proj-feat-card proj-feat-card-alt fade-up">
+
+            {/* Thumbnail */}
+            <div className="proj-feat-thumb gopanora-thumb">
+              <div className="proj-feat-bg">
+                <svg className="proj-feat-sphere" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="58" y="56" width="284" height="188" rx="18" fill="rgba(255,255,255,0.04)" stroke="rgba(249,115,22,0.28)" />
+                  <circle cx="156" cy="150" r="54" stroke="rgba(249,115,22,0.55)" strokeWidth="2" />
+                  <circle cx="156" cy="150" r="28" stroke="rgba(255,255,255,0.18)" strokeWidth="1" />
+                  <path d="M208 116h82M208 150h68M208 184h96" stroke="rgba(255,255,255,0.55)" strokeWidth="8" strokeLinecap="round" />
+                  <path d="M138 150l24-18v36l-24-18z" fill="rgba(249,115,22,0.9)" />
+                  <text x="200" y="261" textAnchor="middle" fontSize="20" fontWeight="800" fontFamily="Arial, sans-serif" fill="rgba(255,255,255,0.82)">GoPanora</text>
+                </svg>
+              </div>
+              <div className="proj-feat-thumb-overlay" />
+            </div>
+
+            {/* Content */}
+            <div className="proj-feat-body">
+              <span className="proj-category">SaaS &amp; Virtual Tour Builder</span>
+              <h3 className="proj-feat-title">GoPanora</h3>
+              <p className="proj-feat-desc">
+                GoPanora is a 360° virtual tour builder for real estate, hotels, rentals, and
+                property photographers. It helps users turn panorama images into interactive
+                virtual tours with hotspots, floor plans, share links, embeds, QR codes, and
+                custom branding.
+              </p>
+              <div className="proj-tags proj-tags-visible">
+                {['GoPanora', '360° Tours', 'Real Estate SaaS', 'React', 'Supabase'].map(t => (
+                  <span key={t} className="proj-tag">{t}</span>
+                ))}
+              </div>
+              <a
+                href="https://www.gopanora.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-primary proj-feat-btn"
+              >
+                GoPanora virtual tour builder
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                  <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+                </svg>
+              </a>
+            </div>
+
+          </div>
         </div>
       </div>
     </section>

@@ -15,6 +15,11 @@
   transform: translateY(0);
   transition: opacity 0.7s var(--tr), transform 0.7s var(--tr);
 }
+.proj-featured {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
 
 .proj-feat-card {
   display: grid;
@@ -30,6 +35,9 @@
   box-shadow: 0 24px 60px rgba(0,0,0,0.45);
   transform: translateY(-4px);
 }
+.proj-feat-card-alt {
+  transition-delay: 0.08s;
+}
 
 /* ── Thumbnail ── */
 .proj-feat-thumb {
@@ -37,6 +45,12 @@
   min-height: 340px;
   background: radial-gradient(ellipse at 60% 40%, #0d2d4a 0%, #060a15 70%);
   overflow: hidden;
+}
+.gopanora-thumb {
+  background:
+    radial-gradient(ellipse at 35% 35%, rgba(249,115,22,0.2) 0%, transparent 46%),
+    radial-gradient(ellipse at 70% 70%, rgba(99,179,237,0.16) 0%, transparent 42%),
+    #070a12;
 }
 .proj-feat-bg {
   position: absolute;
