@@ -33,8 +33,18 @@
 html {
   scroll-behavior: smooth;
   scrollbar-width: none;
+  max-width: 100%;
+  overflow-x: hidden;
 }
-::-webkit-scrollbar { display: none; }
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+*::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
 
 body {
   background: var(--bg);
@@ -42,6 +52,12 @@ body {
   font-family: 'Noto Sans', sans-serif;
   line-height: 1.7;
   overflow-x: hidden;
+  max-width: 100%;
+}
+#root {
+  min-height: 100vh;
+  max-width: 100%;
+  overflow-x: clip;
 }
 
 h1, h2, h3, h4 {
