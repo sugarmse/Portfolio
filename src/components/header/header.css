@@ -18,12 +18,27 @@
 }
 
 /* Logo */
-.hdr-logo img {
-  height: 36px;
-  width: auto;
-  transition: opacity var(--tr), transform var(--tr);
+.hdr-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
 }
-.hdr-logo:hover img { opacity: 0.75; transform: scale(1.05); }
+.hdr-logo img {
+  height: 30px;
+  width: 30px;
+  object-fit: contain;
+  filter: invert(1) brightness(1.8);
+  opacity: 0.9;
+  transition: opacity var(--tr), transform var(--tr), filter var(--tr);
+}
+.hdr-logo:hover img {
+  filter: invert(1) brightness(2.2);
+  opacity: 1;
+  transform: scale(1.05);
+}
 
 /* Desktop nav */
 .hdr-nav {
