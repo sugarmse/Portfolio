@@ -98,14 +98,20 @@
   display: none;
   flex-direction: column;
   background: rgba(6,6,15,0.97);
-  border-top: 1px solid var(--border);
-  padding: 0.5rem 0 1rem;
+  border-top: 0 solid transparent;
+  max-height: 0;
+  overflow: hidden;
+  padding: 0;
   transform: translateY(-8px);
   opacity: 0;
   pointer-events: none;
-  transition: opacity var(--tr), transform var(--tr);
+  transition: max-height var(--tr), opacity var(--tr), transform var(--tr), padding var(--tr), border-color var(--tr);
 }
 .mobile-nav.open {
+  border-top-width: 1px;
+  border-top-color: var(--border);
+  max-height: 360px;
+  padding: 0.5rem 0 1rem;
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;
