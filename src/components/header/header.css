@@ -22,13 +22,13 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
+  width: 56px;
+  height: 56px;
   border-radius: 10px;
 }
 .hdr-logo img {
-  height: 30px;
-  width: 30px;
+  height: 44px;
+  width: 44px;
   object-fit: contain;
   filter: invert(1) brightness(1.8);
   opacity: 0.9;
