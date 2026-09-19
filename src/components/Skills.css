@@ -83,11 +83,11 @@
 .skill-card:hover .skill-name { color: var(--text-1); }
 
 /* ── Scroll reveal ── */
-.skills-body .fade-up { opacity: 0; transform: translateY(24px); }
+.skills-body .fade-up { opacity: 0; transform: translateY(20px); }
 .skills-body.in-view .fade-up {
   opacity: 1;
   transform: translateY(0);
-  transition: opacity 0.65s var(--tr), transform 0.65s var(--tr);
+  transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
 }
 
 @media (max-width: 500px) {

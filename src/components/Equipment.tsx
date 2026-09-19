@@ -60,7 +60,7 @@ export default function Equipment() {
             <div
               key={item.model}
               className="eq-card fade-up"
-              style={{ '--eq-accent': item.accent, transitionDelay: `${i * 0.12}s` } as React.CSSProperties}
+              style={{ '--eq-accent': item.accent, transitionDelay: `${i * 0.06}s` } as React.CSSProperties}
             >
               <div className="eq-top">
                 <div className="eq-device-icon">

@@ -17,11 +17,11 @@
 }
 
 /* ── Scroll reveal ── */
-.contact-grid .fade-up { opacity: 0; transform: translateY(24px); }
+.contact-grid .fade-up { opacity: 0; transform: translateY(20px); }
 .contact-grid.in-view .fade-up {
   opacity: 1;
   transform: translateY(0);
-  transition: opacity 0.65s var(--tr), transform 0.65s var(--tr);
+  transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
 }
 
 /* ── Form ── */

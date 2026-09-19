@@ -20,24 +20,18 @@ export default function About() {
             <h2 className="section-title">Introduction</h2>
             <div className="section-divider" />
             <p>
-              Hello! I'm a full-stack developer turned entrepreneur with a
-              passion for clean UI/UX and visual storytelling. After wrapping up
-              my time as a developer at Kathmandu Codes in early 2026, I shifted
-              gears to manage and scale my own business.
+              Hello! I'm a software developer and entrepreneur. I'm currently
+              working on GoPanora, Bobalicious, and a POS system for Rudraman
+              and Sashil Shakya.
             </p>
             <p>
-              I still write a lot of code, but my workflow looks a bit different
-              now. I actively collaborate with AI tools to automate the heavy
-              lifting and optimise my architecture, keeping me focused on
-              execution and design rather than getting bogged down in syntax.
+              My work brings together software development and business. I use
+              AI tools in my development workflow to support implementation,
+              automation, and architecture, with a focus on building useful products.
             </p>
             <p>
-              Outside of tech and business, I'm a massive motorcycle enthusiast
-              and visual creator. You'll usually find me shooting moto-vlogs and
-              travel stories, or taking my photography into the professional realm
-              through a new platform I built for real estate and 360-degree
-              virtual tours. I thrive on creating immersive experiences — whether
-              that's through a beautifully coded website or a perfectly framed lens.
+              Outside of software and business, I enjoy motorcycles, photography,
+              and visual storytelling through moto-vlogs and travel stories.
             </p>
             <a href="/SS.pdf" download className="btn btn-ghost about-cv-btn">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

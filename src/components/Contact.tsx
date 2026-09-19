@@ -47,6 +47,7 @@ export default function Contact() {
   const [errors, setErrors]   = useState<Errors>({ fullName: '', email: '', message: '' });
   const [sending, setSending] = useState(false);
   const [sent, setSent]       = useState(false);
+  const [failure, setFailure] = useState('');
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -58,18 +59,25 @@ export default function Contact() {
     const e: Errors = { fullName: '', email: '', message: '' };
     let ok = true;
     if (!form.fullName.trim())                   { e.fullName = 'Name is required'; ok = false; }
-    if (!/\S+@\S+\.\S+/.test(form.email))        { e.email   = 'Valid email required'; ok = false; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) { e.email = 'Valid email required'; ok = false; }
     if (!form.message.trim())                    { e.message = 'Message cannot be empty'; ok = false; }
     setErrors(e);
+    if (!ok) {
+      const field = e.fullName ? 'f-name' : e.email ? 'f-email' : 'f-msg';
+      document.getElementById(field)?.focus();
+    }
     return ok;
   };
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    if (!validate() || !formRef.current) return;
+    if (sending || !validate() || !formRef.current) return;
     setSending(true);
+    setFailure('');
     emailjs.sendForm('service_o1v4dll', 'template_fneo06m', formRef.current, { publicKey: 'pwY_zEPyNwhKSPxBt' })
-      .finally(() => { setSending(false); setSent(true); setForm({ fullName: '', email: '', message: '' }); });
+      .then(() => { setSent(true); setForm({ fullName: '', email: '', message: '' }); })
+      .catch(() => setFailure('Your message could not be sent. Please try again or use the email link. Your message has been kept.'))
+      .finally(() => setSending(false));
   };
 
   return (
@@ -88,7 +96,7 @@ export default function Contact() {
             </p>
 
             {sent ? (
-              <div className="contact-success">
+              <div className="contact-success" role="status">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
                 </svg>
@@ -102,33 +110,37 @@ export default function Contact() {
               </div>
             ) : (
               <form className="contact-form" onSubmit={handleSubmit} ref={formRef} noValidate>
+                {failure && <p className="form-failure" role="alert">{failure}</p>}
                 <div className={`field${errors.fullName ? ' has-error' : ''}`}>
                   <input
                     type="text" name="fullName" id="f-name" placeholder=" "
+                    required aria-invalid={!!errors.fullName} aria-describedby={errors.fullName ? 'name-error' : undefined}
                     value={form.fullName} onChange={handleChange}
                     autoComplete="name"
                   />
                   <label htmlFor="f-name">Your Name <span>*</span></label>
-                  {errors.fullName && <span className="field-error">{errors.fullName}</span>}
+                  {errors.fullName && <span id="name-error" className="field-error">{errors.fullName}</span>}
                 </div>
 
                 <div className={`field${errors.email ? ' has-error' : ''}`}>
                   <input
                     type="email" name="email" id="f-email" placeholder=" "
+                    required aria-invalid={!!errors.email} aria-describedby={errors.email ? 'email-error' : undefined}
                     value={form.email} onChange={handleChange}
                     autoComplete="email"
                   />
                   <label htmlFor="f-email">Email Address <span>*</span></label>
-                  {errors.email && <span className="field-error">{errors.email}</span>}
+                  {errors.email && <span id="email-error" className="field-error">{errors.email}</span>}
                 </div>
 
                 <div className={`field field-textarea${errors.message ? ' has-error' : ''}`}>
                   <textarea
                     name="message" id="f-msg" placeholder=" " rows={5}
+                    required aria-invalid={!!errors.message} aria-describedby={errors.message ? 'message-error' : undefined}
                     value={form.message} onChange={handleChange}
                   />
                   <label htmlFor="f-msg">Your Message <span>*</span></label>
-                  {errors.message && <span className="field-error">{errors.message}</span>}
+                  {errors.message && <span id="message-error" className="field-error">{errors.message}</span>}
                 </div>
 
                 <button type="submit" className="btn btn-primary contact-submit" disabled={sending}>
@@ -153,7 +165,7 @@ export default function Contact() {
           </div>
 
           {/* ── Right: contact info ── */}
-          <div className="contact-info-col fade-up" style={{ transitionDelay: '0.2s' }}>
+          <div className="contact-info-col fade-up" style={{ transitionDelay: '0.08s' }}>
             <div className="contact-info-card">
               <h3>Contact Details</h3>
               <div className="info-list">

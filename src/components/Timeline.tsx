@@ -3,6 +3,12 @@ import './Timeline.css';
 
 const EXPERIENCE = [
   {
+    role: 'Software Developer & Entrepreneur',
+    company: 'Current Work',
+    period: 'Present',
+    desc: 'Working on GoPanora, Bobalicious, and a POS system for Rudraman and Sashil Shakya.',
+  },
+  {
     role: 'Software Developer',
     company: 'Kathmandu Codes',
     period: 'Feb 2025 – Jan 2026',

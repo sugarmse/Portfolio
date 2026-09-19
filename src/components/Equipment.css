@@ -105,11 +105,11 @@
 }
 
 /* ── Scroll reveal ── */
-.eq-grid .fade-up { opacity: 0; transform: translateY(24px); }
+.eq-grid .fade-up { opacity: 0; transform: translateY(20px); }
 .eq-grid.in-view .fade-up {
   opacity: 1;
   transform: translateY(0);
-  transition: opacity 0.65s var(--tr), transform 0.65s var(--tr);
+  transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
 }
 
 /* ── Responsive ── */

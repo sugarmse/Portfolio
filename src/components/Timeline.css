@@ -115,8 +115,12 @@
 }
 
 /* ── Scroll reveal ── */
-.tl-columns .fade-up { opacity: 0; transform: translateY(24px); }
-.tl-columns.in-view .fade-up { opacity: 1; transform: translateY(0); }
+.tl-columns .fade-up { opacity: 0; transform: translateY(20px); }
+.tl-columns.in-view .fade-up {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
+}
 
 /* ── Responsive ── */
 @media (max-width: 780px) {

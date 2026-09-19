@@ -23,6 +23,7 @@
   --radius-sm:    8px;
   --radius-md:    16px;
   --radius-lg:    24px;
+  --ease:         cubic-bezier(0.4, 0, 0.2, 1);
   --tr:           0.3s cubic-bezier(0.4, 0, 0.2, 1);
   --max-w:        1160px;
 }
@@ -152,8 +153,8 @@ section { padding: clamp(4.5rem, 9vw, 7rem) 0; }
 /* ── Scroll-reveal ─────────────────────────────────── */
 .fade-up {
   opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.65s var(--tr), transform 0.65s var(--tr);
+  transform: translateY(20px);
+  transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
 }
 .fade-up.visible { opacity: 1; transform: translateY(0); }
 

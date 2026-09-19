@@ -22,21 +22,16 @@ const SOCIALS = [
 ];
 
 export default function Footer() {
-  const go = (href: string) => {
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
     <footer className="site-footer">
       <div className="footer-inner container">
         <div className="footer-top">
-          <a href="#hero" onClick={e => { e.preventDefault(); go('#hero'); }} className="footer-brand">
+          <a href="#hero" className="footer-brand">
             <img src="/sslogo.png" alt="SS" className="footer-logo" />
             <span className="footer-name">Sarthak Shakya</span>
           </a>
           <p className="footer-tagline">
-            UI/UX Designer &amp; Web Developer — crafting experiences that matter.
+            Software Developer &amp; Entrepreneur.
           </p>
           <div className="footer-socials">
             {SOCIALS.map(s => (
@@ -51,11 +46,10 @@ export default function Footer() {
         <div className="footer-divider" />
 
         <div className="footer-bottom">
-          <p className="footer-copy">© 2024 Sarthak Shakya. All rights reserved.</p>
-          <nav className="footer-nav">
+          <p className="footer-copy">© {new Date().getFullYear()} Sarthak Shakya. All rights reserved.</p>
+          <nav className="footer-nav" aria-label="Footer navigation">
             {LINKS.map(l => (
-              <a key={l.label} href={l.href} className="footer-link"
-                 onClick={e => { e.preventDefault(); go(l.href); }}>
+              <a key={l.label} href={l.href} className="footer-link">
                 {l.label}
               </a>
             ))}
