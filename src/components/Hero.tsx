@@ -9,7 +9,7 @@ export default function Hero() {
           <p className="hero-greeting"><span className="status-dot" /> Software Developer &amp; Entrepreneur</p>
           <h1 className="hero-name" id="hero-title">Sarthak<span className="hero-name-accent"> Shakya.</span></h1>
           <p className="hero-statement">From an idea.<br />To something you can use.</p>
-          <p className="hero-bio">I build software and businesses. Currently working on GoPanora, Bobalicious, and a POS system for Rudraman and Sashil Shakya.</p>
+          <p className="hero-bio">I build software and businesses. Currently building GoPanora, Bobalicious, and production web applications.</p>
           <div className="hero-actions">
             <a href="#projects" className="btn btn-primary">Explore my work <span aria-hidden="true">↗</span></a>
             <a href="#contact" className="btn btn-ghost">Let's talk <span aria-hidden="true">↗</span></a>
