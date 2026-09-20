@@ -136,6 +136,7 @@
   z-index: 2;
 }
 .project-open:hover .project-arrow {
+  box-shadow: 0 4px 16px rgba(249, 115, 22, 0.4);
   transform: rotate(45deg);
   background: var(--accent);
   border-color: var(--accent);
