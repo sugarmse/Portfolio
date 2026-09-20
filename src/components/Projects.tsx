@@ -36,6 +36,16 @@ const PROJECTS = [
     current: false,
   },
   {
+    id: 'ss-bakery',
+    name: 'SS Bakery',
+    category: 'Artisan Bakery & Confectionery',
+    note: 'Good things are baked daily in Nepal.',
+    detail: 'Artisan bakery and pastry shop digital storefront created for handcrafted baked goods in Kathmandu Valley. Features warm editorial visual identity, categorized menu showcases, daily fresh special spotlights, and custom online cake ordering.',
+    url: 'https://bakery-design-template.vercel.app/',
+    image: '/projects/bakery-og.jpg',
+    current: false,
+  },
+  {
     id: 'bobalicious',
     name: 'Bobalicious',
     category: 'Current work',
