@@ -16,3 +16,19 @@ Personal portfolio showcasing software projects, business ventures, and modern w
 - **Animations**: GSAP (GreenSock) with ScrollTrigger & ScrollSmoother
 - **Styling**: Vanilla CSS design system with fluid typography and dark mode
 - **Routing & Navigation**: Custom section-based smooth scrolling with fallback support
+
+## Getting Started
+
+```bash
+# Install dependencies
+npm install
+
+# Start local development server
+npm run dev
+
+# Typecheck and build production bundle
+npm run build
+
+# Preview production build locally
+npm run preview
+```
