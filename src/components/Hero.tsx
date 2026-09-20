@@ -16,7 +16,7 @@ export default function Hero() {
           </div>
           <div className="hero-links">
             <a href="https://github.com/sugarmse" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-            <a href="/SS.pdf" download>Download CV ↓</a>
+            <a href="/Sarthak_Shakya_CV.pdf" download="Sarthak_Shakya_CV.pdf">Download CV ↓</a>
           </div>
         </div>
         <div className="hero-visual">

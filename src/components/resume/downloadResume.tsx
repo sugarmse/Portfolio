@@ -17,8 +17,8 @@ const DownloadOnClick = () => {
 	// Handle file download
 	const handleDownload = () => {
 		const link = document.createElement("a");
-		link.href = "/SS.pdf"; // Replace with the correct file path
-		link.download = "SS.pdf"; // The name of the file when downloaded
+		link.href = "/Sarthak_Shakya_CV.pdf";
+		link.download = "Sarthak_Shakya_CV.pdf";
 		link.click();
 	};
 

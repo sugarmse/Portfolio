@@ -33,7 +33,7 @@ export default function About() {
               Outside of software and business, I enjoy motorcycles, photography,
               and visual storytelling through moto-vlogs and travel stories.
             </p>
-            <a href="/SS.pdf" download className="btn btn-ghost about-cv-btn">
+            <a href="/Sarthak_Shakya_CV.pdf" download="Sarthak_Shakya_CV.pdf" className="btn btn-ghost about-cv-btn">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                 <polyline points="7 10 12 15 17 10" />
