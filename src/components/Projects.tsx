@@ -99,7 +99,7 @@ export default function Projects() {
         </div>
         <div className="project-rail-controls" aria-label="Choose a project">
           <span className="project-scroll-hint">Scroll to explore <span aria-hidden="true">→</span></span>
-          <div>{PROJECTS.map((project, index) => <button key={project.id} onClick={() => scrollToProject(index)} aria-label={`Show ${project.name}`}><span>0{index + 1}</span> {project.name}</button>)}</div>
+          <div>{PROJECTS.map((project, index) => <button key={project.id} onClick={() => scrollToProject(index)} aria-label={`Show ${project.name}`}><span>{String(index + 1).padStart(2, '0')}</span> {project.name}</button>)}</div>
         </div>
         <div className="project-viewport"><div className="project-grid">
           {PROJECTS.map((project, index) => (
