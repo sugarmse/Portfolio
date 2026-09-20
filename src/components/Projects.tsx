@@ -26,6 +26,16 @@ const PROJECTS = [
     current: false,
   },
   {
+    id: 'ss-travels',
+    name: 'SS Travels',
+    category: 'Travel & Tourism Platform',
+    note: 'Explore Nepal and the world.',
+    detail: 'A luxury, adventure-focused travel and tour agency platform crafted for seamless trip discovery across Nepal and international destinations. Features fluid interactive polaroids, dynamic search & filtering, curated destination showcases, and custom booking inquiry flows.',
+    url: 'https://travel-agency-design-two.vercel.app/ss_travels_website_nepal.html',
+    image: '/projects/travels-og.jpg',
+    current: false,
+  },
+  {
     id: 'bobalicious',
     name: 'Bobalicious',
     category: 'Current work',
