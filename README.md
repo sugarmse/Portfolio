@@ -32,3 +32,6 @@ npm run build
 # Preview production build locally
 npm run preview
 ```
+
+---
+*Updated with GoPanora, Bobalicious, SS Construction, SS Travels, and SS Bakery.*
