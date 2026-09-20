@@ -17,7 +17,7 @@ export function scrollToProject(index: number, smooth = true) {
   const trigger = ScrollTrigger.getById('project-travel');
   const cards = document.querySelectorAll<HTMLElement>('.project-card');
   const card = cards[index];
-  if (!card) return;
+  if (!card || index < 0 || index >= cards.length) return;
   if (trigger) {
     const distance = Math.max(1, (card.parentElement?.scrollWidth ?? 0) - (card.parentElement?.parentElement?.clientWidth ?? 0));
     const progress = Math.min(1, card.offsetLeft / distance);
