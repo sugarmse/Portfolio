@@ -108,7 +108,7 @@ export default function Projects() {
                 <div className={`project-art project-art-${project.id}`} aria-hidden="true">
                   <img src={project.image} alt={project.name} className="project-image" loading="lazy" />
                   <div className="project-art-overlay" />
-                  <span className="project-number">0{index + 1}</span>
+                  <span className="project-number">{String(index + 1).padStart(2, '0')}</span>
                   <span className="project-arrow">↗</span>
                 </div>
                 <div className="project-meta"><div><span className="proj-category">{project.category}</span><h3>{project.name}</h3></div><span className="project-action">Explore <span aria-hidden="true">↗</span></span></div>
