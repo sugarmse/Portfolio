@@ -14,7 +14,7 @@
 .projects-horizontal .project-card { flex: 0 0 min(60vw, 660px); }
 .projects-horizontal .project-art { width: 100%; aspect-ratio: 1024 / 537; height: auto; }
 .projects-horizontal .project-rail-controls { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: .7rem; }
-.project-rail-controls > div { display: flex; gap: .3rem; }
+.project-rail-controls > div { display: flex; gap: .3rem; flex-wrap: wrap; }
 .project-rail-controls button { min-height: 44px; padding: .5rem .8rem; color: var(--text-2); border: 1px solid var(--border); border-radius: 6px; font-size: .7rem; transition: background .2s, color .2s; }
 .project-rail-controls button span { opacity: .6; margin-right: .4rem; font-family: monospace; }
 .project-rail-controls button:hover, .project-rail-controls button.is-current { background: var(--accent); color: var(--bg); }
