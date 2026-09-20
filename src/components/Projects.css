@@ -78,6 +78,7 @@
   object-fit: cover;
   object-position: center;
   transition: transform .6s cubic-bezier(.2,.8,.2,1);
+  will-change: transform;
   z-index: 0;
 }
 .project-open:hover .project-image {
