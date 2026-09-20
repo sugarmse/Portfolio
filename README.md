@@ -9,3 +9,10 @@ Personal portfolio showcasing software projects, business ventures, and modern w
 3. **SS Construction** — High-impact commercial and civil infrastructure web platform with interactive estimators.
 4. **SS Travels** — Luxury adventure travel and tour platform with curated destination discovery.
 5. **SS Bakery** — Artisan confectionery storefront and online cake ordering experience.
+
+## Architecture & Tech Stack
+
+- **Framework**: React 18 with TypeScript and Vite
+- **Animations**: GSAP (GreenSock) with ScrollTrigger & ScrollSmoother
+- **Styling**: Vanilla CSS design system with fluid typography and dark mode
+- **Routing & Navigation**: Custom section-based smooth scrolling with fallback support
