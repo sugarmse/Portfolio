@@ -21,7 +21,7 @@
 .project-scroll-hint { color: var(--text-2); font-size: .7rem; }
 .project-scroll-hint > span { display: inline-block; margin-left: 1rem; color: var(--accent); }
 .projects-horizontal .project-travel-progress { display: block; height: 2px; background: var(--border); margin-top: 1.7rem; overflow: hidden; }
-.project-travel-progress > span { display: block; width: 100%; height: 100%; transform: scaleX(0); transform-origin: left; background: var(--accent); }
+.project-travel-progress > span { display: block; width: 100%; height: 100%; transform: scaleX(0); transform-origin: left; background: var(--accent); will-change: transform; transition: transform 0.1s linear; }
 .project-open .project-art { background-image: radial-gradient(circle at var(--pointer-x, 50%) var(--pointer-y, 50%), #ffffff24, transparent 60%); }
 .project-open:hover .project-mark { scale: 1.1; }
 .project-mark { transition: scale .5s cubic-bezier(.2,.8,.2,1); }
