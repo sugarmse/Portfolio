@@ -24,7 +24,7 @@ export default function Hero() {
             <img src="/pfp.jpeg" alt="Sarthak Shakya" className="hero-portrait" fetchPriority="high" />
             <div className="portrait-caption"><span>Behind the work</span><span>Code. Create. Build.</span></div>
           </div>
-          <a href="#projects" className="hero-work-note"><span className="status-dot" /><span>In the works<strong>GoPanora + Bobalicious</strong></span><span aria-hidden="true">↗</span></a>
+          <a href="#projects" className="hero-work-note"><span className="status-dot" /><span>In the works<strong>GoPanora + Featured Works</strong></span><span aria-hidden="true">↗</span></a>
           <span className="portrait-index" aria-hidden="true">SS / PORTFOLIO</span>
         </div>
       </div>
