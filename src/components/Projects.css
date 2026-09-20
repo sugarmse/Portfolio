@@ -144,7 +144,7 @@
 }
 .project-meta { padding: 1.3rem 0 .4rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
 .proj-category { color: var(--text-3); font-size: .62rem; text-transform: uppercase; letter-spacing: .14em; font-weight: 500; }
-.project-meta h3 { font-size: 1.55rem; margin-top: .3rem; }
+.project-meta h3 { font-size: 1.55rem; margin-top: .3rem; line-height: 1.25; }
 .project-action { font-size: .7rem; color: var(--accent); }
 .project-action > span { margin-left: .6rem; }
 .project-card-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .75rem; font-size: .7rem; color: var(--text-2); }
