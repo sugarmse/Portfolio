@@ -16,6 +16,16 @@ const PROJECTS = [
     current: true,
   },
   {
+    id: 'ss-construction',
+    name: 'SS Construction',
+    category: 'Commercial & Civil Infrastructure',
+    note: 'Built on trust, delivered with precision.',
+    detail: 'Modern web platform built for a premier commercial construction and civil infrastructure firm in Nepal. Features responsive architectural aesthetics, interactive service explorations, trust metrics, team showcases, and an interactive cost & scope estimator.',
+    url: 'https://construction-design-one.vercel.app/ss_construction_website.html',
+    image: '/projects/construction-og.jpg',
+    current: false,
+  },
+  {
     id: 'bobalicious',
     name: 'Bobalicious',
     category: 'Current work',
@@ -24,6 +34,16 @@ const PROJECTS = [
     url: '',
     image: '/projects/bobalicious-og.jpg',
     current: true,
+  },
+  {
+    id: 'ss-construction',
+    name: 'SS Construction',
+    category: 'Commercial & Civil Infrastructure',
+    note: 'Built on trust, delivered with precision.',
+    detail: 'Modern web platform built for a premier commercial construction and civil infrastructure firm in Nepal. Features responsive architectural aesthetics, interactive service explorations, trust metrics, team showcases, and an interactive cost & scope estimator.',
+    url: 'https://construction-design-one.vercel.app/ss_construction_website.html',
+    image: '/projects/construction-og.jpg',
+    current: false,
   },
 ];
 type Project = typeof PROJECTS[number];
