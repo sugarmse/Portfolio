@@ -1,21 +1,11 @@
-# React + TypeScript + Vite
+# Sarthak Shakya — Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personal portfolio showcasing software projects, business ventures, and modern web applications.
 
-While this project uses React, Vite supports many popular JS frameworks. [See all the supported frameworks](https://vitejs.dev/guide/#scaffolding-your-first-vite-project).
+## Featured Projects
 
-## Deploy Your Own
-
-Deploy your own Vite project with Vercel.
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/vercel/tree/main/examples/vite-react&template=vite-react)
-
-_Live Example: https://vite-react-example.vercel.app_
-
-### Deploying From Your Terminal
-
-You can deploy your new Vite project with a single command from your terminal using [Vercel CLI](https://vercel.com/download):
-
-```shell
-$ vercel
-```
+1. **GoPanora** — Virtual tour builder transforming 360-degree panoramas into interactive tours with hotspots, floor plans, and custom branding.
+2. **Bobalicious** — Food & beverage venture in Kathmandu Valley.
+3. **SS Construction** — High-impact commercial and civil infrastructure web platform with interactive estimators.
+4. **SS Travels** — Luxury adventure travel and tour platform with curated destination discovery.
+5. **SS Bakery** — Artisan confectionery storefront and online cake ordering experience.
