@@ -121,7 +121,7 @@ export default function Projects() {
                   <span className="project-number">{String(index + 1).padStart(2, '0')}</span>
                   <span className="project-arrow">↗</span>
                 </div>
-                <div className="project-meta"><div><span className="proj-category">{project.category}</span><h3>{project.name}</h3></div><span className="project-action">Explore <span aria-hidden="true">↗</span></span></div>
+                <div className="project-meta"><div><span className="proj-category">{project.category}</span><h3>{project.name}</h3></div><span className="project-action" title={`Explore details for ${project.name}`}>Explore <span aria-hidden="true">↗</span></span></div>
               </button>
               <div className="project-card-footer"><p>{project.note}</p>{project.current && <span className="project-current"><span className="status-dot" />Current work</span>}</div>
             </article>
