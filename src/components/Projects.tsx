@@ -66,7 +66,17 @@ const PROJECTS = [
     current: false,
   },
 ];
-type Project = typeof PROJECTS[number];
+export interface ProjectItem {
+  id: string;
+  name: string;
+  category: string;
+  note: string;
+  detail: string;
+  url: string;
+  image: string;
+  current: boolean;
+}
+export type Project = ProjectItem;
 
 export default function Projects() {
   const [selected, setSelected] = useState<Project | null>(null);
