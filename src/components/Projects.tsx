@@ -106,7 +106,7 @@ export default function Projects() {
             <article key={project.id} className="project-card fade-up" id={`project-${project.id}`}>
               <button className="project-open" onClick={event => { opener.current = event.currentTarget; setSelected(project); }} aria-label={`Explore ${project.name}`} aria-haspopup="dialog">
                 <div className={`project-art project-art-${project.id}`} aria-hidden="true">
-                  <img src={project.image} alt={project.name} className="project-image" loading="lazy" />
+                  <img src={project.image} alt={project.name} className="project-image" loading="lazy" decoding="async" />
                   <div className="project-art-overlay" />
                   <span className="project-number">{String(index + 1).padStart(2, '0')}</span>
                   <span className="project-arrow">↗</span>
