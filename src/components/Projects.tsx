@@ -132,7 +132,7 @@ export default function Projects() {
         </div>
         <a className="project-pos-note" href="#contact"><span><span className="section-tag">Also building</span><strong>A POS system for Rudraman and Sashil Shakya.</strong></span><span aria-hidden="true">↗</span></a>
       </div>
-      {createPortal(<dialog ref={dialog} className="project-dialog" aria-labelledby="project-dialog-title" aria-modal="true" onCancel={() => setSelected(null)} onClick={event => { if (event.target === event.currentTarget) { const rect = event.currentTarget.getBoundingClientRect(); if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) setSelected(null); } }}>
+      {createPortal(<dialog ref={dialog} className="project-dialog" aria-labelledby="project-dialog-title" aria-modal="true" onCancel={() => setSelected(null)} onKeyDown={e => { if (e.key === 'Escape') setSelected(null); }} onClick={event => { if (event.target === event.currentTarget) { const rect = event.currentTarget.getBoundingClientRect(); if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) setSelected(null); } }}>
         {selected && <>
           <button className="dialog-close" onClick={() => setSelected(null)} aria-label="Close project">×</button>
           {selected.image && (
