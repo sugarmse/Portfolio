@@ -31,7 +31,7 @@ export default function Footer() {
             <span className="footer-name">Sarthak Shakya</span>
           </a>
           <p className="footer-tagline">
-            Software Developer &amp; Entrepreneur.
+            Software Developer &amp; Video Editor.
           </p>
           <div className="footer-socials">
             {SOCIALS.map(s => (

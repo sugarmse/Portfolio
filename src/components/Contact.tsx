@@ -76,7 +76,15 @@ export default function Contact() {
     setFailure('');
     emailjs.sendForm('service_o1v4dll', 'template_fneo06m', formRef.current, { publicKey: 'pwY_zEPyNwhKSPxBt' })
       .then(() => { setSent(true); setForm({ fullName: '', email: '', message: '' }); })
-      .catch(() => setFailure('Your message could not be sent. Please try again or use the email link. Your message has been kept.'))
+      .catch((err) => {
+        console.error('EmailJS send error:', err);
+        const errText = typeof err === 'object' && err !== null && 'text' in err ? String(err.text) : '';
+        if (errText.includes('Invalid grant') || errText.includes('reconnect')) {
+          setFailure('The email service token has expired and needs to be reconnected. In the meantime, please send directly using the email client link below.');
+        } else {
+          setFailure('Your message could not be sent. Please try again or send directly using the email client link below. Your message has been kept.');
+        }
+      })
       .finally(() => setSending(false));
   };
 
@@ -110,7 +118,20 @@ export default function Contact() {
               </div>
             ) : (
               <form className="contact-form" onSubmit={handleSubmit} ref={formRef} noValidate>
-                {failure && <p className="form-failure" role="alert">{failure}</p>}
+                {failure && (
+                  <div className="form-failure" role="alert">
+                    <p>{failure}</p>
+                    <a
+                      className="btn btn-ghost fallback-mail-btn"
+                      href={`mailto:info.sarthakshakya@gmail.com?subject=${encodeURIComponent(`Portfolio Message from ${form.fullName || 'Visitor'}`)}&body=${encodeURIComponent(`${form.message}\n\n—\nFrom: ${form.fullName} (${form.email})`)}`}
+                    >
+                      Send via Email Client ↗
+                    </a>
+                  </div>
+                )}
+                <input type="hidden" name="from_name" value={form.fullName} />
+                <input type="hidden" name="from_email" value={form.email} />
+                <input type="hidden" name="reply_to" value={form.email} />
                 <div className={`field${errors.fullName ? ' has-error' : ''}`}>
                   <input
                     type="text" name="fullName" id="f-name" placeholder=" "

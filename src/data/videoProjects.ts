@@ -18,7 +18,7 @@ export interface VideoProject {
   id: string;
   title: string;
   clientOrSeries?: string;
-  category: 'Commercial' | 'Product Showcase';
+  category: 'Commercial' | 'Product Showcase' | 'History';
   categoryLabel: string;
   duration: string;
   aspectRatio?: '16:9' | '9:16';
@@ -39,6 +39,7 @@ export const VIDEO_CATEGORIES = [
   'All',
   'Commercial',
   'Product Showcase',
+  'History',
 ] as const;
 
 export type VideoCategoryFilter = typeof VIDEO_CATEGORIES[number];
@@ -205,4 +206,39 @@ export const VIDEO_PROJECTS: VideoProject[] = [
       },
     ],
   },
+  {
+    id: 'history-spartacus-trial',
+    title: 'History — Spartacus Trial & Rebellion',
+    clientOrSeries: 'History • Narrative Cut',
+    category: 'History',
+    categoryLabel: 'Historical / Narrative Edit',
+    duration: '1 Edit • Narrative Cut',
+    aspectRatio: '16:9',
+    videoSrc: '/videos/History/Spartacus-Trial-Demo.mp4',
+    poster: '',
+    description: 'A dramatized historical narrative edit recounting the rebellion and trial of Spartacus. Features programmatic motion sequencing, kinetic typography, atmospheric soundscapes, and dramatic documentary pacing.',
+    editBreakdown: {
+      pacing: 'Dramatic narrative cadence with tension-building pauses and kinetic text synchronization',
+      colorGrading: 'Moody cinematic film tone with deep shadows, warm earth hues, and dramatic contrast',
+      soundDesign: 'Ominous orchestral drone, impact accents, courtroom foley, and spatial voiceover mastering',
+      resolution: '1080p Full HD • 60 FPS Masters',
+    },
+    tools: ['Remotion', 'DaVinci Resolve', 'Adobe Premiere Pro', 'Sound Design', 'Kinetic Typography'],
+    role: 'Motion Editing, Narrative Pacing & Sound Design',
+    highlight: 'Dramatized historical sequence blending programmatic motion choreography with cinematic storytelling.',
+    isPlaceholder: false,
+    isFolder: true,
+    driveUrl: '',
+    folderItems: [
+      {
+        id: 'spartacus-trial-demo',
+        title: 'Spartacus Trial Demo',
+        videoSrc: '/videos/History/Spartacus-Trial-Demo.mp4',
+        duration: '0:30',
+        tag: 'Historical Drama',
+        description: 'Atmospheric narrative sequence recreating the trial and rebellion story of Spartacus with beat-synced visuals and narration.',
+      },
+    ],
+  },
 ];
+

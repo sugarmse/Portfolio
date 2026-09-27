@@ -14,16 +14,18 @@ const PROJECTS = [
     url: 'https://www.gopanora.com/',
     image: '/projects/gopanora-og.jpg',
     current: true,
+    accentColor: '#ff995e',
   },
   {
     id: 'bobalicious',
     name: 'Bobalicious',
     category: 'Current work',
     note: 'One of my current ventures.',
-    detail: 'Bobalicious is one of the projects I am currently working on alongside GoPanora and a POS system for Rudraman and Sashil Shakya.',
+    detail: 'Bobalicious is an active venture alongside GoPanora and Gigways, combining digital development, brand presence, and visual storytelling.',
     url: '',
     image: '/projects/bobalicious-og.jpg',
     current: true,
+    accentColor: '#f472b6',
   },
   {
     id: 'ss-construction',
@@ -34,6 +36,7 @@ const PROJECTS = [
     url: 'https://construction-design-one.vercel.app/ss_construction_website.html',
     image: '/projects/construction-og.jpg',
     current: false,
+    accentColor: '#38bdf8',
   },
   {
     id: 'ss-travels',
@@ -44,6 +47,7 @@ const PROJECTS = [
     url: 'https://travel-agency-design-two.vercel.app/ss_travels_website_nepal.html',
     image: '/projects/travels-og.jpg',
     current: false,
+    accentColor: '#2dd4bf',
   },
   {
     id: 'ss-bakery',
@@ -54,8 +58,10 @@ const PROJECTS = [
     url: 'https://bakery-design-template.vercel.app/',
     image: '/projects/bakery-og.jpg',
     current: false,
+    accentColor: '#fb923c',
   },
 ];
+
 export interface ProjectItem {
   id: string;
   name: string;
@@ -65,6 +71,7 @@ export interface ProjectItem {
   url: string;
   image: string;
   current: boolean;
+  accentColor: string;
 }
 export type Project = ProjectItem;
 
@@ -90,55 +97,207 @@ export default function Projects() {
   }, [selected]);
 
   return (
-    <section className="projects-section" id="projects" aria-labelledby="projects-title">
-      <div className="container">
+    <>
+      <section className="projects-section" id="projects" aria-labelledby="projects-title">
         <div className="project-pin-stage">
-        <div className="project-heading">
-          <div><span className="section-tag">01 / Selected work</span><h2 className="section-title" id="projects-title">Ideas in the real world<span className="accent-text">.</span></h2><div className="section-divider" /></div>
-          <p>Software and ventures I'm building.<br />Select a project to take a closer look.</p>
-        </div>
-        <div className="project-rail-controls" aria-label="Choose a project">
-          <span className="project-scroll-hint">Scroll to explore <span aria-hidden="true">→</span></span>
-          <div>{PROJECTS.map((project, index) => <button key={project.id} onClick={() => scrollToProject(index)} aria-label={`Show ${project.name}`}><span>{String(index + 1).padStart(2, '0')}</span> {project.name}</button>)}</div>
-        </div>
-        <div className="project-viewport"><div className="project-grid">
-          {PROJECTS.map((project, index) => (
-            <article key={project.id} className="project-card fade-up" id={`project-${project.id}`}>
-              <button className="project-open" onClick={event => { opener.current = event.currentTarget; setSelected(project); }} aria-label={`Explore ${project.name}`} aria-haspopup="dialog">
-                <div className={`project-art project-art-${project.id}`} aria-hidden="true">
-                  <img src={project.image} alt={project.name} className="project-image" loading="lazy" decoding="async" />
-                  <div className="project-art-overlay" />
-                  <span className="project-number">{String(index + 1).padStart(2, '0')}</span>
-                  <span className="project-arrow">↗</span>
-                </div>
-                <div className="project-meta"><div><span className="proj-category">{project.category}</span><h3>{project.name}</h3></div><span className="project-action" title={`Explore details for ${project.name}`}>Explore <span aria-hidden="true">↗</span></span></div>
-              </button>
-              <div className="project-card-footer"><p>{project.note}</p>{project.current && <span className="project-current"><span className="status-dot" />Current work</span>}</div>
-            </article>
-          ))}
-        </div>
-        </div>
-        <div className="project-travel-progress" aria-hidden="true"><span /></div>
-        </div>
-        <a className="project-pos-note" href="#contact"><span><span className="section-tag">Also building</span><strong>A POS system for Rudraman and Sashil Shakya.</strong></span><span aria-hidden="true">↗</span></a>
-      </div>
-      {createPortal(<dialog ref={dialog} className="project-dialog" aria-labelledby="project-dialog-title" aria-modal="true" onCancel={() => setSelected(null)} onKeyDown={e => { if (e.key === 'Escape') setSelected(null); }} onClick={event => { if (event.target === event.currentTarget) { const rect = event.currentTarget.getBoundingClientRect(); if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) setSelected(null); } }}>
-        {selected && <>
-          <button className="dialog-close" onClick={() => setSelected(null)} aria-label="Close project">×</button>
-          {selected.image && (
-            <div className="dialog-image-wrap">
-              <img src={selected.image} alt={selected.name} className="dialog-image" />
+          <div className="project-stage-inner">
+            {/* Top Section Header & Controls */}
+            <div className="project-heading-bar">
+              <div className="project-heading-left">
+                <span className="section-tag">01 / Selected work</span>
+                <h2 className="section-title" id="projects-title">
+                  Ideas in the real world<span className="accent-text">.</span>
+                </h2>
+              </div>
+              <div className="project-rail-controls" aria-label="Choose a project">
+                {PROJECTS.map((project, index) => (
+                  <button
+                    key={project.id}
+                    onClick={() => scrollToProject(index)}
+                    aria-label={`Show ${project.name}`}
+                    className={index === 0 ? 'is-current' : ''}
+                  >
+                    <span>{String(index + 1).padStart(2, '0')}</span> {project.name}
+                  </button>
+                ))}
+              </div>
             </div>
-          )}
-          <span className="section-tag">{selected.category}</span>
-          <h2 id="project-dialog-title">{selected.name}</h2>
-          <p>{selected.detail}</p>
-          <div className="dialog-actions">
-            {selected.url && <a className="btn btn-primary" href={selected.url} target="_blank" rel="noopener noreferrer">Visit website ↗</a>}
-            <a className="btn btn-ghost" href={`mailto:info.sarthakshakya@gmail.com?subject=${encodeURIComponent(`Let's talk about ${selected.name}`)}`}>Ask about {selected.name} ↗</a>
+
+            {/* Fullscreen Showcase Rail Viewport */}
+            <div className="project-viewport">
+              <div className="project-grid">
+                {PROJECTS.map((project, index) => (
+                  <article
+                    key={project.id}
+                    className="project-card fade-up"
+                    id={`project-${project.id}`}
+                    style={{ '--proj-accent': project.accentColor } as React.CSSProperties}
+                  >
+                    <div className="project-card-inner">
+                      {/* Subtle Background Watermark Numeral */}
+                      <div className="project-watermark" aria-hidden="true">
+                        {String(index + 1).padStart(2, '0')}
+                      </div>
+
+                      {/* Left: Project Details & Action Links */}
+                      <div className="project-info-pane">
+                        <div className="project-info-header">
+                          <div className="project-badge-row">
+                            <span className="project-slide-number">{String(index + 1).padStart(2, '0')}</span>
+                            <span className="proj-category">{project.category}</span>
+                            {project.current && (
+                              <span className="project-current-badge">
+                                <span className="status-dot" /> Current work
+                              </span>
+                            )}
+                          </div>
+                          <h3 className="project-title">{project.name}</h3>
+                          <p className="project-tagline">{project.note}</p>
+                        </div>
+
+                        <p className="project-description">{project.detail}</p>
+
+                        <div className="project-actions-row">
+                          {project.url && (
+                            <a
+                              className="btn btn-primary project-visit-btn"
+                              href={project.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              aria-label={`Visit ${project.name} website`}
+                            >
+                              Visit website ↗
+                            </a>
+                          )}
+                          <button
+                            type="button"
+                            className="btn btn-ghost project-explore-btn"
+                            onClick={event => {
+                              opener.current = event.currentTarget;
+                              setSelected(project);
+                            }}
+                            aria-label={`Explore details for ${project.name}`}
+                            aria-haspopup="dialog"
+                          >
+                            Explore details ↗
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Right: Large Cinematic Media Viewport */}
+                      <div className="project-media-pane">
+                        <button
+                          type="button"
+                          className="project-media-btn"
+                          onClick={event => {
+                            opener.current = event.currentTarget;
+                            setSelected(project);
+                          }}
+                          aria-label={`Explore ${project.name}`}
+                        >
+                          <div className={`project-art project-art-${project.id}`} aria-hidden="true">
+                            <img
+                              src={project.image}
+                              alt={project.name}
+                              className="project-image"
+                              loading="lazy"
+                              decoding="async"
+                            />
+                            <div className="project-art-overlay" />
+
+                            {/* Prominent Branded Identification Badge */}
+                            <div className="project-art-brand-badge">
+                              <span className="brand-dot" />
+                              <span>{String(index + 1).padStart(2, '0')} • {project.name}</span>
+                            </div>
+
+                            {/* Floating Category & Zoom Badges */}
+                            <div className="project-art-floating-meta">
+                              <span className="project-art-chip">{project.category}</span>
+                              <span className="project-arrow-badge">↗</span>
+                            </div>
+                          </div>
+                        </button>
+                      </div>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+
+            {/* Travel Progress Bar */}
+            <div className="project-travel-progress" aria-hidden="true">
+              <span />
+            </div>
           </div>
-        </>}
-      </dialog>, document.body)}
-    </section>
+        </div>
+      </section>
+
+      {/* POS System Note below the full-screen pinned section */}
+      <div className="container project-pos-container">
+        <a className="project-pos-note" href="#contact">
+          <span>
+            <span className="section-tag">Also building</span>
+            <strong>A POS system for Rudraman and Sashil Shakya.</strong>
+          </span>
+          <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+
+      {/* Dialog Modal */}
+      {createPortal(
+        <dialog
+          ref={dialog}
+          className="project-dialog"
+          aria-labelledby="project-dialog-title"
+          aria-modal="true"
+          onCancel={() => setSelected(null)}
+          onKeyDown={e => { if (e.key === 'Escape') setSelected(null); }}
+          onClick={event => {
+            if (event.target === event.currentTarget) {
+              const rect = event.currentTarget.getBoundingClientRect();
+              if (
+                event.clientX < rect.left ||
+                event.clientX > rect.right ||
+                event.clientY < rect.top ||
+                event.clientY > rect.bottom
+              ) {
+                setSelected(null);
+              }
+            }
+          }}
+        >
+          {selected && (
+            <>
+              <button className="dialog-close" onClick={() => setSelected(null)} aria-label="Close project">
+                ×
+              </button>
+              {selected.image && (
+                <div className="dialog-image-wrap">
+                  <img src={selected.image} alt={selected.name} className="dialog-image" />
+                </div>
+              )}
+              <span className="section-tag">{selected.category}</span>
+              <h2 id="project-dialog-title">{selected.name}</h2>
+              <p>{selected.detail}</p>
+              <div className="dialog-actions">
+                {selected.url && (
+                  <a className="btn btn-primary" href={selected.url} target="_blank" rel="noopener noreferrer">
+                    Visit website ↗
+                  </a>
+                )}
+                <a
+                  className="btn btn-ghost"
+                  href={`mailto:info.sarthakshakya@gmail.com?subject=${encodeURIComponent(`Let's talk about ${selected.name}`)}`}
+                >
+                  Ask about {selected.name} ↗
+                </a>
+              </div>
+            </>
+          )}
+        </dialog>,
+        document.body
+      )}
+    </>
   );
 }

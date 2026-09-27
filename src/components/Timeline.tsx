@@ -3,10 +3,10 @@ import './Timeline.css';
 
 const EXPERIENCE = [
   {
-    role: 'Software Developer & Entrepreneur',
+    role: 'Software Developer & Video Editor',
     company: 'Current Work',
     period: 'Present',
-    desc: 'Working on GoPanora, Bobalicious, and a POS system for Rudraman and Sashil Shakya.',
+    desc: 'Building websites, software applications, and dynamic video edits for Gigways, GoPanora, and Bobalicious, alongside a POS system for Rudraman and Sashil Shakya.',
   },
   {
     role: 'Software Developer',

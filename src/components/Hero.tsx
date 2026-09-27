@@ -6,10 +6,10 @@ export default function Hero() {
       <div className="hero-grid" aria-hidden="true" />
       <div className="hero-content container">
         <div className="hero-copy">
-          <p className="hero-greeting"><span className="status-dot" /> Software Developer &amp; Entrepreneur</p>
+          <p className="hero-greeting"><span className="status-dot" /> Software Developer &amp; Video Editor</p>
           <h1 className="hero-name" id="hero-title">Sarthak<span className="hero-name-accent"> Shakya.</span></h1>
           <p className="hero-statement">From an idea.<br />To something you can use.</p>
-          <p className="hero-bio">I build software and businesses. Currently building GoPanora, Bobalicious, and production web applications.</p>
+          <p className="hero-bio">I build websites, software, and dynamic video edits. Currently developing and editing for Gigways, GoPanora, and Bobalicious.</p>
           <div className="hero-actions">
             <a href="#projects" className="btn btn-primary">Explore my work <span aria-hidden="true">↗</span></a>
             <a href="#contact" className="btn btn-ghost">Let's talk <span aria-hidden="true">↗</span></a>
@@ -24,11 +24,11 @@ export default function Hero() {
             <img src="/pfp.jpeg" alt="Sarthak Shakya" className="hero-portrait" fetchPriority="high" />
             <div className="portrait-caption"><span>Behind the work</span><span>Code. Create. Build.</span></div>
           </div>
-          <a href="#projects" className="hero-work-note"><span className="status-dot" /><span>In the works<strong>GoPanora + Featured Works</strong></span><span aria-hidden="true">↗</span></a>
+          <a href="#projects" className="hero-work-note"><span className="status-dot" /><span>In the works<strong>Gigways · GoPanora · Bobalicious</strong></span><span aria-hidden="true">↗</span></a>
           <span className="portrait-index" aria-hidden="true">SS / PORTFOLIO</span>
         </div>
       </div>
-      <div className="hero-bottom container"><span>Software · Business · Visual storytelling</span><a href="#projects">Scroll to explore <span aria-hidden="true">↓</span></a></div>
+      <div className="hero-bottom container"><span>Websites · Software · Video Editing</span><a href="#projects">Scroll to explore <span aria-hidden="true">↓</span></a></div>
     </section>
   );
 }

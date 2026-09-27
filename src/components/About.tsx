@@ -20,18 +20,20 @@ export default function About() {
             <h2 className="section-title">Introduction</h2>
             <div className="section-divider" />
             <p>
-              Hello! I'm a software developer and entrepreneur. I'm currently
-              working on GoPanora, Bobalicious, and a POS system for Rudraman
-              and Sashil Shakya.
+              Hello! I'm a Software Developer &amp; Video Editor. I design and build
+              responsive websites, develop production software, and create high-retention video
+              edits. I'm currently working on Gigways, GoPanora, and Bobalicious, alongside
+              a POS system for Rudraman and Sashil Shakya.
             </p>
             <p>
-              My work brings together software development and business. I use
-              AI tools in my development workflow to support implementation,
-              automation, and architecture, with a focus on building useful products.
+              My work connects technical engineering with visual media. Whether
+              it’s architecting full-stack web platforms, shipping intuitive product features,
+              or crafting cinematic product walkthroughs and commercial edits with synchronized
+              motion and sound, I focus on delivering polished, practical results.
             </p>
             <p>
-              Outside of software and business, I enjoy motorcycles, photography,
-              and visual storytelling through moto-vlogs and travel stories.
+              Outside of coding and editing suites, you'll find me exploring new creative
+              outlets, riding motorcycles, and storytelling through photography and travel filmmaking.
             </p>
             <a href="/Sarthak_Shakya_CV.pdf" download="Sarthak_Shakya_CV.pdf" className="btn btn-ghost about-cv-btn">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

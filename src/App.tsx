@@ -44,7 +44,7 @@ function App() {
       <div id="smooth-wrapper"><div id="smooth-content">
       <main id="main-content" tabIndex={-1}>
         <Hero />
-        <div className="motion-ribbon" aria-hidden="true"><div className="motion-ribbon-track">SOFTWARE <span>↗</span> BUSINESS <span>↗</span> IDEAS INTO REALITY <span>↗</span> SOFTWARE <span>↗</span> BUSINESS</div></div>
+        <div className="motion-ribbon" aria-hidden="true"><div className="motion-ribbon-track">WEBSITES <span>↗</span> SOFTWARE <span>↗</span> VIDEO EDITING <span>↗</span> GIGWAYS <span>↗</span> GOPANORA <span>↗</span> BOBALICIOUS</div></div>
         <Projects />
         <VideoProjects />
         <About />

@@ -423,7 +423,7 @@ export default function VideoProjects() {
                   <div className="video-top-badges">
                     {project.isFolder ? (
                       <span className="video-badge-folder">
-                        <FaFolder /> FOLDER • {project.folderItems?.length || 5} EDITS
+                        <FaFolder /> FOLDER • {project.folderItems?.length ?? 1} {(project.folderItems?.length === 1) ? 'EDIT' : 'EDITS'}
                       </span>
                     ) : (
                       <span className="video-badge-category">{project.categoryLabel}</span>
@@ -436,7 +436,7 @@ export default function VideoProjects() {
                   <div className="video-bottom-badges">
                     <span className="video-badge-spec">
                       {project.isFolder
-                        ? 'MULTI-EDIT SUITE'
+                        ? (project.folderItems?.length === 1 ? 'NARRATIVE CUT' : 'MULTI-EDIT SUITE')
                         : (project.isPlaceholder ? 'STORYBOARD & SPECS' : '4K UHD')}
                     </span>
                     <span className="video-badge-duration">{project.duration}</span>
@@ -595,7 +595,7 @@ export default function VideoProjects() {
                       <div>
                         <strong>{selected.title}</strong>
                         <span className="folder-playlist-sub">
-                          Folder Playlist ({selected.folderItems.length} Videos) — click to play
+                          Folder Playlist ({selected.folderItems.length} {selected.folderItems.length === 1 ? 'Video' : 'Videos'}) — click to play
                         </span>
                       </div>
                     </div>

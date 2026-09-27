@@ -36,16 +36,17 @@ export function useScrollMotion(root: RefObject<HTMLDivElement>, preference: Mot
           const rail = root.current!.querySelector<HTMLElement>('.project-grid')!;
           const viewport = rail.parentElement!;
           const distance = () => Math.max(0, rail.scrollWidth - viewport.clientWidth);
+          const cards = Array.from(rail.children) as HTMLElement[];
           gsap.to(rail, {
             x: () => -distance(), ease: 'none',
             scrollTrigger: {
-              id: 'project-travel', trigger: '.project-pin-stage', pin: true,
-              start: () => `top ${window.innerHeight <= 500 ? 82 : 100}px`, end: () => `+=${distance() + 250}`,
-              scrub: .8, anticipatePin: 1, invalidateOnRefresh: true,
+              id: 'project-travel', trigger: '#projects', pin: true,
+              start: () => 'top top', end: () => `+=${distance() + 500}`,
+              scrub: .8,
+              anticipatePin: 1, invalidateOnRefresh: true,
               onUpdate: self => {
                 const bar = root.current?.querySelector<HTMLElement>('.project-travel-progress span');
                 if (bar) bar.style.transform = `scaleX(${self.progress})`;
-                const cards = Array.from(rail.children) as HTMLElement[];
                 const center = self.progress * distance() + viewport.clientWidth / 2;
                 const current = cards.reduce((best, card, index) => Math.abs(card.offsetLeft + card.clientWidth / 2 - center) < Math.abs(cards[best].offsetLeft + cards[best].clientWidth / 2 - center) ? index : best, 0);
                 root.current?.querySelectorAll('.project-rail-controls button').forEach((button, index) => {
@@ -56,14 +57,19 @@ export function useScrollMotion(root: RefObject<HTMLDivElement>, preference: Mot
               },
             },
           });
-          rail.querySelectorAll<HTMLButtonElement>('.project-open').forEach((button, index) => {
+          rail.querySelectorAll<HTMLElement>('.project-card a, .project-card button').forEach(el => {
             const onFocus = () => {
-              const rect = button.getBoundingClientRect();
-              const bounds = viewport.getBoundingClientRect();
-              if (rect.left < bounds.left - 2 || rect.right > bounds.right + 2) scrollToProject(index, false);
+              const card = el.closest<HTMLElement>('.project-card');
+              if (!card) return;
+              const index = Array.from(rail.children).indexOf(card);
+              if (index >= 0) {
+                const bounds = viewport.getBoundingClientRect();
+                const rect = card.getBoundingClientRect();
+                if (rect.left < bounds.left - 2 || rect.right > bounds.right + 2) scrollToProject(index, false);
+              }
             };
-            button.addEventListener('focus', onFocus);
-            cleanup.push(() => button.removeEventListener('focus', onFocus));
+            el.addEventListener('focus', onFocus);
+            cleanup.push(() => el.removeEventListener('focus', onFocus));
           });
         }
         gsap.to('.scroll-progress', { scaleX: 1, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: true } });
