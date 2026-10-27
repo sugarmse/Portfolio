@@ -28,6 +28,7 @@ export default function VideoProjects() {
   const [activeFilter, setActiveFilter] = useState<VideoCategoryFilter>('All');
   const [selected, setSelected] = useState<VideoProject | null>(null);
   const [activeFolderIndex, setActiveFolderIndex] = useState<number>(0);
+  const [mobilePreviewingId, setMobilePreviewingId] = useState<string | null>(null);
 
   const sectionRef = useRef<HTMLElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
@@ -58,6 +59,66 @@ export default function VideoProjects() {
   const filteredProjects = activeFilter === 'All'
     ? VIDEO_PROJECTS
     : VIDEO_PROJECTS.filter(p => p.category === activeFilter);
+
+  // Mobile & touch device scroll-driven video preview
+  useEffect(() => {
+    const isCoarseOrNarrow = window.matchMedia('(max-width: 900px), (pointer: coarse)').matches;
+    if (!isCoarseOrNarrow || !gridRef.current) return;
+
+    const stages = gridRef.current.querySelectorAll<HTMLElement>('.video-thumb-stage');
+    if (!stages.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const stage = entry.target as HTMLElement;
+          const card = stage.closest<HTMLElement>('.video-card');
+          const cardId = card?.id?.replace('video-', '') || '';
+          const vids = stage.querySelectorAll<HTMLVideoElement>('video');
+          const bars = stage.querySelectorAll<HTMLElement>('.placeholder-waveform .bar');
+
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+            setMobilePreviewingId(cardId);
+            stage.classList.add('is-mobile-previewing');
+            vids.forEach((v) => {
+              v.muted = true;
+              v.playsInline = true;
+              v.play().catch(() => {});
+            });
+            if (bars.length) {
+              gsap.to(bars, {
+                scaleY: () => gsap.utils.random(0.6, 1.8),
+                opacity: () => gsap.utils.random(0.7, 1),
+                duration: 0.18,
+                repeat: -1,
+                yoyo: true,
+                stagger: 0.02,
+                ease: 'power1.inOut',
+              });
+            }
+          } else if (entry.intersectionRatio < 0.35) {
+            stage.classList.remove('is-mobile-previewing');
+            setMobilePreviewingId((current) => (current === cardId ? null : current));
+            vids.forEach((v) => {
+              v.pause();
+              v.currentTime = 0;
+            });
+            if (bars.length) {
+              gsap.killTweensOf(bars);
+              gsap.to(bars, { scaleY: 1, opacity: 0.6, duration: 0.3 });
+            }
+          }
+        });
+      },
+      {
+        threshold: [0.35, 0.5, 0.75],
+        rootMargin: '0px 0px -10% 0px',
+      }
+    );
+
+    stages.forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
+  }, [filteredProjects, activeFilter]);
 
   // Reset folder index when opening a project
   useEffect(() => {
@@ -266,8 +327,8 @@ export default function VideoProjects() {
   // Card hover handling: live video preview or dynamic audio waveform excitation
   const handleCardMouseEnter = (e: React.MouseEvent<HTMLDivElement>, project: VideoProject) => {
     if (project.videoSrc) {
-      const vid = e.currentTarget.querySelector<HTMLVideoElement>('video');
-      if (vid) vid.play().catch(() => {});
+      const vids = e.currentTarget.querySelectorAll<HTMLVideoElement>('video');
+      vids.forEach((vid) => vid.play().catch(() => {}));
     } else {
       // Excite waveform bars with GSAP
       const bars = e.currentTarget.querySelectorAll<HTMLElement>('.placeholder-waveform .bar');
@@ -287,11 +348,11 @@ export default function VideoProjects() {
 
   const handleCardMouseLeave = (e: React.MouseEvent<HTMLDivElement>, project: VideoProject) => {
     if (project.videoSrc) {
-      const vid = e.currentTarget.querySelector<HTMLVideoElement>('video');
-      if (vid) {
+      const vids = e.currentTarget.querySelectorAll<HTMLVideoElement>('video');
+      vids.forEach((vid) => {
         vid.pause();
         vid.currentTime = 0;
-      }
+      });
     } else {
       const bars = e.currentTarget.querySelectorAll<HTMLElement>('.placeholder-waveform .bar');
       if (bars.length) {
@@ -326,7 +387,7 @@ export default function VideoProjects() {
             <span className="dot">•</span>
             <span>COLOR GRADE: S-LOG3 TO REC.709</span>
             <span className="dot">•</span>
-            <span>4K UHD 60FPS</span>
+            <span>VERTICAL 9:16 REELS &amp; 4K EXPEDITIONS</span>
             <span className="dot">•</span>
             <span>DAVINCI RESOLVE STUDIO</span>
             <span className="dot">•</span>
@@ -340,7 +401,7 @@ export default function VideoProjects() {
             <span className="dot">•</span>
             <span>COLOR GRADE: S-LOG3 TO REC.709</span>
             <span className="dot">•</span>
-            <span>4K UHD 60FPS</span>
+            <span>VERTICAL 9:16 REELS &amp; 4K EXPEDITIONS</span>
             <span className="dot">•</span>
             <span>DAVINCI RESOLVE STUDIO</span>
             <span className="dot">•</span>
@@ -382,22 +443,46 @@ export default function VideoProjects() {
               >
                 {/* 3D Interactive Stage */}
                 <div
-                  className={`video-thumb-stage${project.isPlaceholder || !project.videoSrc ? ' is-placeholder' : ''}`}
+                  className={`video-thumb-stage${project.isPlaceholder || !project.videoSrc ? ' is-placeholder' : ''}${project.aspectRatio === '9:16' ? ' is-vertical-stage' : ''}`}
                   onPointerMove={handleStagePointerMove}
                   onPointerLeave={handleStagePointerLeave}
                   onMouseEnter={(e) => handleCardMouseEnter(e, project)}
                   onMouseLeave={(e) => handleCardMouseLeave(e, project)}
                 >
                   {project.videoSrc ? (
-                    <video
-                      src={project.videoSrc}
-                      poster={project.poster}
-                      muted
-                      loop
-                      playsInline
-                      preload="metadata"
-                      className="video-preview"
-                    />
+                    project.aspectRatio === '9:16' ? (
+                      <div className="vertical-thumb-container">
+                        <video
+                          src={project.videoSrc}
+                          poster={project.poster}
+                          muted
+                          loop
+                          playsInline
+                          preload="metadata"
+                          className="video-preview-backdrop"
+                          aria-hidden="true"
+                        />
+                        <video
+                          src={project.videoSrc}
+                          poster={project.poster}
+                          muted
+                          loop
+                          playsInline
+                          preload="metadata"
+                          className="video-preview-vertical"
+                        />
+                      </div>
+                    ) : (
+                      <video
+                        src={project.videoSrc}
+                        poster={project.poster}
+                        muted
+                        loop
+                        playsInline
+                        preload="metadata"
+                        className="video-preview"
+                      />
+                    )
                   ) : (
                     <div className="video-placeholder-canvas" aria-hidden="true">
                       <div className="placeholder-pattern-grid" />
@@ -428,14 +513,16 @@ export default function VideoProjects() {
                     ) : (
                       <span className="video-badge-category">{project.categoryLabel}</span>
                     )}
-                    <span className="video-badge-rec">
-                      <span className="rec-dot" /> {project.isPlaceholder ? 'PENDING' : 'REC ●'}
+                    <span className={`video-badge-rec${mobilePreviewingId === project.id ? ' is-live-preview' : ''}`}>
+                      <span className="rec-dot" /> {mobilePreviewingId === project.id ? 'LIVE PREVIEW' : (project.isPlaceholder ? 'PENDING' : 'REC ●')}
                     </span>
                   </div>
 
                   <div className="video-bottom-badges">
                     <span className="video-badge-spec">
-                      {project.isFolder
+                      {project.aspectRatio === '9:16'
+                        ? '9:16 VERTICAL REEL'
+                        : project.isFolder
                         ? (project.folderItems?.length === 1 ? 'NARRATIVE CUT' : 'MULTI-EDIT SUITE')
                         : (project.isPlaceholder ? 'STORYBOARD & SPECS' : '4K UHD')}
                     </span>
@@ -477,6 +564,12 @@ export default function VideoProjects() {
           ))}
         </div>
 
+        {/* Mobile Swipe Hint for Video Grid */}
+        <div className="mobile-video-swipe-hint" aria-hidden="true">
+          <span>Swipe to explore edits</span>
+          <span className="swipe-arrow">→</span>
+        </div>
+
         {/* Workflow & Equipment Banner */}
         <div className="video-gear-note">
           <div className="video-gear-left">
@@ -497,7 +590,9 @@ export default function VideoProjects() {
           ref={dialog}
           className="video-dialog"
           aria-labelledby="video-dialog-title"
+          aria-modal="true"
           onCancel={() => setSelected(null)}
+          onKeyDown={e => { if (e.key === 'Escape') setSelected(null); }}
           onClick={(event) => {
             if (event.target === event.currentTarget) {
               const rect = event.currentTarget.getBoundingClientRect();
@@ -514,6 +609,7 @@ export default function VideoProjects() {
         >
           {selected && (
             <div className="video-dialog-content">
+              <div className="sheet-drag-handle" aria-hidden="true" />
               <button
                 className="dialog-close"
                 onClick={() => setSelected(null)}
@@ -523,7 +619,7 @@ export default function VideoProjects() {
               </button>
 
               {/* Media Viewport */}
-              <div className="video-player-wrap">
+              <div className={`video-player-wrap${selected.aspectRatio === '9:16' ? ' is-vertical-player' : ''}`}>
                 {currentModalVideoSrc ? (
                   <>
                     <video
@@ -533,7 +629,7 @@ export default function VideoProjects() {
                       poster={selected.poster}
                       controls
                       playsInline
-                      className="dialog-video-player"
+                      className={`dialog-video-player${selected.aspectRatio === '9:16' ? ' is-vertical' : ''}`}
                     />
                     {selected.isFolder && selected.folderItems && selected.folderItems.length > 1 && (
                       <div className="folder-player-bar">

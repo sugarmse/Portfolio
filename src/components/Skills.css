@@ -46,11 +46,16 @@
     transform var(--tr),
     box-shadow var(--tr);
 }
-.skill-card:hover {
+.skill-card:hover,
+.skill-card:active {
   border-color: var(--skill-color, var(--accent));
   background: rgba(255,255,255,0.06);
   transform: translateY(-4px);
   box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+}
+
+.skill-card:active {
+  transform: scale(0.96);
 }
 
 .skill-icon {

@@ -51,7 +51,7 @@ export default function Equipment() {
   return (
     <section className="equipment-section" id="equipment" ref={ref}>
       <div className="container">
-        <span className="section-tag">Gear &amp; Tools</span>
+        <span className="section-tag">06 / Gear &amp; Tools</span>
         <h2 className="section-title">My Equipment</h2>
         <div className="section-divider" style={{ marginBottom: '3.5rem' }} />
 

@@ -1,11 +1,12 @@
 import './footer.css';
 
 const LINKS = [
+  { label: 'Projects',   href: '#projects' },
+  { label: 'Videos',     href: '#videos' },
   { label: 'About',      href: '#about' },
   { label: 'Experience', href: '#experience' },
   { label: 'Skills',     href: '#skills' },
   { label: 'Equipment',  href: '#equipment' },
-  { label: 'Projects',   href: '#projects' },
   { label: 'Contact',    href: '#contact' },
 ];
 

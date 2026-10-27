@@ -76,7 +76,7 @@ export default function Timeline() {
     <section className="timeline-section" id="experience" ref={ref}>
       <div className="container">
         <div className="tl-header">
-          <span className="section-tag">Background</span>
+          <span className="section-tag">04 / Experience</span>
           <h2 className="section-title">Experience &amp; Education</h2>
           <div className="section-divider" />
         </div>

@@ -95,7 +95,7 @@ export default function Contact() {
 
           {/* ── Left: form ── */}
           <div className="contact-form-col fade-up">
-            <span className="section-tag">Get In Touch</span>
+            <span className="section-tag">07 / Get In Touch</span>
             <h2 className="section-title">Let&apos;s Work Together</h2>
             <div className="section-divider" />
             <p className="contact-desc">

@@ -30,6 +30,12 @@ export function scrollToProject(index: number, smooth = true) {
     }
     if (!smooth) trigger.animation?.progress(progress);
   } else {
-    card.scrollIntoView({ behavior: smooth && document.documentElement.dataset.motion !== 'reduced' ? 'smooth' : 'instant', block: 'center' });
+    const viewport = document.querySelector<HTMLElement>('.project-viewport');
+    if (viewport && viewport.scrollWidth > viewport.clientWidth) {
+      const left = card.offsetLeft - (viewport.clientWidth - card.clientWidth) / 2;
+      viewport.scrollTo({ left: Math.max(0, left), behavior: smooth ? 'smooth' : 'instant' });
+    } else {
+      card.scrollIntoView({ behavior: smooth && document.documentElement.dataset.motion !== 'reduced' ? 'smooth' : 'instant', block: 'center' });
+    }
   }
 }

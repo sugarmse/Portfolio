@@ -59,7 +59,7 @@ export default function Skills() {
   return (
     <section className="skills" id="skills" ref={ref}>
       <div className="container">
-        <span className="section-tag">What I Use</span>
+        <span className="section-tag">05 / What I Use</span>
         <h2 className="section-title">Skills &amp; Tools</h2>
         <div className="section-divider" style={{ marginBottom: '3.5rem' }} />
 

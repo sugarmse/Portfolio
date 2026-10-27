@@ -29,7 +29,7 @@ export function useScrollMotion(root: RefObject<HTMLDivElement>, preference: Mot
           },
         }) : null;
         document.documentElement.classList.toggle('smooth-enabled', !!smoother);
-        const pinned = desktop && motion;
+        const pinned = motion;
         root.current?.classList.toggle('projects-horizontal', !!pinned);
 
         if (pinned) {
@@ -41,7 +41,7 @@ export function useScrollMotion(root: RefObject<HTMLDivElement>, preference: Mot
             x: () => -distance(), ease: 'none',
             scrollTrigger: {
               id: 'project-travel', trigger: '#projects', pin: true,
-              start: () => 'top top', end: () => `+=${distance() + 500}`,
+              start: () => 'top top', end: () => `+=${distance() + (desktop ? 500 : 250)}`,
               scrub: .8,
               anticipatePin: 1, invalidateOnRefresh: true,
               onUpdate: self => {
@@ -53,6 +53,9 @@ export function useScrollMotion(root: RefObject<HTMLDivElement>, preference: Mot
                   button.classList.toggle('is-current', index === current);
                   if (index === current) button.setAttribute('aria-current', 'true');
                   else button.removeAttribute('aria-current');
+                });
+                root.current?.querySelectorAll('.mobile-dot-indicator').forEach((dot, index) => {
+                  dot.classList.toggle('is-active', index === current);
                 });
               },
             },
@@ -75,7 +78,7 @@ export function useScrollMotion(root: RefObject<HTMLDivElement>, preference: Mot
         gsap.to('.scroll-progress', { scaleX: 1, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: true } });
         if (motion) {
           gsap.from('.hero-copy > *', { y: 45, opacity: 0, duration: 1, stagger: .1, ease: 'power3.out', clearProps: 'all' });
-          const reveal = '.fade-up:not(.project-card):not(.video-card):not(.skills-group), .about-text, .about-right, .section-title' + (pinned ? '' : ', .project-card');
+          const reveal = '.fade-up:not(.project-card):not(.video-card):not(.skills-group), .about-text, .about-right, .section-title';
           const elements = gsap.utils.toArray<HTMLElement>(reveal).filter(el => {
             return !el.parentElement?.closest(reveal);
           });

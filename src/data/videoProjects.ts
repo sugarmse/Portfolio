@@ -18,7 +18,7 @@ export interface VideoProject {
   id: string;
   title: string;
   clientOrSeries?: string;
-  category: 'Commercial' | 'Product Showcase' | 'History';
+  category: 'Commercial' | 'Product Showcase' | 'History' | 'Travel & Adventure';
   categoryLabel: string;
   duration: string;
   aspectRatio?: '16:9' | '9:16';
@@ -37,6 +37,7 @@ export interface VideoProject {
 
 export const VIDEO_CATEGORIES = [
   'All',
+  'Travel & Adventure',
   'Commercial',
   'Product Showcase',
   'History',
@@ -48,6 +49,40 @@ export type VideoCategoryFilter = typeof VIDEO_CATEGORIES[number];
  * Video Projects Data — Real Projects & Organized Folders
  */
 export const VIDEO_PROJECTS: VideoProject[] = [
+  {
+    id: 'sailung-kalinchok-expedition',
+    title: 'Sailung & Kalinchok — Travel Reel & Expedition',
+    clientOrSeries: 'Expedition Series • Travel Reel',
+    category: 'Travel & Adventure',
+    categoryLabel: 'Travel & Adventure / Reel',
+    duration: '0:47 • Vertical Reel',
+    aspectRatio: '9:16',
+    videoSrc: '/videos/Sailung-Kalinchok/jugaad-final.mp4',
+    poster: '',
+    description: 'High-energy Himalayan travel reel capturing the rugged motorcycle ride through the rolling green hills of Sailung to the snowbound heights of Kalinchok Bhagwati. Features beat-synchronized velocity ramps, kinetic whip transitions, immersive mountain foley, and rich cinematic color grading.',
+    editBreakdown: {
+      pacing: 'Dynamic beat-matched cuts with seamless velocity speed ramps, whip-pan transitions, and kinetic travel pacing',
+      colorGrading: 'Moody cinematic mountain grade with rich foliage greens, deep highland contrast, and radiant peak highlights',
+      soundDesign: 'Immersive atmospheric mountain wind, motorcycle rumble, crisp whip-whooshes, and rhythmic soundtrack sync',
+      resolution: '1080×1920 Full HD Vertical (9:16) • 60 FPS Master',
+    },
+    tools: ['DaVinci Resolve', 'Adobe Premiere Pro', 'Sony Alpha 6700', 'DJI Osmo 360', 'Sound Design'],
+    role: 'Cinematography, Motion Editing & Sound Design',
+    highlight: 'Dynamic 9:16 vertical travel edit blending kinetic rhythm with cinematic Himalayan landscape storytelling.',
+    isPlaceholder: false,
+    isFolder: true,
+    driveUrl: '',
+    folderItems: [
+      {
+        id: 'sailung-kalinchok-jugaad',
+        title: 'Jugaad Final Cut',
+        videoSrc: '/videos/Sailung-Kalinchok/jugaad-final.mp4',
+        duration: '0:47',
+        tag: 'Vertical Travel Reel (9:16)',
+        description: 'Primary high-energy cut highlighting the journey from Sailung hundred hills to Kalinchok peak.',
+      },
+    ],
+  },
   {
     id: 'gigways-feature-edits',
     title: 'Gigways — Feature Video Edits',

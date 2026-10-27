@@ -16,7 +16,7 @@ export default function About() {
       <div className="container">
         <div className={`about-grid${inView ? ' in-view' : ''}`}>
           <div className="about-text">
-            <span className="section-tag">Who I Am</span>
+            <span className="section-tag">03 / Who I Am</span>
             <h2 className="section-title">Introduction</h2>
             <div className="section-divider" />
             <p>

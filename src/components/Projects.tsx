@@ -4,7 +4,34 @@ import { ScrollSmoother } from 'gsap/ScrollSmoother';
 import { scrollToProject } from '../scroll';
 import './Projects.css';
 
-const PROJECTS = [
+export interface SubDesignItem {
+  id: string;
+  name: string;
+  badge: string;
+  category: string;
+  note: string;
+  detail: string;
+  url: string;
+  image: string;
+  accentColor: string;
+}
+
+export interface ProjectItem {
+  id: string;
+  name: string;
+  category: string;
+  note: string;
+  detail: string;
+  url: string;
+  image: string;
+  current: boolean;
+  accentColor: string;
+  isDesignSuite?: boolean;
+  designs?: SubDesignItem[];
+}
+export type Project = ProjectItem;
+
+const PROJECTS: ProjectItem[] = [
   {
     id: 'gopanora',
     name: 'GoPanora',
@@ -28,57 +55,62 @@ const PROJECTS = [
     accentColor: '#f472b6',
   },
   {
-    id: 'ss-construction',
-    name: 'SS Construction',
-    category: 'Commercial & Civil Infrastructure',
-    note: 'Built on trust, delivered with precision.',
-    detail: 'Modern web platform built for a premier commercial construction and civil infrastructure firm in Nepal. Features responsive architectural aesthetics, interactive service explorations, trust metrics, team showcases, and an interactive cost & scope estimator.',
-    url: 'https://construction-design-one.vercel.app/ss_construction_website.html',
+    id: 'web-design-concepts',
+    name: 'Web Design Concepts',
+    category: 'Interactive UI/UX & Web Prototypes',
+    note: 'Crafted design concepts and interactive templates.',
+    detail: 'A curated collection of bespoke, production-ready website design concepts and interactive templates created for diverse industries — including civil infrastructure, luxury travel, and artisan bakery.',
+    url: '',
     image: '/projects/construction-og.jpg',
     current: false,
     accentColor: '#38bdf8',
-  },
-  {
-    id: 'ss-travels',
-    name: 'SS Travels',
-    category: 'Travel & Tourism Platform',
-    note: 'Explore Nepal and the world.',
-    detail: 'A luxury, adventure-focused travel and tour agency platform crafted for seamless trip discovery across Nepal and international destinations. Features fluid interactive polaroids, dynamic search & filtering, curated destination showcases, and custom booking inquiry flows.',
-    url: 'https://travel-agency-design-two.vercel.app/ss_travels_website_nepal.html',
-    image: '/projects/travels-og.jpg',
-    current: false,
-    accentColor: '#2dd4bf',
-  },
-  {
-    id: 'ss-bakery',
-    name: 'SS Bakery',
-    category: 'Artisan Bakery & Confectionery',
-    note: 'Good things are baked daily in Nepal.',
-    detail: 'Artisan bakery and pastry shop digital storefront created for handcrafted baked goods in Kathmandu Valley. Features warm editorial visual identity, categorized menu showcases, daily fresh special spotlights, and custom online cake ordering.',
-    url: 'https://bakery-design-template.vercel.app/',
-    image: '/projects/bakery-og.jpg',
-    current: false,
-    accentColor: '#fb923c',
+    isDesignSuite: true,
+    designs: [
+      {
+        id: 'ss-construction',
+        name: 'SS Construction',
+        badge: '01 Construction',
+        category: 'Commercial & Civil Infrastructure Concept',
+        note: 'Built on trust, delivered with precision.',
+        detail: 'Modern web platform concept created for a premier commercial construction and civil infrastructure firm in Nepal. Features responsive architectural aesthetics, interactive service explorations, trust metrics, team showcases, and an interactive cost & scope estimator.',
+        url: 'https://construction-design-one.vercel.app/ss_construction_website.html',
+        image: '/projects/construction-og.jpg',
+        accentColor: '#38bdf8',
+      },
+      {
+        id: 'ss-travels',
+        name: 'SS Travels',
+        badge: '02 Travels',
+        category: 'Travel & Tourism Platform Concept',
+        note: 'Explore Nepal and the world.',
+        detail: 'A luxury, adventure-focused travel and tour agency design crafted for seamless trip discovery across Nepal and international destinations. Features fluid interactive polaroids, dynamic search & filtering, curated destination showcases, and custom booking inquiry flows.',
+        url: 'https://travel-agency-design-two.vercel.app/ss_travels_website_nepal.html',
+        image: '/projects/travels-og.jpg',
+        accentColor: '#2dd4bf',
+      },
+      {
+        id: 'ss-bakery',
+        name: 'SS Bakery',
+        badge: '03 Bakery',
+        category: 'Artisan Bakery & Confectionery Concept',
+        note: 'Good things are baked daily in Nepal.',
+        detail: 'Artisan bakery and pastry shop digital storefront design created for handcrafted baked goods in Kathmandu Valley. Features warm editorial visual identity, categorized menu showcases, daily fresh special spotlights, and custom online cake ordering.',
+        url: 'https://bakery-design-template.vercel.app/',
+        image: '/projects/bakery-og.jpg',
+        accentColor: '#fb923c',
+      },
+    ],
   },
 ];
 
-export interface ProjectItem {
-  id: string;
-  name: string;
-  category: string;
-  note: string;
-  detail: string;
-  url: string;
-  image: string;
-  current: boolean;
-  accentColor: string;
-}
-export type Project = ProjectItem;
-
 export default function Projects() {
   const [selected, setSelected] = useState<Project | null>(null);
+  const [activeDesignIndex, setActiveDesignIndex] = useState<number>(0);
+  const [modalDesignIndex, setModalDesignIndex] = useState<number>(0);
+  const [activeSlideIndex, setActiveSlideIndex] = useState<number>(0);
   const dialog = useRef<HTMLDialogElement>(null);
   const opener = useRef<HTMLButtonElement | null>(null);
+  const viewportRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!selected || !dialog.current) return;
@@ -95,6 +127,79 @@ export default function Projects() {
       opener.current?.focus({ preventScroll: true });
     };
   }, [selected]);
+
+  // Track active slide on mobile horizontal scroll
+  useEffect(() => {
+    const el = viewportRef.current;
+    if (!el) return;
+
+    let ticking = false;
+    const handleScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        ticking = false;
+        const cards = el.querySelectorAll<HTMLElement>('.project-card');
+        if (!cards.length) return;
+        const scrollCenter = el.scrollLeft + el.clientWidth / 2;
+        let closest = 0;
+        let minDiff = Infinity;
+        cards.forEach((card, i) => {
+          const cardCenter = card.offsetLeft + card.clientWidth / 2;
+          const diff = Math.abs(cardCenter - scrollCenter);
+          if (diff < minDiff) {
+            minDiff = diff;
+            closest = i;
+          }
+        });
+        setActiveSlideIndex(closest);
+      });
+    };
+
+    el.addEventListener('scroll', handleScroll, { passive: true });
+    return () => el.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Horizontal touch swipe gesture support to advance cards
+  const touchStartPos = useRef<{ x: number; y: number; time: number } | null>(null);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartPos.current = {
+      x: e.touches[0].clientX,
+      y: e.touches[0].clientY,
+      time: Date.now(),
+    };
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (!touchStartPos.current) return;
+    const deltaX = e.changedTouches[0].clientX - touchStartPos.current.x;
+    const deltaY = e.changedTouches[0].clientY - touchStartPos.current.y;
+    const deltaTime = Date.now() - touchStartPos.current.time;
+    touchStartPos.current = null;
+
+    // Distinct horizontal swipe: > 40px, more horizontal than vertical, within 600ms
+    if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 40 && deltaTime < 600) {
+      const activeBtn = document.querySelector('.project-rail-controls button.is-current');
+      let currentIdx = activeSlideIndex;
+      if (activeBtn) {
+        const btns = Array.from(document.querySelectorAll('.project-rail-controls button'));
+        const idx = btns.indexOf(activeBtn);
+        if (idx >= 0) currentIdx = idx;
+      }
+
+      if (deltaX < 0 && currentIdx < PROJECTS.length - 1) {
+        handleSlideJump(currentIdx + 1);
+      } else if (deltaX > 0 && currentIdx > 0) {
+        handleSlideJump(currentIdx - 1);
+      }
+    }
+  };
+
+  const handleSlideJump = (index: number) => {
+    setActiveSlideIndex(index);
+    scrollToProject(index);
+  };
 
   return (
     <>
@@ -113,9 +218,10 @@ export default function Projects() {
                 {PROJECTS.map((project, index) => (
                   <button
                     key={project.id}
-                    onClick={() => scrollToProject(index)}
+                    onClick={() => handleSlideJump(index)}
                     aria-label={`Show ${project.name}`}
-                    className={index === 0 ? 'is-current' : ''}
+                    className={activeSlideIndex === index ? 'is-current' : ''}
+                    aria-current={activeSlideIndex === index ? 'true' : undefined}
                   >
                     <span>{String(index + 1).padStart(2, '0')}</span> {project.name}
                   </button>
@@ -124,104 +230,183 @@ export default function Projects() {
             </div>
 
             {/* Fullscreen Showcase Rail Viewport */}
-            <div className="project-viewport">
+            <div
+              ref={viewportRef}
+              className="project-viewport"
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
+            >
               <div className="project-grid">
-                {PROJECTS.map((project, index) => (
-                  <article
-                    key={project.id}
-                    className="project-card fade-up"
-                    id={`project-${project.id}`}
-                    style={{ '--proj-accent': project.accentColor } as React.CSSProperties}
-                  >
-                    <div className="project-card-inner">
-                      {/* Subtle Background Watermark Numeral */}
-                      <div className="project-watermark" aria-hidden="true">
-                        {String(index + 1).padStart(2, '0')}
-                      </div>
+                {PROJECTS.map((project, index) => {
+                  const isSuite = Boolean(project.isDesignSuite && project.designs?.length);
+                  const activeDesign = isSuite
+                    ? project.designs![activeDesignIndex] || project.designs![0]
+                    : null;
+                  const displayAccent = activeDesign ? activeDesign.accentColor : project.accentColor;
+                  const displayCategory = activeDesign ? activeDesign.category : project.category;
+                  const displayName = activeDesign ? activeDesign.name : project.name;
+                  const displayNote = activeDesign ? activeDesign.note : project.note;
+                  const displayDetail = activeDesign ? activeDesign.detail : project.detail;
+                  const displayUrl = activeDesign ? activeDesign.url : project.url;
+                  const displayImage = activeDesign ? activeDesign.image : project.image;
+                  const displayArtClass = activeDesign ? `project-art-${activeDesign.id}` : `project-art-${project.id}`;
 
-                      {/* Left: Project Details & Action Links */}
-                      <div className="project-info-pane">
-                        <div className="project-info-header">
-                          <div className="project-badge-row">
-                            <span className="project-slide-number">{String(index + 1).padStart(2, '0')}</span>
-                            <span className="proj-category">{project.category}</span>
-                            {project.current && (
-                              <span className="project-current-badge">
-                                <span className="status-dot" /> Current work
-                              </span>
-                            )}
-                          </div>
-                          <h3 className="project-title">{project.name}</h3>
-                          <p className="project-tagline">{project.note}</p>
+                  return (
+                    <article
+                      key={project.id}
+                      className="project-card fade-up"
+                      id={`project-${project.id}`}
+                      style={{ '--proj-accent': displayAccent, '--tab-accent': displayAccent } as React.CSSProperties}
+                    >
+                      <div className="project-card-inner">
+                        {/* Subtle Background Watermark Numeral */}
+                        <div className="project-watermark" aria-hidden="true">
+                          {String(index + 1).padStart(2, '0')}
                         </div>
 
-                        <p className="project-description">{project.detail}</p>
+                        {/* Left: Project Details & Action Links */}
+                        <div className="project-info-pane">
+                          <div className="project-info-header">
+                            <div className="project-badge-row">
+                              <span className="project-slide-number">{String(index + 1).padStart(2, '0')}</span>
+                              <span className="proj-category">{displayCategory}</span>
+                              {project.current && (
+                                <span className="project-current-badge">
+                                  <span className="status-dot" /> Current work
+                                </span>
+                              )}
+                              {isSuite && (
+                                <span className="design-suite-pill">
+                                  3 Design Concepts
+                                </span>
+                              )}
+                            </div>
 
-                        <div className="project-actions-row">
-                          {project.url && (
-                            <a
-                              className="btn btn-primary project-visit-btn"
-                              href={project.url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              aria-label={`Visit ${project.name} website`}
+                            {/* Design Switcher Tabs for Design Suite */}
+                            {isSuite && project.designs && (
+                              <div className="design-switcher-tabs" role="tablist" aria-label="Select design concept">
+                                {project.designs.map((d, dIdx) => (
+                                  <button
+                                    key={d.id}
+                                    type="button"
+                                    role="tab"
+                                    aria-selected={activeDesignIndex === dIdx}
+                                    className={`design-tab-btn${activeDesignIndex === dIdx ? ' is-active' : ''}`}
+                                    style={{ '--tab-accent': d.accentColor } as React.CSSProperties}
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      setActiveDesignIndex(dIdx);
+                                    }}
+                                  >
+                                    <span className="design-tab-num">0{dIdx + 1}</span>
+                                    <span className="design-tab-name">{d.name}</span>
+                                  </button>
+                                ))}
+                              </div>
+                            )}
+
+                            <div className="project-title-wrap">
+                              {isSuite && (
+                                <span className="design-suite-prefix">
+                                  Web Design Concept 0{activeDesignIndex + 1}
+                                </span>
+                              )}
+                              <h3 className="project-title">{displayName}</h3>
+                            </div>
+                            <p className="project-tagline">{displayNote}</p>
+                          </div>
+
+                          <p className="project-description">{displayDetail}</p>
+
+                          <div className="project-actions-row">
+                            {displayUrl && (
+                              <a
+                                className="btn btn-primary project-visit-btn"
+                                href={displayUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label={isSuite ? `Preview ${displayName} design` : `Visit ${displayName} website`}
+                              >
+                                {isSuite ? 'Preview Design ↗' : 'Visit website ↗'}
+                              </a>
+                            )}
+                            <button
+                              type="button"
+                              className="btn btn-ghost project-explore-btn"
+                              onClick={event => {
+                                opener.current = event.currentTarget;
+                                setSelected(project);
+                                if (isSuite) {
+                                  setModalDesignIndex(activeDesignIndex);
+                                }
+                              }}
+                              aria-label={`Explore details for ${displayName}`}
+                              aria-haspopup="dialog"
                             >
-                              Visit website ↗
-                            </a>
-                          )}
+                              Explore details ↗
+                            </button>
+                          </div>
+                        </div>
+
+                        {/* Right: Large Cinematic Media Viewport */}
+                        <div className="project-media-pane">
                           <button
                             type="button"
-                            className="btn btn-ghost project-explore-btn"
+                            className="project-media-btn"
                             onClick={event => {
                               opener.current = event.currentTarget;
                               setSelected(project);
+                              if (isSuite) {
+                                setModalDesignIndex(activeDesignIndex);
+                              }
                             }}
-                            aria-label={`Explore details for ${project.name}`}
-                            aria-haspopup="dialog"
+                            aria-label={`Explore ${displayName}`}
                           >
-                            Explore details ↗
+                            <div className={`project-art ${displayArtClass}`} aria-hidden="true">
+                              <img
+                                key={displayImage}
+                                src={displayImage}
+                                alt={displayName}
+                                className="project-image"
+                                loading="lazy"
+                                decoding="async"
+                              />
+                              <div className="project-art-overlay" />
+
+                              {/* Floating Category & Zoom Badges */}
+                              <div className="project-art-floating-meta">
+                                <span className="project-art-chip">{displayCategory}</span>
+                                <span className="project-arrow-badge">↗</span>
+                              </div>
+                            </div>
                           </button>
                         </div>
                       </div>
+                    </article>
+                  );
+                })}
+              </div>
+            </div>
 
-                      {/* Right: Large Cinematic Media Viewport */}
-                      <div className="project-media-pane">
-                        <button
-                          type="button"
-                          className="project-media-btn"
-                          onClick={event => {
-                            opener.current = event.currentTarget;
-                            setSelected(project);
-                          }}
-                          aria-label={`Explore ${project.name}`}
-                        >
-                          <div className={`project-art project-art-${project.id}`} aria-hidden="true">
-                            <img
-                              src={project.image}
-                              alt={project.name}
-                              className="project-image"
-                              loading="lazy"
-                              decoding="async"
-                            />
-                            <div className="project-art-overlay" />
-
-                            {/* Prominent Branded Identification Badge */}
-                            <div className="project-art-brand-badge">
-                              <span className="brand-dot" />
-                              <span>{String(index + 1).padStart(2, '0')} • {project.name}</span>
-                            </div>
-
-                            {/* Floating Category & Zoom Badges */}
-                            <div className="project-art-floating-meta">
-                              <span className="project-art-chip">{project.category}</span>
-                              <span className="project-arrow-badge">↗</span>
-                            </div>
-                          </div>
-                        </button>
-                      </div>
-                    </div>
-                  </article>
+            {/* Mobile Project Navigation Indicators & Swipe Hint */}
+            <div className="mobile-project-indicators" aria-label="Project slide navigation">
+              <div className="mobile-dot-group">
+                {PROJECTS.map((project, index) => (
+                  <button
+                    key={project.id}
+                    type="button"
+                    className={`mobile-dot-indicator${activeSlideIndex === index ? ' is-active' : ''}`}
+                    onClick={() => handleSlideJump(index)}
+                    aria-label={`Go to slide ${index + 1}: ${project.name}`}
+                    style={{ '--dot-accent': project.accentColor } as React.CSSProperties}
+                  >
+                    <span className="dot-fill" />
+                  </button>
                 ))}
+              </div>
+              <div className="mobile-swipe-hint">
+                <span>Swipe to explore</span>
+                <span className="swipe-arrow" aria-hidden="true">→</span>
               </div>
             </div>
 
@@ -267,34 +452,67 @@ export default function Projects() {
             }
           }}
         >
-          {selected && (
-            <>
-              <button className="dialog-close" onClick={() => setSelected(null)} aria-label="Close project">
-                ×
-              </button>
-              {selected.image && (
-                <div className="dialog-image-wrap">
-                  <img src={selected.image} alt={selected.name} className="dialog-image" />
-                </div>
-              )}
-              <span className="section-tag">{selected.category}</span>
-              <h2 id="project-dialog-title">{selected.name}</h2>
-              <p>{selected.detail}</p>
-              <div className="dialog-actions">
-                {selected.url && (
-                  <a className="btn btn-primary" href={selected.url} target="_blank" rel="noopener noreferrer">
-                    Visit website ↗
-                  </a>
+          {selected && (() => {
+            const isSuite = Boolean(selected.isDesignSuite && selected.designs?.length);
+            const activeModalDesign = isSuite
+              ? selected.designs![modalDesignIndex] || selected.designs![0]
+              : null;
+            const displayCategory = activeModalDesign ? activeModalDesign.category : selected.category;
+            const displayName = activeModalDesign ? activeModalDesign.name : selected.name;
+            const displayDetail = activeModalDesign ? activeModalDesign.detail : selected.detail;
+            const displayUrl = activeModalDesign ? activeModalDesign.url : selected.url;
+            const displayImage = activeModalDesign ? activeModalDesign.image : selected.image;
+            const displayAccent = activeModalDesign ? activeModalDesign.accentColor : selected.accentColor;
+
+            return (
+              <>
+                <div className="sheet-drag-handle" aria-hidden="true" />
+                <button className="dialog-close" onClick={() => setSelected(null)} aria-label="Close project">
+                  ×
+                </button>
+
+                {isSuite && selected.designs && (
+                  <div className="dialog-design-tabs" role="tablist" aria-label="Choose design concept">
+                    {selected.designs.map((d, dIdx) => (
+                      <button
+                        key={d.id}
+                        type="button"
+                        role="tab"
+                        aria-selected={modalDesignIndex === dIdx}
+                        className={`dialog-design-tab${modalDesignIndex === dIdx ? ' is-active' : ''}`}
+                        style={{ '--tab-accent': d.accentColor } as React.CSSProperties}
+                        onClick={() => setModalDesignIndex(dIdx)}
+                      >
+                        <span>0{dIdx + 1}</span> {d.name}
+                      </button>
+                    ))}
+                  </div>
                 )}
-                <a
-                  className="btn btn-ghost"
-                  href={`mailto:info.sarthakshakya@gmail.com?subject=${encodeURIComponent(`Let's talk about ${selected.name}`)}`}
-                >
-                  Ask about {selected.name} ↗
-                </a>
-              </div>
-            </>
-          )}
+
+                {displayImage && (
+                  <div className="dialog-image-wrap">
+                    <img key={displayImage} src={displayImage} alt={displayName} className="dialog-image" />
+                  </div>
+                )}
+                <span className="section-tag" style={{ color: displayAccent }}>{displayCategory}</span>
+                <h2 id="project-dialog-title">{displayName}</h2>
+                <p>{displayDetail}</p>
+                <div className="dialog-actions">
+                  {displayUrl && (
+                    <a className="btn btn-primary" href={displayUrl} target="_blank" rel="noopener noreferrer">
+                      {isSuite ? 'Preview Design ↗' : 'Visit website ↗'}
+                    </a>
+                  )}
+                  <a
+                    className="btn btn-ghost"
+                    href={`mailto:info.sarthakshakya@gmail.com?subject=${encodeURIComponent(`Let's talk about ${displayName}`)}`}
+                  >
+                    Ask about {displayName} ↗
+                  </a>
+                </div>
+              </>
+            );
+          })()}
         </dialog>,
         document.body
       )}
