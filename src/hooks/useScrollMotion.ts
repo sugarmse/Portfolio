@@ -2,7 +2,7 @@ import { useLayoutEffect, type RefObject } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollSmoother } from 'gsap/ScrollSmoother';
-import { scrollToProject, scrollToSection } from '../scroll';
+import { scrollToProject, scrollToSection, scrollToVideo } from '../scroll';
 import type { MotionPreference } from '../components/MotionControls';
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
@@ -25,12 +25,13 @@ export function useScrollMotion(root: RefObject<HTMLDivElement>, preference: Mot
           smoothTouch: .15, effects: false,
           onFocusIn: (_self, event) => {
             const target = event.target as Element;
-            return target.closest('.project-card, dialog') || target.matches('section, #main-content') ? false : undefined;
+            return target.closest('.project-card, .video-card, dialog') || target.matches('section, #main-content') ? false : undefined;
           },
         }) : null;
         document.documentElement.classList.toggle('smooth-enabled', !!smoother);
         const pinned = motion;
         root.current?.classList.toggle('projects-horizontal', !!pinned);
+        root.current?.classList.toggle('videos-horizontal', !!pinned);
 
         if (pinned) {
           const rail = root.current!.querySelector<HTMLElement>('.project-grid')!;
@@ -74,6 +75,94 @@ export function useScrollMotion(root: RefObject<HTMLDivElement>, preference: Mot
             el.addEventListener('focus', onFocus);
             cleanup.push(() => el.removeEventListener('focus', onFocus));
           });
+        }
+
+        if (pinned) {
+          const videoRail = root.current?.querySelector<HTMLElement>('.video-grid');
+          const videoSection = root.current?.querySelector<HTMLElement>('#videos');
+          if (videoRail && videoSection) {
+            const videoViewport = videoRail.parentElement!;
+            const videoDistance = () => Math.max(0, videoRail.scrollWidth - videoViewport.clientWidth);
+            gsap.to(videoRail, {
+              x: () => -videoDistance(),
+              ease: 'none',
+              scrollTrigger: {
+                id: 'video-travel',
+                trigger: '#videos',
+                pin: true,
+                start: () => 'top top',
+                end: () => `+=${videoDistance() + (desktop ? 600 : 350)}`,
+                scrub: 0.8,
+                anticipatePin: 1,
+                invalidateOnRefresh: true,
+                onUpdate: self => {
+                  const bar = root.current?.querySelector<HTMLElement>('.video-travel-progress span');
+                  if (bar) bar.style.transform = `scaleX(${self.progress})`;
+
+                  const cards = Array.from(videoRail.children) as HTMLElement[];
+                  if (!cards.length) return;
+                  const currentDistance = videoDistance();
+                  const center = self.progress * currentDistance + videoViewport.clientWidth / 2;
+                  const current = cards.reduce((best, card, index) =>
+                    Math.abs(card.offsetLeft + card.clientWidth / 2 - center) <
+                    Math.abs(cards[best].offsetLeft + cards[best].clientWidth / 2 - center)
+                      ? index
+                      : best,
+                    0
+                  );
+
+                  // Update dot indicators
+                  root.current?.querySelectorAll('.video-dot-indicator').forEach((dot, index) => {
+                    dot.classList.toggle('is-active', index === current);
+                  });
+
+                  // Trigger live preview on active card on mobile/touch
+                  cards.forEach((card, idx) => {
+                    const isCurrent = idx === current;
+                    card.classList.toggle('is-current-slide', isCurrent);
+                    const stage = card.querySelector<HTMLElement>('.video-thumb-stage');
+                    const vids = card.querySelectorAll<HTMLVideoElement>('video');
+                    const badge = card.querySelector<HTMLElement>('.video-badge-rec');
+                    if (isCurrent) {
+                      stage?.classList.add('is-mobile-previewing');
+                      if (badge && !badge.textContent?.includes('PENDING')) {
+                        badge.classList.add('is-live-preview');
+                      }
+                      vids.forEach(v => {
+                        v.muted = true;
+                        v.playsInline = true;
+                        v.play().catch(() => {});
+                      });
+                    } else {
+                      stage?.classList.remove('is-mobile-previewing');
+                      badge?.classList.remove('is-live-preview');
+                      vids.forEach(v => {
+                        v.pause();
+                        v.currentTime = 0;
+                      });
+                    }
+                  });
+                },
+              },
+            });
+
+            videoRail.querySelectorAll<HTMLElement>('.video-card a, .video-card button').forEach(el => {
+              const onFocus = () => {
+                const card = el.closest<HTMLElement>('.video-card');
+                if (!card) return;
+                const index = Array.from(videoRail.children).indexOf(card);
+                if (index >= 0) {
+                  const bounds = videoViewport.getBoundingClientRect();
+                  const rect = card.getBoundingClientRect();
+                  if (rect.left < bounds.left - 2 || rect.right > bounds.right + 2) {
+                    scrollToVideo(index, false);
+                  }
+                }
+              };
+              el.addEventListener('focus', onFocus);
+              cleanup.push(() => el.removeEventListener('focus', onFocus));
+            });
+          }
         }
         gsap.to('.scroll-progress', { scaleX: 1, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: true } });
         if (motion) {

@@ -14,6 +14,7 @@ import {
   FaChevronRight,
   FaGoogleDrive,
 } from 'react-icons/fa6';
+import { scrollToVideo } from '../scroll';
 import {
   VIDEO_PROJECTS,
   VIDEO_CATEGORIES,
@@ -29,13 +30,59 @@ export default function VideoProjects() {
   const [selected, setSelected] = useState<VideoProject | null>(null);
   const [activeFolderIndex, setActiveFolderIndex] = useState<number>(0);
   const [mobilePreviewingId, setMobilePreviewingId] = useState<string | null>(null);
+  const [activeVideoIndex, setActiveVideoIndex] = useState<number>(0);
 
   const sectionRef = useRef<HTMLElement>(null);
+  const viewportRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
   const tickerTrackRef = useRef<HTMLDivElement>(null);
   const dialog = useRef<HTMLDialogElement>(null);
   const opener = useRef<HTMLButtonElement | null>(null);
   const modalVideoRef = useRef<HTMLVideoElement>(null);
+  const touchStartPos = useRef<{ x: number; y: number; time: number } | null>(null);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartPos.current = {
+      x: e.touches[0].clientX,
+      y: e.touches[0].clientY,
+      time: Date.now(),
+    };
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (!touchStartPos.current) return;
+    const deltaX = e.changedTouches[0].clientX - touchStartPos.current.x;
+    const deltaY = e.changedTouches[0].clientY - touchStartPos.current.y;
+    const deltaTime = Date.now() - touchStartPos.current.time;
+    touchStartPos.current = null;
+
+    if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 40 && deltaTime < 600) {
+      if (deltaX < 0 && activeVideoIndex < filteredProjects.length - 1) {
+        handleVideoJump(activeVideoIndex + 1);
+      } else if (deltaX > 0 && activeVideoIndex > 0) {
+        handleVideoJump(activeVideoIndex - 1);
+      }
+    }
+  };
+
+  const handleVideoJump = (index: number) => {
+    setActiveVideoIndex(index);
+    scrollToVideo(index);
+  };
+
+  const filteredProjects = activeFilter === 'All'
+    ? VIDEO_PROJECTS
+    : VIDEO_PROJECTS.filter(p => p.category === activeFilter);
+
+  // Sync ScrollTrigger when filter changes
+  useEffect(() => {
+    setActiveVideoIndex(0);
+    const trigger = ScrollTrigger.getById('video-travel');
+    if (trigger) {
+      if (gridRef.current) gsap.set(gridRef.current, { x: 0 });
+      ScrollTrigger.refresh();
+    }
+  }, [filteredProjects, activeFilter]);
 
   const activeFolderItem =
     selected?.isFolder && selected.folderItems && selected.folderItems.length > 0
@@ -56,9 +103,7 @@ export default function VideoProjects() {
     setActiveFolderIndex((prev) => (prev < selected.folderItems!.length - 1 ? prev + 1 : 0));
   };
 
-  const filteredProjects = activeFilter === 'All'
-    ? VIDEO_PROJECTS
-    : VIDEO_PROJECTS.filter(p => p.category === activeFilter);
+
 
   // Mobile & touch device scroll-driven video preview
   useEffect(() => {
@@ -363,69 +408,62 @@ export default function VideoProjects() {
   };
 
   return (
-    <section ref={sectionRef} className="video-section" id="videos" aria-labelledby="videos-title">
-      <div className="container">
-        {/* Section Heading */}
-        <div className="video-heading">
-          <div>
-            <span className="section-tag">02 / Video Editing</span>
-            <h2 className="section-title" id="videos-title">
-              Stories in motion<span className="accent-text">.</span>
-            </h2>
-            <div className="section-divider" />
-          </div>
-          <p>
-            Commercial reels, moto-vlogs, and dynamic visual storytelling.<br />
-            Crafted in DaVinci Resolve &amp; Adobe Premiere Pro with meticulous pacing and sound design.
-          </p>
-        </div>
+    <>
+      <section ref={sectionRef} className="video-section" id="videos" aria-labelledby="videos-title">
+        <div className="video-pin-stage">
+          <div className="video-stage-inner">
+            {/* Top Heading Bar, Ticker & Category Controls */}
+            <div className="video-heading-bar">
+              <div className="video-heading-left">
+                <span className="section-tag">02 / Video Editing</span>
+                <h2 className="section-title" id="videos-title">
+                  Stories in motion<span className="accent-text">.</span>
+                </h2>
+              </div>
 
-        {/* Dynamic Film Timecode Scrubber Ribbon */}
-        <div className="video-timecode-ribbon" aria-hidden="true">
-          <div ref={tickerTrackRef} className="video-timecode-track">
-            <span>[TC 01:24:18:00]</span>
-            <span className="dot">•</span>
-            <span>COLOR GRADE: S-LOG3 TO REC.709</span>
-            <span className="dot">•</span>
-            <span>VERTICAL 9:16 REELS &amp; 4K EXPEDITIONS</span>
-            <span className="dot">•</span>
-            <span>DAVINCI RESOLVE STUDIO</span>
-            <span className="dot">•</span>
-            <span>ADOBE PREMIERE PRO</span>
-            <span className="dot">•</span>
-            <span>DYNAMIC PACING &amp; MATCH CUTS</span>
-            <span className="dot">•</span>
-            <span>FOLEY &amp; SOUND DESIGN</span>
-            <span className="dot">•</span>
-            <span>[TC 01:24:18:00]</span>
-            <span className="dot">•</span>
-            <span>COLOR GRADE: S-LOG3 TO REC.709</span>
-            <span className="dot">•</span>
-            <span>VERTICAL 9:16 REELS &amp; 4K EXPEDITIONS</span>
-            <span className="dot">•</span>
-            <span>DAVINCI RESOLVE STUDIO</span>
-            <span className="dot">•</span>
-            <span>ADOBE PREMIERE PRO</span>
-          </div>
-        </div>
+              {/* Dynamic Film Timecode Scrubber Ribbon */}
+              <div className="video-timecode-ribbon" aria-hidden="true">
+                <div ref={tickerTrackRef} className="video-timecode-track">
+                  <span>[TC 01:24:18:00]</span>
+                  <span className="dot">•</span>
+                  <span>COLOR GRADE: S-LOG3 TO REC.709</span>
+                  <span className="dot">•</span>
+                  <span>VERTICAL 9:16 REELS &amp; 4K EXPEDITIONS</span>
+                  <span className="dot">•</span>
+                  <span>DAVINCI RESOLVE STUDIO</span>
+                  <span className="dot">•</span>
+                  <span>ADOBE PREMIERE PRO</span>
+                  <span className="dot">•</span>
+                  <span>DYNAMIC PACING &amp; MATCH CUTS</span>
+                  <span className="dot">•</span>
+                  <span>FOLEY &amp; SOUND DESIGN</span>
+                </div>
+              </div>
 
-        {/* Category Filters */}
-        <div className="video-filters" role="tablist" aria-label="Filter video projects by category">
-          {VIDEO_CATEGORIES.map(cat => (
-            <button
-              key={cat}
-              role="tab"
-              aria-selected={activeFilter === cat}
-              className={`video-filter-btn${activeFilter === cat ? ' active' : ''}`}
-              onClick={() => setActiveFilter(cat)}
+              {/* Category Filters */}
+              <div className="video-filters" role="tablist" aria-label="Filter video projects by category">
+                {VIDEO_CATEGORIES.map(cat => (
+                  <button
+                    key={cat}
+                    role="tab"
+                    aria-selected={activeFilter === cat}
+                    className={`video-filter-btn${activeFilter === cat ? ' active' : ''}`}
+                    onClick={() => setActiveFilter(cat)}
+                  >
+                    {cat === 'All' ? 'All Edits' : cat}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Video Showcase Viewport */}
+            <div
+              ref={viewportRef}
+              className="video-viewport"
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
             >
-              {cat === 'All' ? 'All Edits' : cat}
-            </button>
-          ))}
-        </div>
-
-        {/* Video Grid */}
-        <div ref={gridRef} className="video-grid">
+              <div ref={gridRef} className="video-grid">
           {filteredProjects.map((project) => (
             <article
               key={project.id}
@@ -562,15 +600,40 @@ export default function VideoProjects() {
               </button>
             </article>
           ))}
-        </div>
+              </div>
+            </div>
 
-        {/* Mobile Swipe Hint for Video Grid */}
-        <div className="mobile-video-swipe-hint" aria-hidden="true">
-          <span>Swipe to explore edits</span>
-          <span className="swipe-arrow">→</span>
-        </div>
+            {/* Mobile Video Navigation Indicators & Swipe Hint */}
+            <div className="mobile-video-indicators" aria-label="Video slide navigation">
+              <div className="video-dot-group">
+                {filteredProjects.map((project, index) => (
+                  <button
+                    key={project.id}
+                    type="button"
+                    className={`video-dot-indicator${activeVideoIndex === index ? ' is-active' : ''}`}
+                    onClick={() => handleVideoJump(index)}
+                    aria-label={`Go to edit ${index + 1}: ${project.title}`}
+                  >
+                    <span className="dot-fill" />
+                  </button>
+                ))}
+              </div>
+              <div className="mobile-video-swipe-hint">
+                <span>Swipe to explore edits</span>
+                <span className="swipe-arrow">→</span>
+              </div>
+            </div>
 
-        {/* Workflow & Equipment Banner */}
+            {/* Video Travel Progress Bar */}
+            <div className="video-travel-progress" aria-hidden="true">
+              <span />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Production Pipeline & Equipment Banner below the full-screen pinned section */}
+      <div className="container video-gear-container">
         <div className="video-gear-note">
           <div className="video-gear-left">
             <span className="section-tag">Production Pipeline</span>
@@ -839,6 +902,7 @@ export default function VideoProjects() {
         </dialog>,
         document.body
       )}
-    </section>
+    </>
   );
 }
+

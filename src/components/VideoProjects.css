@@ -918,8 +918,8 @@
     flex-shrink: 0;
   }
 
-  /* Horizontal swipeable video showcase on mobile */
-  .video-grid {
+  /* Horizontal swipeable video showcase on mobile (fallback when not pinned) */
+  .portfolio:not(.videos-horizontal) .video-grid {
     display: flex;
     flex-direction: row;
     overflow-x: auto;
@@ -932,11 +932,11 @@
     -webkit-overflow-scrolling: touch;
   }
 
-  .video-grid::-webkit-scrollbar {
+  .portfolio:not(.videos-horizontal) .video-grid::-webkit-scrollbar {
     display: none;
   }
 
-  .video-card {
+  .portfolio:not(.videos-horizontal) .video-card {
     flex: 0 0 clamp(285px, 82vw, 360px);
     scroll-snap-align: center;
     scroll-snap-stop: always;
@@ -1246,4 +1246,422 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   GSAP PINNED HORIZONTAL SMOOTH SCROLL FOR VIDEO PROJECTS
+   ══════════════════════════════════════════════════════════════════════════ */
+.videos-horizontal.video-section,
+.videos-horizontal .video-section {
+  padding: 0 !important;
+  border-top: 1px solid var(--border);
+  overflow: clip;
+  width: 100%;
+  height: 100svh;
+  max-height: 100svh;
+}
+
+.videos-horizontal .video-pin-stage {
+  padding: calc(72px + 1rem) clamp(1.5rem, 5vw, 4rem) 1.5rem;
+  width: 100%;
+  height: 100svh;
+  max-height: 100svh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.videos-horizontal .video-stage-inner {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 0;
+}
+
+.videos-horizontal .video-heading-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.videos-horizontal .video-heading-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.videos-horizontal .video-heading-left .section-tag {
+  font-size: 0.72rem;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+}
+
+.videos-horizontal .video-heading-left .section-title {
+  font-size: clamp(1.4rem, 2.8vw, 2.2rem);
+  font-weight: 600;
+  margin: 0;
+}
+
+.videos-horizontal .video-timecode-ribbon {
+  display: none;
+}
+
+.videos-horizontal .video-filters {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: 0;
+  flex-wrap: nowrap;
+}
+
+/* ── Horizontal Viewport & Track ── */
+.videos-horizontal .video-viewport {
+  overflow: clip;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding-block: 0.4rem;
+  touch-action: pan-y;
+}
+
+.videos-horizontal .video-grid {
+  display: flex;
+  flex-direction: row;
+  gap: clamp(1.8rem, 3.5vw, 3rem);
+  align-items: center;
+  height: 100%;
+  width: max-content;
+  will-change: transform;
+}
+
+.videos-horizontal .video-card {
+  flex: 0 0 clamp(440px, 38vw, 560px);
+  max-width: 580px;
+  height: auto;
+  max-height: 100%;
+  box-sizing: border-box;
+}
+
+.videos-horizontal .video-card-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  height: 100%;
+  background: rgba(22, 24, 21, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  padding: 1.2rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.videos-horizontal .video-card-btn:hover {
+  border-color: rgba(249, 115, 22, 0.5);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.8), 0 0 28px rgba(249, 115, 22, 0.15);
+}
+
+/* ── Travel Progress Bar ── */
+.videos-horizontal .video-travel-progress {
+  display: block;
+  height: 3px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+  width: 100%;
+  flex-shrink: 0;
+  margin-top: 0.65rem;
+}
+
+.videos-horizontal .video-travel-progress span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: var(--accent);
+  will-change: transform;
+  transition: transform 0.1s linear;
+}
+
+.videos-horizontal .mobile-video-indicators {
+  display: none;
+}
+
+/* ── Indicator Dots ── */
+.video-dot-group {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.video-dot-indicator {
+  width: 28px;
+  height: 20px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+}
+
+.video-dot-indicator .dot-fill {
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.22);
+  transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.video-dot-indicator.is-active .dot-fill {
+  width: 24px;
+  background: var(--accent);
+  box-shadow: 0 0 12px rgba(249, 115, 22, 0.55);
+}
+
+/* ── Gear Banner Container ── */
+.video-gear-container {
+  margin-top: clamp(3rem, 7vh, 5.5rem);
+  padding-block: clamp(2.5rem, 6vh, 4.5rem) clamp(3.5rem, 8vh, 6rem);
+}
+
+.video-gear-container .video-gear-note {
+  margin-top: 0;
+}
+
+/* ── Mobile Viewport Adaptations ── */
+@media (max-width: 900px) {
+  .videos-horizontal.video-section,
+  .videos-horizontal .video-section {
+    padding: 0 !important;
+    border-top: none;
+    overflow: clip;
+    width: 100%;
+    height: 100svh;
+    max-height: 100svh;
+  }
+
+  .videos-horizontal .video-pin-stage {
+    padding: calc(64px + clamp(0.3rem, 1vh, 0.7rem)) clamp(0.75rem, 3.2vw, 1.4rem) clamp(0.75rem, 1.8vh, 1.25rem);
+    width: 100%;
+    height: 100svh;
+    max-height: 100svh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .videos-horizontal .video-stage-inner {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 0;
+  }
+
+  .videos-horizontal .video-heading-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+    padding-bottom: 0.3rem;
+    margin-bottom: 0.15rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    flex-shrink: 0;
+    width: 100%;
+  }
+
+  .videos-horizontal .video-heading-left {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 0.6rem;
+  }
+
+  .videos-horizontal .video-heading-left .section-tag {
+    font-size: 0.62rem;
+  }
+
+  .videos-horizontal .video-heading-left .section-title {
+    font-size: clamp(1.15rem, 4.2vw, 1.45rem);
+    line-height: 1.15;
+    margin: 0;
+  }
+
+  .videos-horizontal .video-filters {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 0.15rem;
+  }
+
+  .videos-horizontal .video-filters::-webkit-scrollbar {
+    display: none;
+  }
+
+  .videos-horizontal .video-filter-btn {
+    min-height: 28px;
+    padding: 0.2rem 0.65rem;
+    font-size: 0.7rem;
+    border-radius: 999px;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  .videos-horizontal .video-viewport {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    overflow: clip;
+    padding-block: 0.2rem;
+    touch-action: pan-y;
+  }
+
+  .videos-horizontal .video-grid {
+    display: flex;
+    flex-direction: row;
+    gap: clamp(0.85rem, 2.5vw, 1.35rem);
+    align-items: center;
+    height: 100%;
+    width: max-content;
+    will-change: transform;
+    margin-inline: 0;
+    padding-inline: 0;
+    overflow: visible;
+  }
+
+  .videos-horizontal .video-card {
+    flex: 0 0 clamp(285px, 82vw, 360px);
+    width: clamp(285px, 82vw, 360px);
+    height: auto;
+    max-height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .videos-horizontal .video-card-btn {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+    padding: clamp(0.75rem, 2.5vw, 1rem) clamp(0.75rem, 2.5vw, 1.15rem) clamp(1rem, 3.5vw, 1.35rem);
+    border-radius: 18px;
+    box-sizing: border-box;
+    background: rgba(22, 24, 21, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    overflow-y: auto;
+    scrollbar-width: none;
+  }
+
+  .videos-horizontal .video-card-btn::-webkit-scrollbar {
+    display: none;
+  }
+
+  .videos-horizontal .video-thumb-stage {
+    max-height: clamp(140px, 22vh, 185px);
+    border-radius: 12px;
+    width: 100%;
+    flex-shrink: 0;
+  }
+
+  .videos-horizontal .video-card-meta {
+    padding-top: 0.15rem;
+  }
+
+  .videos-horizontal .video-card-meta h3 {
+    font-size: clamp(0.95rem, 3.2vw, 1.15rem);
+    line-height: 1.2;
+    margin: 0.15rem 0 0;
+  }
+
+  .videos-horizontal .video-client-tag {
+    font-size: 0.62rem;
+  }
+
+  .videos-horizontal .video-action-link {
+    font-size: 0.68rem;
+  }
+
+  .videos-horizontal .video-card-desc {
+    font-size: clamp(0.72rem, 2.2vw, 0.78rem);
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 0.45rem;
+  }
+
+  .videos-horizontal .video-tools-list {
+    gap: 0.3rem;
+  }
+
+  .videos-horizontal .video-tool-pill {
+    font-size: 0.6rem;
+    padding: 0.15rem 0.45rem;
+  }
+
+  .videos-horizontal .mobile-video-indicators {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0.35rem;
+    padding-inline: 0.2rem;
+    flex-shrink: 0;
+  }
+
+  .videos-horizontal .mobile-video-swipe-hint {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--text-3);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0;
+    padding: 0;
+  }
+
+  .videos-horizontal .video-travel-progress {
+    display: block;
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+    width: 100%;
+    flex-shrink: 0;
+    margin-top: clamp(0.65rem, 1.6vh, 1.1rem);
+  }
+}
+
 
