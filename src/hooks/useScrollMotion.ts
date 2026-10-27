@@ -94,11 +94,17 @@ export function useScrollMotion(root: RefObject<HTMLDivElement>, preference: Mot
             gsap.from(el, { scaleX: 0, transformOrigin: 'left', duration: .8, scrollTrigger: { trigger: el, start: 'top 90%', once: true } });
           });
         }
-        if (desktop && motion) {
+        if (motion) {
           const hero = { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: 1 };
-          gsap.to('.hero-visual', { y: 180, rotation: 5, scale: 1.12, ease: 'none', scrollTrigger: hero });
-          gsap.to('.hero-copy', { x: -70, y: -55, opacity: .35, ease: 'none', scrollTrigger: hero });
-          gsap.to('.hero-work-note', { y: -130, rotation: -8, ease: 'none', scrollTrigger: hero });
+          if (desktop) {
+            gsap.to('.hero-visual', { y: 180, rotation: 5, scale: 1.12, ease: 'none', scrollTrigger: hero });
+            gsap.to('.hero-copy', { x: -70, y: -55, opacity: .35, ease: 'none', scrollTrigger: hero });
+            gsap.to('.hero-work-note', { y: -130, rotation: -8, ease: 'none', scrollTrigger: hero });
+          } else {
+            gsap.to('.hero-visual', { y: 65, scale: 1.05, ease: 'none', scrollTrigger: hero });
+            gsap.to('.hero-copy', { y: -30, opacity: .5, ease: 'none', scrollTrigger: hero });
+            gsap.to('.hero-work-note', { y: -65, rotation: -5, ease: 'none', scrollTrigger: hero });
+          }
         }
         if (pointer && motion) {
           gsap.utils.toArray<HTMLElement>('.project-art').forEach(art => {
