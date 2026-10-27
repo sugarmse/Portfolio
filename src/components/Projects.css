@@ -505,7 +505,7 @@
   }
 
   .projects-horizontal .project-pin-stage {
-    padding: calc(64px + clamp(0.3rem, 1vh, 0.7rem)) clamp(0.75rem, 3.2vw, 1.4rem) clamp(0.4rem, 1vh, 0.7rem);
+    padding: calc(64px + clamp(0.3rem, 1vh, 0.7rem)) clamp(0.75rem, 3.2vw, 1.4rem) clamp(0.75rem, 1.8vh, 1.25rem);
     width: 100%;
     height: 100svh;
     max-height: 100svh;
@@ -610,7 +610,7 @@
     width: 100%;
     height: auto;
     max-height: 100%;
-    padding: clamp(0.75rem, 2.8vw, 1.15rem);
+    padding: clamp(0.75rem, 2.5vw, 1rem) clamp(0.75rem, 2.5vw, 1.15rem) clamp(1.15rem, 3.8vw, 1.6rem);
     border-radius: 18px;
     box-sizing: border-box;
     overflow-y: auto;
@@ -708,7 +708,8 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    margin-top: 0.25rem;
+    margin-top: 0.45rem;
+    margin-bottom: 0.25rem;
     flex-wrap: wrap;
   }
 
@@ -735,7 +736,7 @@
     overflow: hidden;
     width: 100%;
     flex-shrink: 0;
-    margin-top: 0.25rem;
+    margin-top: clamp(0.65rem, 1.6vh, 1.1rem);
   }
 }
 
@@ -1052,7 +1053,8 @@
    3. POS SYSTEM NOTE (Transition Card below #projects)
    ══════════════════════════════════════════════════════════════════════════ */
 .project-pos-container {
-  padding-block: 2.5rem 3.5rem;
+  margin-top: clamp(3rem, 7vh, 5.5rem);
+  padding-block: clamp(2.5rem, 6vh, 4.5rem) clamp(3.5rem, 8vh, 6rem);
 }
 
 .project-pos-note {
