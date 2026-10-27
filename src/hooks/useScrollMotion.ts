@@ -2,7 +2,7 @@ import { useLayoutEffect, type RefObject } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollSmoother } from 'gsap/ScrollSmoother';
-import { scrollToProject, scrollToSection, scrollToVideo } from '../scroll';
+import { scrollToEquipment, scrollToProject, scrollToSection, scrollToTimeline, scrollToVideo } from '../scroll';
 import type { MotionPreference } from '../components/MotionControls';
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
@@ -25,13 +25,15 @@ export function useScrollMotion(root: RefObject<HTMLDivElement>, preference: Mot
           smoothTouch: .15, effects: false,
           onFocusIn: (_self, event) => {
             const target = event.target as Element;
-            return target.closest('.project-card, .video-card, dialog') || target.matches('section, #main-content') ? false : undefined;
+            return target.closest('.project-card, .video-card, .tl-card, .eq-card, dialog') || target.matches('section, #main-content') ? false : undefined;
           },
         }) : null;
         document.documentElement.classList.toggle('smooth-enabled', !!smoother);
         const pinned = motion;
         root.current?.classList.toggle('projects-horizontal', !!pinned);
         root.current?.classList.toggle('videos-horizontal', !!pinned);
+        root.current?.classList.toggle('timeline-horizontal', !!pinned);
+        root.current?.classList.toggle('equipment-horizontal', !!pinned);
 
         if (pinned) {
           const rail = root.current!.querySelector<HTMLElement>('.project-grid')!;
@@ -164,10 +166,131 @@ export function useScrollMotion(root: RefObject<HTMLDivElement>, preference: Mot
             });
           }
         }
+
+        if (pinned) {
+          const tlRail = root.current?.querySelector<HTMLElement>('.tl-grid');
+          const tlSection = root.current?.querySelector<HTMLElement>('#experience');
+          if (tlRail && tlSection) {
+            const tlViewport = tlRail.parentElement!;
+            const tlDistance = () => Math.max(0, tlRail.scrollWidth - tlViewport.clientWidth);
+            gsap.to(tlRail, {
+              x: () => -tlDistance(),
+              ease: 'none',
+              scrollTrigger: {
+                id: 'timeline-travel',
+                trigger: '#experience',
+                pin: true,
+                start: () => 'top top',
+                end: () => `+=${tlDistance() + (desktop ? 550 : 300)}`,
+                scrub: 0.8,
+                anticipatePin: 1,
+                invalidateOnRefresh: true,
+                onUpdate: self => {
+                  const bar = root.current?.querySelector<HTMLElement>('.tl-travel-progress span');
+                  if (bar) bar.style.transform = `scaleX(${self.progress})`;
+
+                  const cards = Array.from(tlRail.children) as HTMLElement[];
+                  if (!cards.length) return;
+                  const currentDistance = tlDistance();
+                  const center = self.progress * currentDistance + tlViewport.clientWidth / 2;
+                  const current = cards.reduce((best, card, index) =>
+                    Math.abs(card.offsetLeft + card.clientWidth / 2 - center) <
+                    Math.abs(cards[best].offsetLeft + cards[best].clientWidth / 2 - center)
+                      ? index
+                      : best,
+                    0
+                  );
+
+                  root.current?.querySelectorAll('.tl-dot-indicator').forEach((dot, index) => {
+                    dot.classList.toggle('is-active', index === current);
+                  });
+                },
+              },
+            });
+
+            tlRail.querySelectorAll<HTMLElement>('.tl-card a, .tl-card button').forEach(el => {
+              const onFocus = () => {
+                const card = el.closest<HTMLElement>('.tl-item');
+                if (!card) return;
+                const index = Array.from(tlRail.children).indexOf(card);
+                if (index >= 0) {
+                  const bounds = tlViewport.getBoundingClientRect();
+                  const rect = card.getBoundingClientRect();
+                  if (rect.left < bounds.left - 2 || rect.right > bounds.right + 2) {
+                    scrollToTimeline(index, false);
+                  }
+                }
+              };
+              el.addEventListener('focus', onFocus);
+              cleanup.push(() => el.removeEventListener('focus', onFocus));
+            });
+          }
+        }
+
+        if (pinned) {
+          const eqRail = root.current?.querySelector<HTMLElement>('.eq-grid');
+          const eqSection = root.current?.querySelector<HTMLElement>('#equipment');
+          if (eqRail && eqSection) {
+            const eqViewport = eqRail.parentElement!;
+            const eqDistance = () => Math.max(0, eqRail.scrollWidth - eqViewport.clientWidth);
+            gsap.to(eqRail, {
+              x: () => -eqDistance(),
+              ease: 'none',
+              scrollTrigger: {
+                id: 'equipment-travel',
+                trigger: '#equipment',
+                pin: true,
+                start: () => 'top top',
+                end: () => `+=${eqDistance() + (desktop ? 450 : 250)}`,
+                scrub: 0.8,
+                anticipatePin: 1,
+                invalidateOnRefresh: true,
+                onUpdate: self => {
+                  const bar = root.current?.querySelector<HTMLElement>('.eq-travel-progress span');
+                  if (bar) bar.style.transform = `scaleX(${self.progress})`;
+
+                  const cards = Array.from(eqRail.children) as HTMLElement[];
+                  if (!cards.length) return;
+                  const currentDistance = eqDistance();
+                  const center = self.progress * currentDistance + eqViewport.clientWidth / 2;
+                  const current = cards.reduce((best, card, index) =>
+                    Math.abs(card.offsetLeft + card.clientWidth / 2 - center) <
+                    Math.abs(cards[best].offsetLeft + cards[best].clientWidth / 2 - center)
+                      ? index
+                      : best,
+                    0
+                  );
+
+                  root.current?.querySelectorAll('.eq-dot-indicator').forEach((dot, index) => {
+                    dot.classList.toggle('is-active', index === current);
+                  });
+                },
+              },
+            });
+
+            eqRail.querySelectorAll<HTMLElement>('.eq-card a, .eq-card button').forEach(el => {
+              const onFocus = () => {
+                const card = el.closest<HTMLElement>('.eq-card');
+                if (!card) return;
+                const index = Array.from(eqRail.children).indexOf(card);
+                if (index >= 0) {
+                  const bounds = eqViewport.getBoundingClientRect();
+                  const rect = card.getBoundingClientRect();
+                  if (rect.left < bounds.left - 2 || rect.right > bounds.right + 2) {
+                    scrollToEquipment(index, false);
+                  }
+                }
+              };
+              el.addEventListener('focus', onFocus);
+              cleanup.push(() => el.removeEventListener('focus', onFocus));
+            });
+          }
+        }
+
         gsap.to('.scroll-progress', { scaleX: 1, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: true } });
         if (motion) {
           gsap.from('.hero-copy > *', { y: 45, opacity: 0, duration: 1, stagger: .1, ease: 'power3.out', clearProps: 'all' });
-          const reveal = '.fade-up:not(.project-card):not(.video-card):not(.skills-group), .about-text, .about-right, .section-title';
+          const reveal = '.fade-up:not(.project-card):not(.video-card):not(.tl-item):not(.eq-card):not(.skills-group), .about-text, .about-right, .section-title';
           const elements = gsap.utils.toArray<HTMLElement>(reveal).filter(el => {
             return !el.parentElement?.closest(reveal);
           });

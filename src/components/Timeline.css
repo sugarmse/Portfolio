@@ -1,128 +1,557 @@
-.timeline-section { background: var(--bg); }
-
-.tl-header { margin-bottom: 3.5rem; }
-
-/* ── Two-column layout ── */
-.tl-columns {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-}
-
-/* ── Column header ── */
-.tl-col-header {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-family: inherit;
-  font-size: 1rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--text-2);
-  margin-bottom: 2rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid var(--border);
-}
-.tl-col-header svg { color: var(--accent); flex-shrink: 0; }
-
-/* ── Timeline track ── */
-.tl-track {
+.timeline-section {
+  background: var(--bg);
   position: relative;
+  overflow: hidden;
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   1. GSAP PINNED HORIZONTAL SMOOTH SCROLL FOR TIMELINE
+   ══════════════════════════════════════════════════════════════════════════ */
+.timeline-horizontal.timeline-section,
+.timeline-horizontal .timeline-section {
+  padding: 0 !important;
+  border-top: 1px solid var(--border);
+  overflow: clip;
+  width: 100%;
+  height: 100svh;
+  max-height: 100svh;
+}
+
+.timeline-horizontal .tl-pin-stage {
+  padding: calc(72px + 1rem) clamp(1.5rem, 5vw, 4rem) 1.5rem;
+  width: 100%;
+  height: 100svh;
+  max-height: 100svh;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 0;
-}
-.tl-track::before {
-  content: '';
-  position: absolute;
-  left: 7px;
-  top: 8px;
-  bottom: 8px;
-  width: 1.5px;
-  background: linear-gradient(to bottom, var(--accent) 0%, transparent 100%);
+  justify-content: space-between;
 }
 
-/* ── Individual item ── */
-.tl-item {
-  position: relative;
+.timeline-horizontal .tl-stage-inner {
+  height: 100%;
   display: flex;
-  gap: 1.5rem;
-  padding-bottom: 2.5rem;
-}
-.tl-item:last-child { padding-bottom: 0; }
-
-/* Dot */
-.tl-dot {
-  flex-shrink: 0;
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-  background: var(--bg);
-  border: 2px solid var(--accent);
-  margin-top: 5px;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 0;
   position: relative;
-  z-index: 1;
-  transition: background var(--tr), box-shadow var(--tr);
-}
-.tl-item:hover .tl-dot {
-  background: var(--accent);
-  box-shadow: 0 0 12px var(--accent-glow);
 }
 
-/* Card */
-.tl-card {
+.timeline-horizontal .tl-heading-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.timeline-horizontal .tl-heading-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.timeline-horizontal .tl-heading-left .section-tag {
+  font-size: 0.72rem;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+}
+
+.timeline-horizontal .tl-heading-left .section-title {
+  font-size: clamp(1.4rem, 2.8vw, 2.2rem);
+  font-weight: 600;
+  margin: 0;
+}
+
+/* ── Filter Tabs ── */
+.tl-filter-tabs {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.tl-tab-btn {
+  padding: 0.45rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-2);
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  padding: 1.25rem 1.5rem;
-  flex: 1;
-  transition: border-color var(--tr), background var(--tr), transform var(--tr);
-}
-.tl-item:hover .tl-card {
-  border-color: rgba(249,115,22,0.3);
-  background: var(--surface-hov);
-  transform: translateX(4px);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  white-space: nowrap;
 }
 
-.tl-meta { margin-bottom: 0.4rem; }
-.tl-period {
+.tl-tab-btn:hover {
+  background: var(--surface-hov);
+  color: var(--text-1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.tl-tab-btn.active {
+  background: var(--accent);
+  color: #171916;
+  border-color: var(--accent);
+  font-weight: 600;
+  box-shadow: 0 0 16px var(--accent-glow);
+}
+
+/* ── Viewport & Horizontal Axis ── */
+.timeline-horizontal .tl-viewport {
+  overflow: clip;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding-block: 0.6rem;
+  position: relative;
+  touch-action: pan-y;
+}
+
+.timeline-horizontal .tl-axis-line {
+  position: absolute;
+  top: 48%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(249, 115, 22, 0.3) 0%, rgba(255, 255, 255, 0.08) 50%, rgba(249, 115, 22, 0.2) 100%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.timeline-horizontal .tl-grid {
+  display: flex;
+  flex-direction: row;
+  gap: clamp(1.8rem, 3.5vw, 2.8rem);
+  align-items: center;
+  height: 100%;
+  width: max-content;
+  will-change: transform;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Timeline Item & Card ── */
+.timeline-horizontal .tl-item {
+  flex: 0 0 clamp(360px, 32vw, 440px);
+  max-width: 460px;
+  height: auto;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.timeline-horizontal .tl-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 24px;
+  height: 24px;
+  margin: 0 auto 0.75rem auto;
+}
+
+.timeline-horizontal .tl-node-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid #171916;
+  box-shadow: 0 0 10px var(--accent);
+  position: relative;
+  z-index: 2;
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.timeline-horizontal .tl-item:hover .tl-node-dot,
+.timeline-horizontal .tl-item.is-active .tl-node-dot {
+  transform: scale(1.4);
+  box-shadow: 0 0 18px var(--accent);
+}
+
+.timeline-horizontal .tl-card {
+  position: relative;
+  background: rgba(22, 24, 21, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  padding: clamp(1.2rem, 2.5vw, 1.8rem);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  overflow: hidden;
+  transition: border-color 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.timeline-horizontal .tl-item:hover .tl-card,
+.timeline-horizontal .tl-item.is-active .tl-card {
+  border-color: rgba(249, 115, 22, 0.45);
+  transform: translateY(-4px);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.8), 0 0 25px rgba(249, 115, 22, 0.12);
+}
+
+.tl-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.tl-category-pill {
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  background: rgba(249, 115, 22, 0.1);
+  border: 1px solid rgba(249, 115, 22, 0.25);
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+}
+
+.tl-period-badge {
+  font-family: monospace;
   font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--accent);
+  color: var(--text-2);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.15rem 0.5rem;
+  border-radius: 6px;
 }
 
-.tl-title {
-  font-size: 1.05rem;
+.timeline-horizontal .tl-title {
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
   font-weight: 700;
   color: var(--text-1);
-  margin-bottom: 0.2rem;
+  line-height: 1.25;
+  margin: 0;
 }
 
-.tl-sub {
-  font-size: 0.85rem;
-  color: var(--text-2);
+.timeline-horizontal .tl-sub {
+  font-size: 0.82rem;
   font-weight: 600;
-  margin-bottom: 0.75rem;
+  color: var(--accent);
+  margin: 0;
 }
 
-.tl-desc {
-  font-size: 0.85rem;
+.timeline-horizontal .tl-desc {
+  font-size: clamp(0.78rem, 1.4vw, 0.85rem);
+  color: var(--text-2);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.tl-highlight-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.72rem;
   color: var(--text-3);
-  line-height: 1.65;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+  padding: 0.35rem 0.65rem;
+  border-radius: 8px;
+  margin-top: 0.2rem;
 }
 
-/* ── Scroll reveal ── */
-.tl-columns .fade-up { opacity: 0; transform: translateY(20px); }
-.tl-columns.in-view .fade-up {
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
+.tl-highlight-chip .chip-spark {
+  color: var(--accent);
+  font-size: 0.75rem;
 }
 
-/* ── Responsive ── */
-@media (max-width: 780px) {
-  .tl-columns { grid-template-columns: 1fr; gap: 3rem; }
+.tl-card-watermark {
+  position: absolute;
+  right: 1rem;
+  bottom: 0.5rem;
+  font-family: monospace;
+  font-size: 4rem;
+  font-weight: 900;
+  color: #fff;
+  opacity: 0.025;
+  pointer-events: none;
+  line-height: 1;
+}
+
+/* ── Travel Progress Bar ── */
+.timeline-horizontal .tl-travel-progress {
+  display: block;
+  height: 3px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+  width: 100%;
+  flex-shrink: 0;
+  margin-top: 0.65rem;
+}
+
+.timeline-horizontal .tl-travel-progress span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: var(--accent);
+  will-change: transform;
+  transition: transform 0.1s linear;
+}
+
+.timeline-horizontal .mobile-tl-indicators {
+  display: none;
+}
+
+/* ── Dot Indicators ── */
+.tl-dot-group {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.tl-dot-indicator {
+  width: 28px;
+  height: 20px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+}
+
+.tl-dot-indicator .dot-fill {
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.22);
+  transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.tl-dot-indicator.is-active .dot-fill {
+  width: 24px;
+  background: var(--accent);
+  box-shadow: 0 0 12px rgba(249, 115, 22, 0.55);
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   2. MOBILE VIEWPORT ADAPTATIONS (max-width: 900px)
+   ══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .timeline-horizontal.timeline-section,
+  .timeline-horizontal .timeline-section {
+    padding: 0 !important;
+    border-top: none;
+    overflow: clip;
+    width: 100%;
+    height: 100svh;
+    max-height: 100svh;
+  }
+
+  .timeline-horizontal .tl-pin-stage {
+    padding: calc(64px + clamp(0.3rem, 1vh, 0.7rem)) clamp(0.75rem, 3.2vw, 1.4rem) clamp(0.75rem, 1.8vh, 1.25rem);
+    width: 100%;
+    height: 100svh;
+    max-height: 100svh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .timeline-horizontal .tl-stage-inner {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 0;
+  }
+
+  .timeline-horizontal .tl-heading-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+    padding-bottom: 0.3rem;
+    margin-bottom: 0.15rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    flex-shrink: 0;
+    width: 100%;
+  }
+
+  .timeline-horizontal .tl-heading-left {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 0.6rem;
+  }
+
+  .timeline-horizontal .tl-heading-left .section-tag {
+    font-size: 0.62rem;
+  }
+
+  .timeline-horizontal .tl-heading-left .section-title {
+    font-size: clamp(1.15rem, 4.2vw, 1.45rem);
+    line-height: 1.15;
+    margin: 0;
+  }
+
+  .timeline-horizontal .tl-filter-tabs {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 0.15rem;
+  }
+
+  .timeline-horizontal .tl-filter-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .timeline-horizontal .tl-tab-btn {
+    min-height: 28px;
+    padding: 0.2rem 0.65rem;
+    font-size: 0.7rem;
+    border-radius: 999px;
+    flex-shrink: 0;
+  }
+
+  .timeline-horizontal .tl-viewport {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    overflow: clip;
+    padding-block: 0.2rem;
+    touch-action: pan-y;
+  }
+
+  .timeline-horizontal .tl-axis-line {
+    top: 28px;
+  }
+
+  .timeline-horizontal .tl-grid {
+    display: flex;
+    flex-direction: row;
+    gap: clamp(0.85rem, 2.5vw, 1.35rem);
+    align-items: center;
+    height: 100%;
+    width: max-content;
+    will-change: transform;
+    margin-inline: 0;
+    padding-inline: 0;
+    overflow: visible;
+  }
+
+  .timeline-horizontal .tl-item {
+    flex: 0 0 clamp(285px, 82vw, 360px);
+    width: clamp(285px, 82vw, 360px);
+    height: auto;
+    max-height: 100%;
+    box-sizing: border-box;
+  }
+
+  .timeline-horizontal .tl-marker {
+    margin-bottom: 0.4rem;
+  }
+
+  .timeline-horizontal .tl-card {
+    padding: clamp(0.85rem, 2.8vw, 1.25rem) clamp(0.85rem, 2.8vw, 1.25rem) clamp(1rem, 3.5vw, 1.4rem);
+    border-radius: 18px;
+    gap: 0.45rem;
+    max-height: 100%;
+    overflow-y: auto;
+    scrollbar-width: none;
+  }
+
+  .timeline-horizontal .tl-card::-webkit-scrollbar {
+    display: none;
+  }
+
+  .timeline-horizontal .tl-title {
+    font-size: clamp(0.95rem, 3.2vw, 1.15rem);
+    line-height: 1.2;
+  }
+
+  .timeline-horizontal .tl-sub {
+    font-size: 0.78rem;
+  }
+
+  .timeline-horizontal .tl-desc {
+    font-size: clamp(0.72rem, 2.2vw, 0.78rem);
+    line-height: 1.45;
+  }
+
+  .timeline-horizontal .tl-highlight-chip {
+    font-size: 0.68rem;
+    padding: 0.25rem 0.5rem;
+  }
+
+  .timeline-horizontal .mobile-tl-indicators {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0.35rem;
+    padding-inline: 0.2rem;
+    flex-shrink: 0;
+  }
+
+  .timeline-horizontal .mobile-tl-swipe-hint {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--text-3);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .timeline-horizontal .mobile-tl-swipe-hint .swipe-arrow {
+    color: var(--accent);
+    font-size: 0.85rem;
+    animation: swipePulse 1.8s infinite ease-in-out;
+  }
+
+  .timeline-horizontal .tl-travel-progress {
+    display: block;
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+    width: 100%;
+    flex-shrink: 0;
+    margin-top: clamp(0.65rem, 1.6vh, 1.1rem);
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   3. REDUCED MOTION FALLBACK
+   ══════════════════════════════════════════════════════════════════════════ */
+.portfolio:not(.timeline-horizontal) .timeline-section {
+  padding: clamp(4.5rem, 9vw, 7rem) 0;
+}
+
+.portfolio:not(.timeline-horizontal) .tl-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
 }
