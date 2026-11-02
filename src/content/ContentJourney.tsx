@@ -118,10 +118,31 @@ export default function ContentJourney() {
     if (!isViewerOpen) return;
     const element = dialog.current;
     const video = player.current;
-    const previousOverflow = document.body.style.overflow;
+    const body = document.body;
+    const html = document.documentElement;
+    chapterScroll.current?.kill();
+    const position = { left: window.scrollX, top: window.scrollY };
+    const bodyProperties = ['overflow', 'position', 'top', 'left', 'width'] as const;
+    const previousBody = bodyProperties.map(property => [property, body.style[property]] as const);
+    const previousOverflow = html.style.overflow;
+    const previousOverscroll = html.style.overscrollBehavior;
+    // Lock the root scroller too; body overflow alone still lets the page move.
+    html.style.overflow = 'hidden';
+    html.style.overscrollBehavior = 'none';
+    Object.assign(body.style, {
+      overflow: 'hidden', position: 'fixed',
+      top: `${-position.top}px`, left: `${-position.left}px`, width: '100%',
+    });
     element?.showModal();
-    document.body.style.overflow = 'hidden';
-    return () => { video?.pause(); element?.close(); document.body.style.overflow = previousOverflow; };
+    return () => {
+      video?.pause();
+      element?.close();
+      previousBody.forEach(([property, value]) => { body.style[property] = value; });
+      html.style.overflow = previousOverflow;
+      html.style.overscrollBehavior = previousOverscroll;
+      window.scrollTo({ ...position, behavior: 'instant' });
+      ScrollTrigger.update();
+    };
   }, [isViewerOpen]);
 
   useEffect(() => {

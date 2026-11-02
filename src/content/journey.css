@@ -151,7 +151,7 @@
 .j-closing > span { display: block; color: var(--j-muted); font-size: 9px; }
 .j-footer { display: flex; flex-wrap: wrap; gap: 25px; padding: 30px 4vw; border-top: 1px solid #ffffff26; font-size: 11px; }
 .j-footer > a:first-child { margin-right: auto; }
-.j-dialog { border: 1px solid #ffffff33; background: #10120f; color: #e8e2d5; margin: auto; padding: 55px 24px 24px; max-width: min(94vw, 1000px); max-height: 95dvh; width: max-content; }
+.j-dialog { border: 1px solid #ffffff33; background: #10120f; color: #e8e2d5; margin: auto; padding: 55px 24px 24px; max-width: min(94vw, 1000px); max-height: 95dvh; width: max-content; overflow: auto; overscroll-behavior: contain; }
 .j-dialog::backdrop { background: #000e; }
 .j-dialog-close { position: absolute; right: 20px; top: 16px; font-size: 11px !important; }
 .j-dialog img, .j-dialog video { display: block; width: auto; max-width: 100%; height: 70dvh; object-fit: contain; margin: auto; }
