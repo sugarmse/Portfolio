@@ -1,5 +1,6 @@
 import { useId } from 'react';
 import useHorizontalRail from './useHorizontalRail';
+import { photoSrcSet } from './responsiveImages';
 
 type Photo = { src: string; alt: string; caption: string; width: number; height: number };
 type Props = { title: string; photos: Photo[]; className: string; motion: boolean; onOpen: (index: number) => void };
@@ -18,7 +19,7 @@ export default function PhotoGallery({ title, photos, className, motion, onOpen 
       event.preventDefault();
       move(event.key === 'ArrowRight' ? 1 : -1);
     }}>
-      {photos.map((photo, index) => <figure className="j-still" key={photo.src}><button onClick={() => onOpen(index)} aria-label={`Enlarge ${title} photograph ${index + 1}: ${photo.caption}`}><img src={photo.src} alt={photo.alt} loading="lazy" width={photo.width} height={photo.height} /><span className="j-enlarge" aria-hidden="true">↗</span></button><figcaption><span>0{index + 1} / PHOTOGRAPH</span>{photo.caption}</figcaption></figure>)}
+      {photos.map((photo, index) => <figure className="j-still" key={photo.src}><button onClick={() => onOpen(index)} aria-label={`Enlarge ${title} photograph ${index + 1}: ${photo.caption}`}><img src={photo.src} srcSet={photoSrcSet(photo)} sizes="(max-width: 650px) 80vw, 22vw" alt={photo.alt} loading="lazy" decoding="async" width={photo.width} height={photo.height} /><span className="j-enlarge" aria-hidden="true">↗</span></button><figcaption><span>0{index + 1} / PHOTOGRAPH</span>{photo.caption}</figcaption></figure>)}
     </div>
   </div>;
 }

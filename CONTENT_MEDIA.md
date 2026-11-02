@@ -56,3 +56,9 @@ The featured content block links directly to the three short URLs supplied by th
 ## Horizontal controls
 
 Photo galleries and TikTok cards share horizontal navigation: native touch swiping, keyboard arrows, position counters, and GSAP-powered previous/next controls. When the row overflows, vertical mouse-wheel gestures over the row advance horizontally; at either boundary outward gestures resume ordinary page scrolling. Zoom gestures and horizontal trackpad gestures remain native. Reduced motion makes arrow/wheel navigation instant. Desktop rows that fit do not intercept wheel scrolling. TikTok cards use portrait thumbnails with no side bars.
+
+## Responsive images and chapter navigation
+
+Preview photographs use 640px and 1200px WebP derivatives at quality 84; the hero also has a 1600px option. Browser `srcset` selection accounts for screen width and pixel density, with a larger mobile hero size hint to retain detail in the tall crop. Full-size gallery images remain unchanged and load when the viewer opens. The About portrait now uses 640px/1000px WebP copies (55/134 KB), replacing the 2.2 MB JPEG request on this route. Reproduce these assets with `python scripts/optimize-content-images.py` (Pillow required). Layout, crop positions, and source photographs are preserved. Existing lazy loading remains enabled below the hero, with asynchronous decoding on the photo previews.
+
+Chapter links animate with GSAP ScrollToPlugin and move keyboard focus to the destination. Motion off and the operating system's reduced-motion setting use immediate navigation. Starting a new chapter transition cancels the previous one, and manual scrolling can interrupt the animation.

@@ -25,7 +25,7 @@ const base = process.argv[4] || 'http://127.0.0.1:5173';
       await page.screenshot({ path: `artifacts/content/${name}.png` });
       assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `${name}: overflow`);
       await page.locator('.j-navigation a[href="#places"] .j-nav-label').click();
-      await page.waitForTimeout(500);
+      await page.waitForTimeout(1200);
       assert.equal(await page.locator('.j-navigation a[aria-current]').getAttribute('href'), '#places');
       await page.screenshot({ path: `artifacts/content/${name}-places.png` });
       await page.locator('.j-sailung-gallery .j-still button').first().click();

@@ -1,18 +1,21 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type MouseEvent } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { chapters, film, mobileOpeningPhoto, roadPhoto, stills, kalinchowkPhotos, covers, reelPoster } from './contentData';
 import './journey.css';
 import PhotoGallery from './PhotoGallery';
 import TikTokVideos from './TikTokVideos';
+import { photoSrcSet } from './responsiveImages';
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 const imageCollections = { photos: stills, kalinchowk: kalinchowkPhotos, covers };
 
 export default function ContentJourney() {
   const root = useRef<HTMLDivElement>(null);
   const dialog = useRef<HTMLDialogElement>(null);
   const player = useRef<HTMLVideoElement>(null);
+  const chapterScroll = useRef<gsap.core.Tween | null>(null);
   const [active, setActive] = useState(0);
   const [view, setView] = useState<'film' | { collection: keyof typeof imageCollections; index: number } | null>(null);
   const isViewerOpen = view !== null;
@@ -25,6 +28,26 @@ export default function ContentJourney() {
     return { ...current, index: (current.index + step + count) % count };
   });
   const [motion, setMotion] = useState(true);
+
+  const navigateChapter = (event: MouseEvent<HTMLDivElement>) => {
+    if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const anchor = (event.target as HTMLElement).closest<HTMLAnchorElement>('a[href^="#"]');
+    if (!anchor) return;
+    const target = document.getElementById(anchor.hash.slice(1));
+    if (!target || !root.current?.contains(target)) return;
+    event.preventDefault();
+    if (location.hash !== anchor.hash) history.pushState(null, '', anchor.hash);
+    if (!target.hasAttribute('tabindex')) target.tabIndex = -1;
+    target.focus({ preventScroll: true });
+    chapterScroll.current?.kill();
+    if (motion && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      chapterScroll.current = gsap.to(window, {
+        scrollTo: { y: target, offsetY: parseFloat(getComputedStyle(target).scrollMarginTop) || 0, autoKill: true },
+        duration: 1,
+        ease: 'power2.inOut',
+      });
+    } else target.scrollIntoView({ behavior: 'instant', block: 'start' });
+  };
 
   useEffect(() => {
     const previousTitle = document.title;
@@ -60,7 +83,7 @@ export default function ContentJourney() {
   useEffect(() => {
     const previous = document.documentElement.style.scrollBehavior;
     if (!motion) document.documentElement.style.scrollBehavior = 'auto';
-    return () => { document.documentElement.style.scrollBehavior = previous; };
+    return () => { chapterScroll.current?.kill(); document.documentElement.style.scrollBehavior = previous; };
   }, [motion]);
 
   useEffect(() => {
@@ -97,7 +120,7 @@ export default function ContentJourney() {
     return () => document.removeEventListener('visibilitychange', pause);
   }, []);
 
-  return <div className="journey" ref={root} data-motion={motion}>
+  return <div className="journey" ref={root} data-motion={motion} onClick={navigateChapter}>
     <a className="j-skip" href="#stories">Skip to the content</a>
     <header className="j-header">
       <a className="j-wordmark" href="/" aria-label="Sarthak Shakya, full portfolio">Sarthak Shakya<span>Travel creator application</span></a>
@@ -109,7 +132,7 @@ export default function ContentJourney() {
     </nav>
     <main>
       <section id="departure" data-chapter className="j-departure">
-        <div className="j-opening-frame"><picture><source media="(max-width: 650px)" srcSet={mobileOpeningPhoto.src} width={mobileOpeningPhoto.width} height={mobileOpeningPhoto.height} /><img src={mobileOpeningPhoto.src} alt={mobileOpeningPhoto.alt} fetchPriority="high" width={mobileOpeningPhoto.width} height={mobileOpeningPhoto.height} /></picture></div>
+        <div className="j-opening-frame"><img src={mobileOpeningPhoto.src} srcSet={photoSrcSet(mobileOpeningPhoto)} sizes="(max-width: 650px) 800px, 100vw" alt={mobileOpeningPhoto.alt} fetchPriority="high" width={mobileOpeningPhoto.width} height={mobileOpeningPhoto.height} /></div>
         <div className="j-departure-copy"><p className="j-eyebrow">A JOURNEY THROUGH NEPAL</p><h1>The long<br />way <em>home.</em></h1>
           <p className="j-opening-statement">Exploring Nepal,<br />with a camera along for the ride.</p>
           <p className="j-byline">By Sarthak Shakya · Lalitpur, Nepal</p>
@@ -124,7 +147,7 @@ export default function ContentJourney() {
         <p>Prepared for my Nepal Tourism Board creator application.</p>
       </section>
       <section id="road" data-chapter className="j-road">
-        <div className="j-road-visual"><img className="j-road-image" src={roadPhoto.src} alt={roadPhoto.alt} loading="lazy" width={roadPhoto.width} height={roadPhoto.height} /></div>
+        <div className="j-road-visual"><img className="j-road-image" src={roadPhoto.src} srcSet={photoSrcSet(roadPhoto)} sizes="(max-width: 650px) 100vw, 50vw" alt={roadPhoto.alt} loading="lazy" decoding="async" width={roadPhoto.width} height={roadPhoto.height} /></div>
         <div className="j-road-copy"><p className="j-eyebrow">01 / THE ROAD</p><h2>The ride.<br />The camp.<br /><em>The camera.</em></h2><p>For this reel, I followed the mountain views, the routines around camp, and the small fixes that keep a trip going.</p><a href="#stories" className="j-text-link">Watch Sailung & Kalinchowk <span>↗</span></a></div>
         <span className="j-margin-note">FROM MY SAILUNG & KALINCHOWK REEL</span>
       </section>
@@ -156,7 +179,7 @@ export default function ContentJourney() {
         </details>
       </section>
       <section id="person" data-chapter className="j-person">
-        <div className="j-person-photo"><img src="/pfp.jpeg" alt="Sarthak Shakya" loading="lazy" /><span>THE PERSON BEHIND THE CAMERA</span></div><div className="j-person-copy"><p className="j-eyebrow">04 / A LITTLE CLOSER</p><h2>I’m <em>Sarthak.</em></h2><p>I enjoy travelling around Nepal by motorcycle, with a camera along for the journey.</p><p>My background is in photography, videography, professional video editing, and digital production. I’m newer to publishing my own travel stories.</p><p>The reel featured here is one example of the travel stories I’ve recently started sharing. I want to spend more time documenting lesser-known places and the people who live there.</p><a href="/#videos" className="j-text-link">More of my editing work <span>↗</span></a><details><summary>My production kit <span>+</span></summary><p>Sony A6700 · Sigma 18–50mm f/2.8<br />DJI Osmo 360 · DJI Mic Mini</p><p>My editing tool: DaVinci Resolve.</p></details></div>
+        <div className="j-person-photo"><img src="/content/portrait/pfp-640.webp" srcSet="/content/portrait/pfp-640.webp 640w, /content/portrait/pfp-1000.webp 1000w" sizes="(max-width: 650px) 55vw, 35vw" alt="Sarthak Shakya" loading="lazy" decoding="async" width={1000} height={701} /><span>THE PERSON BEHIND THE CAMERA</span></div><div className="j-person-copy"><p className="j-eyebrow">04 / A LITTLE CLOSER</p><h2>I’m <em>Sarthak.</em></h2><p>I enjoy travelling around Nepal by motorcycle, with a camera along for the journey.</p><p>My background is in photography, videography, professional video editing, and digital production. I’m newer to publishing my own travel stories.</p><p>The reel featured here is one example of the travel stories I’ve recently started sharing. I want to spend more time documenting lesser-known places and the people who live there.</p><a href="/#videos" className="j-text-link">More of my editing work <span>↗</span></a><details><summary>My production kit <span>+</span></summary><p>Sony A6700 · Sigma 18–50mm f/2.8<br />DJI Osmo 360 · DJI Mic Mini</p><p>My editing tool: DaVinci Resolve.</p></details></div>
       </section>
       <section id="next" data-chapter className="j-next">
         <p className="j-eyebrow">05 / WHAT COMES NEXT</p><h2>Where I want<br />to take<br /><em>the camera next.</em></h2>
