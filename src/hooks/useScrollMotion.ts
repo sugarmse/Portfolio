@@ -167,7 +167,7 @@ export function useScrollMotion(root: RefObject<HTMLDivElement>, preference: Mot
           }
         }
 
-        if (pinned) {
+        if (pinned && desktop) {
           const tlRail = root.current?.querySelector<HTMLElement>('.tl-grid');
           const tlSection = root.current?.querySelector<HTMLElement>('#experience');
           if (tlRail && tlSection) {

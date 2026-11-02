@@ -1,0 +1,106 @@
+const { chromium } = require(process.argv[2]);
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const base = process.argv[4] || 'http://127.0.0.1:5173';
+(async () => {
+  const browser = await chromium.launch({ executablePath: process.argv[3], headless: true });
+  try {
+    fs.mkdirSync('artifacts/content', { recursive: true });
+    const page = await browser.newPage();
+    const errors = [];
+    const mediaRequests = [];
+    page.on('pageerror', error => errors.push(error.message));
+    page.on('request', request => { if (/\.(mp4|webm)$/.test(request.url())) mediaRequests.push(request.url()); });
+    for (const [name, width, height] of [['desktop', 1440, 1000], ['tablet', 820, 1180], ['mobile', 390, 844]]) {
+      await page.setViewportSize({ width, height });
+      await page.goto(`${base}/content`);
+      await page.locator('h1').waitFor();
+      await page.waitForTimeout(700);
+      assert.equal(await page.locator('[data-chapter]').count(), 6);
+      assert.equal(await page.locator('video').count(), 0);
+      const heroButton = await page.locator('.j-hero-watch').boundingBox();
+      const navBox = await page.locator('.j-navigation').boundingBox();
+      assert(heroButton.y >= 0 && heroButton.y + heroButton.height < (width <= 650 ? navBox.y : height), `${name}: reel button visible on entry`);
+      assert.equal(await page.locator('.j-cover-collection').getAttribute('open'), null);
+      await page.screenshot({ path: `artifacts/content/${name}.png` });
+      assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `${name}: overflow`);
+      await page.locator('.j-navigation a[href="#places"] .j-nav-label').click();
+      await page.waitForTimeout(500);
+      assert.equal(await page.locator('.j-navigation a[aria-current]').getAttribute('href'), '#places');
+      await page.screenshot({ path: `artifacts/content/${name}-places.png` });
+      await page.locator('.j-sailung-gallery .j-still button').first().click();
+      assert(await page.locator('dialog').evaluate(el => el.open));
+      await page.getByRole('button', { name: 'Next →' }).click();
+      assert.match(await page.locator('.j-dialog figcaption').textContent(), /Layers beneath an orange sky/);
+      await page.keyboard.press('Escape');
+      assert.equal(await page.locator('dialog').evaluate(el => el.open), false);
+      assert.equal(await page.evaluate(() => document.activeElement === document.querySelector('.j-sailung-gallery .j-still button')), true);
+      await page.locator('.j-sailung-gallery .j-still button').last().click();
+      await page.getByRole('button', { name: 'Next →' }).click();
+      assert.match(await page.locator('.j-dialog figcaption').textContent(), /Warm light on the hilltop.*Photograph/);
+      assert.match(await page.locator('.j-viewer-controls').textContent(), /1 \/ 4/);
+      await page.keyboard.press('Escape');
+      await page.getByRole('button', { name: 'Enlarge Kalinchowk photograph 1: Camp above the ridges.', exact: true }).click();
+      assert.equal(await page.locator('dialog').getAttribute('aria-label'), 'Kalinchowk photography viewer');
+      for (let i = 0; i < 4; i++) {
+        await page.locator('.j-dialog figure img').evaluate(el => el.decode());
+        assert.match(await page.locator('.j-dialog figure img').getAttribute('src'), /dsc02(?:474|480|485|522)\.webp$/);
+        await page.getByRole('button', { name: 'Next →' }).click();
+      }
+      assert.match(await page.locator('.j-dialog figcaption').textContent(), /Camp above the ridges/);
+      assert.match(await page.locator('.j-viewer-controls').textContent(), /1 \/ 4/);
+      await page.keyboard.press('Escape');
+      assert.equal(await page.getByRole('button', { name: 'Enlarge Kalinchowk photograph 1: Camp above the ridges.', exact: true }).evaluate(el => el === document.activeElement), true);
+      await page.locator('.j-navigation a[href="#stories"] .j-nav-label').click();
+      await page.screenshot({ path: `artifacts/content/${name}-stories.png` });
+      assert.equal(await page.locator('img[src*="frame-7"]').count(), 0, 'Excluded AI frame is absent');
+      assert.equal(await page.locator('.j-sailung-gallery .j-still img[src^="/content/photos/"]').count(), 4);
+      assert.equal(await page.locator('.j-tiktok-reel').count(), 3, 'Three TikTok reel links');
+      await page.locator('.j-cover-collection summary').click();
+      await page.getByRole('button', { name: 'View reel cover: Trip Cost Breakdown', exact: true }).click();
+      assert.match(await page.locator('.j-dialog figcaption').textContent(), /Trip Cost Breakdown.*Reel cover artwork/);
+      await page.getByRole('button', { name: 'Next →' }).click();
+      assert.match(await page.locator('.j-dialog figcaption').textContent(), /Camping.*Reel cover artwork/);
+      await page.screenshot({ path: `artifacts/content/${name}-cover-viewer.png` });
+      await page.keyboard.press('Escape');
+      assert.equal(await page.getByRole('button', { name: 'View reel cover: Trip Cost Breakdown', exact: true }).evaluate(el => el === document.activeElement), true);
+      await page.locator('.j-reel-alternative button').click();
+      const video = page.locator('video');
+      await video.evaluate(async el => { el.muted = true; await el.play(); });
+      await page.waitForTimeout(700);
+      assert(await video.evaluate(el => el.currentTime > 0 && !el.paused));
+      assert(await video.evaluate(el => Number.isFinite(el.duration) && el.duration > 47 && el.duration < 49));
+      assert(await video.evaluate(el => el.currentSrc.endsWith('jugaad-travel.webm') && el.videoWidth === 540));
+      if (name === 'desktop') {
+        assert(await video.evaluate(el => el.webkitAudioDecodedByteCount > 0), 'Original audio decodes');
+        await video.evaluate(el => new Promise(resolve => { el.onseeked = resolve; el.currentTime = 30; }));
+        assert(await video.evaluate(el => el.currentTime >= 30));
+        await page.screenshot({ path: 'artifacts/content/film-player.png' });
+      }
+      console.log(`${name}: chapters, overflow, lightbox, focus return, film playback passed`);
+      await page.keyboard.press('Escape');
+      await page.goBack();
+      assert.equal(new URL(page.url()).hash, '#places');
+      await page.goForward();
+      assert.equal(new URL(page.url()).hash, '#stories');
+    }
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    const before = mediaRequests.length;
+    await page.goto(`${base}/content/`);
+    await page.locator('h1').waitFor();
+    assert.equal(await page.locator('.journey').getAttribute('data-motion'), 'true', 'Motion defaults on');
+    await page.getByRole('button', { name: 'Motion on' }).click();
+    assert.equal(await page.locator('.journey').getAttribute('data-motion'), 'false');
+    assert.equal(mediaRequests.length, before, 'No video downloaded before opening player');
+    await page.getByRole('button', { name: 'Motion off' }).click();
+    assert.equal(await page.locator('.journey').getAttribute('data-motion'), 'true');
+    await page.getByRole('button', { name: 'Motion on' }).click();
+    assert.equal(await page.locator('.journey').getAttribute('data-motion'), 'false');
+    assert.equal(await page.evaluate(() => getComputedStyle(document.documentElement).scrollBehavior), 'auto');
+    await page.goto(`${base}/`);
+    await page.locator('.portfolio .hero').waitFor();
+    assert.equal(await page.locator('.journey').count(), 0);
+    assert.deepEqual(errors, []);
+    console.log('Motion defaults on, manual motion toggle, zero initial video requests, back/forward, main portfolio and runtime errors passed');
+  } finally { await browser.close(); }
+})().catch(error => { console.error(error); process.exitCode = 1; });

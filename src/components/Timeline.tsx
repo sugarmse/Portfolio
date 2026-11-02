@@ -1,6 +1,7 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ScrollSmoother } from 'gsap/ScrollSmoother';
 import { scrollToTimeline } from '../scroll';
 import './Timeline.css';
 
@@ -98,11 +99,12 @@ export default function Timeline() {
   const gridRef = useRef<HTMLDivElement>(null);
   const touchStartPos = useRef<{ x: number; y: number; time: number } | null>(null);
 
-  const filteredItems = activeTab === 'all'
+  const filteredItems = useMemo(() => activeTab === 'all'
     ? TIMELINE_ITEMS
-    : TIMELINE_ITEMS.filter(item => item.type === activeTab);
+    : TIMELINE_ITEMS.filter(item => item.type === activeTab), [activeTab]);
 
   const handleTouchStart = (e: React.TouchEvent) => {
+    if (!ScrollTrigger.getById('timeline-travel')) return;
     touchStartPos.current = {
       x: e.touches[0].clientX,
       y: e.touches[0].clientY,
@@ -136,9 +138,69 @@ export default function Timeline() {
     const trigger = ScrollTrigger.getById('timeline-travel');
     if (trigger) {
       if (gridRef.current) gsap.set(gridRef.current, { x: 0 });
-      ScrollTrigger.refresh();
     }
+    if (viewportRef.current) viewportRef.current.scrollLeft = 0;
+    ScrollTrigger.refresh();
   }, [filteredItems, activeTab]);
+
+  useEffect(() => {
+    const viewport = viewportRef.current;
+    const grid = gridRef.current;
+    if (!viewport || !grid) return;
+    let lastWheelMove = -Infinity;
+    const stop = () => { gsap.killTweensOf(viewport); viewport.style.scrollSnapType = ''; };
+    const wheel = (event: WheelEvent) => {
+      if (!window.matchMedia('(max-width: 900px)').matches || event.ctrlKey || Math.abs(event.deltaX) >= Math.abs(event.deltaY)) return;
+      const max = viewport.scrollWidth - viewport.clientWidth;
+      const direction = Math.sign(event.deltaY);
+      if (!direction || max <= 2) return;
+      if ((direction < 0 && viewport.scrollLeft <= 2) || (direction > 0 && viewport.scrollLeft >= max - 2)) {
+        const smoother = ScrollSmoother.get();
+        if (smoother) {
+          event.preventDefault();
+          const unit = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? window.innerHeight : 1;
+          smoother.scrollTo(smoother.scrollTop() + event.deltaY * unit, false);
+        }
+        return;
+      }
+      event.preventDefault();
+      const now = performance.now();
+      if (now - lastWheelMove < 420) return;
+      lastWheelMove = now;
+      const card = grid.children[0] as HTMLElement | undefined;
+      if (!card) return;
+      const step = card.clientWidth + (parseFloat(getComputedStyle(grid).gap) || 0);
+      const left = Math.max(0, Math.min(max, (Math.round(viewport.scrollLeft / step) + direction) * step));
+      stop();
+      if (document.documentElement.dataset.motion === 'reduced') { viewport.scrollLeft = left; return; }
+      viewport.style.scrollSnapType = 'none';
+      gsap.to(viewport, { scrollLeft: left, duration: .4, ease: 'power2.out', overwrite: true, onComplete: () => { viewport.style.scrollSnapType = ''; } });
+    };
+    const update = () => {
+      if (!window.matchMedia('(max-width: 900px)').matches) return;
+      const cards = Array.from(grid.children) as HTMLElement[];
+      const center = viewport.scrollLeft + viewport.clientWidth / 2;
+      const index = cards.reduce((best, card, i) => Math.abs(card.offsetLeft + card.clientWidth / 2 - center) < Math.abs(cards[best].offsetLeft + cards[best].clientWidth / 2 - center) ? i : best, 0);
+      setActiveItemIndex(index);
+      const progress = sectionRef.current?.querySelector<HTMLElement>('.tl-travel-progress span');
+      if (progress) progress.style.transform = `scaleX(${viewport.scrollLeft / Math.max(1, grid.scrollWidth - viewport.clientWidth)})`;
+    };
+    viewport.addEventListener('scroll', update, { passive: true });
+    viewport.addEventListener('wheel', wheel, { passive: false });
+    viewport.addEventListener('pointerdown', stop, { passive: true });
+    viewport.addEventListener('touchstart', stop, { passive: true });
+    const observer = new ResizeObserver(update);
+    observer.observe(viewport);
+    update();
+    return () => {
+      stop();
+      viewport.removeEventListener('scroll', update);
+      viewport.removeEventListener('wheel', wheel);
+      viewport.removeEventListener('pointerdown', stop);
+      viewport.removeEventListener('touchstart', stop);
+      observer.disconnect();
+    };
+  }, [filteredItems]);
 
   return (
     <section ref={sectionRef} className="timeline-section" id="experience" aria-labelledby="experience-title">
@@ -161,7 +223,7 @@ export default function Timeline() {
                 className={`tl-tab-btn${activeTab === 'all' ? ' active' : ''}`}
                 onClick={() => setActiveTab('all')}
               >
-                All Milestones ({TIMELINE_ITEMS.length})
+                All ({TIMELINE_ITEMS.length})
               </button>
               <button
                 type="button"
@@ -170,7 +232,7 @@ export default function Timeline() {
                 className={`tl-tab-btn${activeTab === 'experience' ? ' active' : ''}`}
                 onClick={() => setActiveTab('experience')}
               >
-                💼 Experience (4)
+                Experience (4)
               </button>
               <button
                 type="button"
@@ -179,7 +241,7 @@ export default function Timeline() {
                 className={`tl-tab-btn${activeTab === 'education' ? ' active' : ''}`}
                 onClick={() => setActiveTab('education')}
               >
-                🎓 Education (3)
+                Education (3)
               </button>
             </div>
           </div>
@@ -191,9 +253,6 @@ export default function Timeline() {
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
           >
-            {/* Horizontal Timeline Track Line */}
-            <div className="tl-axis-line" aria-hidden="true" />
-
             <div ref={gridRef} className="tl-grid">
               {filteredItems.map((item, index) => (
                 <article
@@ -201,34 +260,18 @@ export default function Timeline() {
                   className={`tl-item fade-up${activeItemIndex === index ? ' is-active' : ''}`}
                   id={`timeline-${item.id}`}
                 >
-                  <div className="tl-marker" aria-hidden="true">
-                    <span className="tl-node-dot" />
-                    <span className="tl-node-pulse" />
-                  </div>
-
                   <div className="tl-card">
                     <div className="tl-card-header">
-                      <span className="tl-category-pill">
-                        {item.type === 'experience' ? '💼 Work Experience' : '🎓 Academic Degree'}
-                      </span>
-                      <span className="tl-period-badge">{item.period}</span>
+                      <span className="tl-company">{item.org}</span>
+                      <span className="tl-period">{item.period}</span>
                     </div>
 
                     <h3 className="tl-title">{item.title}</h3>
-                    <p className="tl-sub">{item.org}</p>
-
                     <p className="tl-desc">{item.desc}</p>
 
                     {item.highlight && (
-                      <div className="tl-highlight-chip">
-                        <span className="chip-spark" aria-hidden="true">✦</span>
-                        <span>{item.highlight}</span>
-                      </div>
+                      <p className="tl-highlight">{item.highlight}</p>
                     )}
-
-                    <div className="tl-card-watermark" aria-hidden="true">
-                      {String(index + 1).padStart(2, '0')}
-                    </div>
                   </div>
                 </article>
               ))}
@@ -251,7 +294,7 @@ export default function Timeline() {
               ))}
             </div>
             <div className="mobile-tl-swipe-hint" aria-hidden="true">
-              <span>Swipe to explore timeline</span>
+              <span>Swipe or scroll to explore</span>
               <span className="swipe-arrow">→</span>
             </div>
           </div>

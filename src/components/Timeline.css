@@ -130,8 +130,8 @@
   display: flex;
   flex-direction: row;
   gap: clamp(1.8rem, 3.5vw, 2.8rem);
-  align-items: center;
-  height: 100%;
+  align-items: stretch;
+  height: auto;
   width: max-content;
   will-change: transform;
   position: relative;
@@ -150,139 +150,76 @@
   box-sizing: border-box;
 }
 
-.timeline-horizontal .tl-marker {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  width: 24px;
-  height: 24px;
-  margin: 0 auto 0.75rem auto;
-}
-
-.timeline-horizontal .tl-node-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: var(--accent);
-  border: 2px solid #171916;
-  box-shadow: 0 0 10px var(--accent);
-  position: relative;
-  z-index: 2;
-  transition: transform 0.25s ease, background 0.25s ease;
-}
-
-.timeline-horizontal .tl-item:hover .tl-node-dot,
-.timeline-horizontal .tl-item.is-active .tl-node-dot {
-  transform: scale(1.4);
-  box-shadow: 0 0 18px var(--accent);
-}
-
 .timeline-horizontal .tl-card {
+  flex: 1;
   position: relative;
-  background: rgba(22, 24, 21, 0.88);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 20px;
-  padding: clamp(1.2rem, 2.5vw, 1.8rem);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.65);
+  background: rgba(22, 24, 21, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: clamp(1.35rem, 2.5vw, 1.8rem);
+  box-shadow: none;
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
+  gap: 0.65rem;
   overflow: hidden;
-  transition: border-color 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
+  transition: border-color 0.25s ease, transform 0.25s ease;
 }
 
 .timeline-horizontal .tl-item:hover .tl-card,
 .timeline-horizontal .tl-item.is-active .tl-card {
-  border-color: rgba(249, 115, 22, 0.45);
-  transform: translateY(-4px);
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.8), 0 0 25px rgba(249, 115, 22, 0.12);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-3px);
+  box-shadow: none;
 }
 
 .tl-card-header {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-between;
-  gap: 0.5rem;
+  gap: 0.75rem;
   flex-wrap: wrap;
+  margin-bottom: 0.1rem;
 }
 
-.tl-category-pill {
-  font-size: 0.65rem;
+.tl-company {
+  font-size: 0.82rem;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
   color: var(--accent);
-  background: rgba(249, 115, 22, 0.1);
-  border: 1px solid rgba(249, 115, 22, 0.25);
-  padding: 0.2rem 0.55rem;
-  border-radius: 999px;
+  letter-spacing: 0.02em;
 }
 
-.tl-period-badge {
+.tl-period {
   font-family: monospace;
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: var(--text-2);
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 0.15rem 0.5rem;
-  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-3);
+  letter-spacing: 0.02em;
 }
 
 .timeline-horizontal .tl-title {
-  font-size: clamp(1.05rem, 2vw, 1.25rem);
-  font-weight: 700;
+  font-size: clamp(1.1rem, 2vw, 1.3rem);
+  font-weight: 600;
   color: var(--text-1);
   line-height: 1.25;
   margin: 0;
 }
 
-.timeline-horizontal .tl-sub {
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: var(--accent);
-  margin: 0;
-}
-
 .timeline-horizontal .tl-desc {
-  font-size: clamp(0.78rem, 1.4vw, 0.85rem);
+  font-size: clamp(0.8rem, 1.3vw, 0.86rem);
   color: var(--text-2);
   line-height: 1.6;
   margin: 0;
 }
 
-.tl-highlight-chip {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.72rem;
+.tl-highlight {
+  font-size: 0.76rem;
   color: var(--text-3);
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px dashed rgba(255, 255, 255, 0.12);
-  padding: 0.35rem 0.65rem;
-  border-radius: 8px;
-  margin-top: 0.2rem;
-}
-
-.tl-highlight-chip .chip-spark {
-  color: var(--accent);
-  font-size: 0.75rem;
-}
-
-.tl-card-watermark {
-  position: absolute;
-  right: 1rem;
-  bottom: 0.5rem;
-  font-family: monospace;
-  font-size: 4rem;
-  font-weight: 900;
-  color: #fff;
-  opacity: 0.025;
-  pointer-events: none;
-  line-height: 1;
+  line-height: 1.5;
+  padding-top: 0.65rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  margin: 0.2rem 0 0 0;
 }
 
 /* ── Travel Progress Bar ── */
@@ -357,26 +294,27 @@
     border-top: none;
     overflow: clip;
     width: 100%;
-    height: 100svh;
-    max-height: 100svh;
+    height: auto;
+    max-height: none;
   }
 
   .timeline-horizontal .tl-pin-stage {
     padding: calc(64px + clamp(0.3rem, 1vh, 0.7rem)) clamp(0.75rem, 3.2vw, 1.4rem) clamp(0.75rem, 1.8vh, 1.25rem);
     width: 100%;
-    height: 100svh;
-    max-height: 100svh;
+    height: auto;
+    max-height: none;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
   }
 
   .timeline-horizontal .tl-stage-inner {
-    height: 100%;
+    gap: 12px;
+    height: auto;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     min-height: 0;
   }
 
@@ -395,7 +333,7 @@
   .timeline-horizontal .tl-heading-left {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     width: 100%;
     gap: 0.6rem;
   }
@@ -434,14 +372,16 @@
   }
 
   .timeline-horizontal .tl-viewport {
-    flex: 1;
+    flex: 0 0 auto;
     min-height: 0;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     width: 100%;
-    overflow: clip;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
     padding-block: 0.2rem;
-    touch-action: pan-y;
+    touch-action: pan-x pan-y;
   }
 
   .timeline-horizontal .tl-axis-line {
@@ -452,8 +392,8 @@
     display: flex;
     flex-direction: row;
     gap: clamp(0.85rem, 2.5vw, 1.35rem);
-    align-items: center;
-    height: 100%;
+    align-items: stretch;
+    height: auto;
     width: max-content;
     will-change: transform;
     margin-inline: 0;
@@ -462,23 +402,20 @@
   }
 
   .timeline-horizontal .tl-item {
+    scroll-snap-align: start;
     flex: 0 0 clamp(285px, 82vw, 360px);
     width: clamp(285px, 82vw, 360px);
     height: auto;
-    max-height: 100%;
+    max-height: none;
     box-sizing: border-box;
   }
 
-  .timeline-horizontal .tl-marker {
-    margin-bottom: 0.4rem;
-  }
-
   .timeline-horizontal .tl-card {
-    padding: clamp(0.85rem, 2.8vw, 1.25rem) clamp(0.85rem, 2.8vw, 1.25rem) clamp(1rem, 3.5vw, 1.4rem);
-    border-radius: 18px;
+    padding: clamp(0.95rem, 2.8vw, 1.25rem) clamp(0.95rem, 2.8vw, 1.25rem) clamp(1.1rem, 3.5vw, 1.4rem);
+    border-radius: 16px;
     gap: 0.45rem;
-    max-height: 100%;
-    overflow-y: auto;
+    max-height: none;
+    overflow-y: visible;
     scrollbar-width: none;
   }
 
@@ -486,29 +423,33 @@
     display: none;
   }
 
+  .timeline-horizontal .tl-company {
+    font-size: 0.76rem;
+  }
+
+  .timeline-horizontal .tl-period {
+    font-size: 0.7rem;
+  }
+
   .timeline-horizontal .tl-title {
     font-size: clamp(0.95rem, 3.2vw, 1.15rem);
     line-height: 1.2;
   }
 
-  .timeline-horizontal .tl-sub {
-    font-size: 0.78rem;
-  }
-
   .timeline-horizontal .tl-desc {
-    font-size: clamp(0.72rem, 2.2vw, 0.78rem);
+    font-size: clamp(0.74rem, 2.2vw, 0.8rem);
     line-height: 1.45;
   }
 
-  .timeline-horizontal .tl-highlight-chip {
-    font-size: 0.68rem;
-    padding: 0.25rem 0.5rem;
+  .timeline-horizontal .tl-highlight {
+    font-size: 0.72rem;
+    padding-top: 0.45rem;
   }
 
   .timeline-horizontal .mobile-tl-indicators {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     margin-top: 0.35rem;
     padding-inline: 0.2rem;
     flex-shrink: 0;

@@ -29,7 +29,6 @@ export default function VideoProjects() {
   const [activeFilter, setActiveFilter] = useState<VideoCategoryFilter>('All');
   const [selected, setSelected] = useState<VideoProject | null>(null);
   const [activeFolderIndex, setActiveFolderIndex] = useState<number>(0);
-  const [mobilePreviewingId, setMobilePreviewingId] = useState<string | null>(null);
   const [activeVideoIndex, setActiveVideoIndex] = useState<number>(0);
 
   const sectionRef = useRef<HTMLElement>(null);
@@ -117,14 +116,10 @@ export default function VideoProjects() {
       (entries) => {
         entries.forEach((entry) => {
           const stage = entry.target as HTMLElement;
-          const card = stage.closest<HTMLElement>('.video-card');
-          const cardId = card?.id?.replace('video-', '') || '';
           const vids = stage.querySelectorAll<HTMLVideoElement>('video');
           const bars = stage.querySelectorAll<HTMLElement>('.placeholder-waveform .bar');
 
           if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
-            setMobilePreviewingId(cardId);
-            stage.classList.add('is-mobile-previewing');
             vids.forEach((v) => {
               v.muted = true;
               v.playsInline = true;
@@ -142,8 +137,6 @@ export default function VideoProjects() {
               });
             }
           } else if (entry.intersectionRatio < 0.35) {
-            stage.classList.remove('is-mobile-previewing');
-            setMobilePreviewingId((current) => (current === cardId ? null : current));
             vids.forEach((v) => {
               v.pause();
               v.currentTime = 0;
@@ -534,7 +527,7 @@ export default function VideoProjects() {
                           <span className="bar b7" /><span className="bar b8" /><span className="bar b9" />
                         </div>
                         <span className="placeholder-status-pill">
-                          <span className="rec-dot" /> Slot Reserved • Video Coming Soon
+                          Video Coming Soon
                         </span>
                       </div>
                     </div>
@@ -546,14 +539,11 @@ export default function VideoProjects() {
                   <div className="video-top-badges">
                     {project.isFolder ? (
                       <span className="video-badge-folder">
-                        <FaFolder /> FOLDER • {project.folderItems?.length ?? 1} {(project.folderItems?.length === 1) ? 'EDIT' : 'EDITS'}
+                        <FaFolder /> {project.externalVideos?.length ? `${(project.folderItems?.length ?? 0) + project.externalVideos.length} Videos` : `${project.folderItems?.length ?? 1} ${project.folderItems?.length === 1 ? 'Edit' : 'Edits'}`}
                       </span>
                     ) : (
                       <span className="video-badge-category">{project.categoryLabel}</span>
                     )}
-                    <span className={`video-badge-rec${mobilePreviewingId === project.id ? ' is-live-preview' : ''}`}>
-                      <span className="rec-dot" /> {mobilePreviewingId === project.id ? 'LIVE PREVIEW' : (project.isPlaceholder ? 'PENDING' : 'REC ●')}
-                    </span>
                   </div>
 
                   <div className="video-bottom-badges">
@@ -738,7 +728,7 @@ export default function VideoProjects() {
                         This video project showcase slot is reserved. The cut, sound design, and color grade are being prepped for upload.
                       </p>
                       <div className="dialog-stage-guide">
-                        <span>💡 <strong>Quick Note:</strong> Provide your video file in <code>public/videos/</code> and update <code>src/data/videoProjects.ts</code></span>
+                        <span><strong>Note:</strong> Provide your video file in <code>public/videos/</code> and update <code>src/data/videoProjects.ts</code></span>
                       </div>
                     </div>
                   </div>
@@ -775,12 +765,19 @@ export default function VideoProjects() {
                           <span className="folder-item-tag">{item.tag}</span>
                         </div>
                         <span className="folder-item-icon">
-                          {activeFolderIndex === idx ? <span className="rec-dot" /> : <FaPlay />}
+                          <FaPlay />
                         </span>
                       </button>
                     ))}
                   </div>
                 </div>
+              )}
+
+              {selected.externalVideos && selected.externalVideos.length > 0 && (
+                <section className="folder-social-videos" aria-label="Travel videos on TikTok">
+                  <div className="folder-social-heading"><h3>Travel videos on TikTok</h3><p>More from Sailung and Kalinchowk. Opens in a new tab.</p></div>
+                  <div className="folder-social-grid">{selected.externalVideos.map(video => <a key={video.id} href={video.href} target="_blank" rel="noopener noreferrer" aria-label={`Watch ${video.title} on TikTok, opens in a new tab`}><img src={video.thumbnail.src} alt={video.thumbnail.alt} width={video.thumbnail.width} height={video.thumbnail.height} loading="lazy" /><div><span>TIKTOK VIDEO</span><h4>{video.title}</h4><span className="folder-social-action">Watch on TikTok ↗</span></div></a>)}</div>
+                </section>
               )}
 
               {/* Information & Edit Specs */}

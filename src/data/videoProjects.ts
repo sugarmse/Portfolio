@@ -1,3 +1,5 @@
+import { TRAVEL_VIDEOS, type TravelVideo } from './travelVideos';
+
 export interface EditBreakdown {
   pacing: string;
   colorGrading: string;
@@ -32,6 +34,7 @@ export interface VideoProject {
   isPlaceholder: boolean;
   isFolder?: boolean;
   folderItems?: VideoFolderItem[];
+  externalVideos?: TravelVideo[];
   driveUrl?: string;
 }
 
@@ -51,6 +54,7 @@ export type VideoCategoryFilter = typeof VIDEO_CATEGORIES[number];
 export const VIDEO_PROJECTS: VideoProject[] = [
   {
     id: 'sailung-kalinchok-expedition',
+    externalVideos: TRAVEL_VIDEOS,
     title: 'Sailung & Kalinchok — Travel Reel & Expedition',
     clientOrSeries: 'Expedition Series • Travel Reel',
     category: 'Travel & Adventure',
