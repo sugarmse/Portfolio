@@ -7,6 +7,7 @@ import './journey.css';
 import PhotoGallery from './PhotoGallery';
 import TikTokVideos from './TikTokVideos';
 import { photoSrcSet } from './responsiveImages';
+import CoverDesigns from './CoverDesigns';
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 const imageCollections = { photos: stills, kalinchowk: kalinchowkPhotos, covers };
@@ -40,7 +41,7 @@ export default function ContentJourney() {
     if (!target.hasAttribute('tabindex')) target.tabIndex = -1;
     target.focus({ preventScroll: true });
     chapterScroll.current?.kill();
-    if (motion && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (motion) {
       chapterScroll.current = gsap.to(window, {
         scrollTo: { y: target, offsetY: parseFloat(getComputedStyle(target).scrollMarginTop) || 0, autoKill: true },
         duration: 1,
@@ -82,8 +83,16 @@ export default function ContentJourney() {
 
   useEffect(() => {
     const previous = document.documentElement.style.scrollBehavior;
+    const previousMotion = document.documentElement.dataset.motion;
+    // The page's explicit Motion switch also controls shared portfolio styles.
+    document.documentElement.dataset.motion = motion ? 'full' : 'reduced';
     if (!motion) document.documentElement.style.scrollBehavior = 'auto';
-    return () => { chapterScroll.current?.kill(); document.documentElement.style.scrollBehavior = previous; };
+    return () => {
+      chapterScroll.current?.kill();
+      document.documentElement.style.scrollBehavior = previous;
+      if (previousMotion === undefined) delete document.documentElement.dataset.motion;
+      else document.documentElement.dataset.motion = previousMotion;
+    };
   }, [motion]);
 
   useEffect(() => {
@@ -172,11 +181,7 @@ export default function ContentJourney() {
         <div className="j-story-heading"><p className="j-eyebrow">03 / FEATURED CONTENT</p><h2>Travel stories,<br /><em>in motion.</em></h2><p>A selection of my videos on TikTok.</p></div>
         <TikTokVideos motion={motion} />
         <div className="j-reel-alternative"><span>Watch without leaving this page</span><button className="j-text-link" onClick={() => setView('film')}>My camping reel · {film.durationLabel} <span>↗</span></button></div>
-        <details className="j-cover-collection" onToggle={() => ScrollTrigger.refresh()}>
-          <summary>Reel cover designs <span>4 covers</span></summary>
-          <p>Cover designs for my travel content. Select a cover to view it.</p>
-          <div className="j-cover-grid">{covers.map((cover, index) => <figure key={cover.src}><button onClick={() => setView({ collection: 'covers', index })} aria-label={`View reel cover: ${cover.caption}`}><img src={cover.src} alt={cover.alt} loading="lazy" width={cover.width} height={cover.height} /></button><figcaption>{cover.caption}<span>Reel cover artwork</span></figcaption></figure>)}</div>
-        </details>
+        <CoverDesigns motion={motion} onOpen={index => setView({ collection: 'covers', index })} />
       </section>
       <section id="person" data-chapter className="j-person">
         <div className="j-person-photo"><img src="/content/portrait/pfp-640.webp" srcSet="/content/portrait/pfp-640.webp 640w, /content/portrait/pfp-1000.webp 1000w" sizes="(max-width: 650px) 55vw, 35vw" alt="Sarthak Shakya" loading="lazy" decoding="async" width={1000} height={701} /><span>THE PERSON BEHIND THE CAMERA</span></div><div className="j-person-copy"><p className="j-eyebrow">04 / A LITTLE CLOSER</p><h2>I’m <em>Sarthak.</em></h2><p>I enjoy travelling around Nepal by motorcycle, with a camera along for the journey.</p><p>My background is in photography, videography, professional video editing, and digital production. I’m newer to publishing my own travel stories.</p><p>The reel featured here is one example of the travel stories I’ve recently started sharing. I want to spend more time documenting lesser-known places and the people who live there.</p><a href="/#videos" className="j-text-link">More of my editing work <span>↗</span></a><details><summary>My production kit <span>+</span></summary><p>Sony A6700 · Sigma 18–50mm f/2.8<br />DJI Osmo 360 · DJI Mic Mini</p><p>My editing tool: DaVinci Resolve.</p></details></div>
