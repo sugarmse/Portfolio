@@ -41,11 +41,11 @@ export default function CoverDesigns({ motion, onOpen }: { motion: boolean; onOp
 
   return <details ref={details} className="j-cover-collection" data-expanded={expanded}>
     <summary aria-expanded={expanded} onClick={event => { event.preventDefault(); setExpanded(value => !value); }}>
-      Reel cover designs <span>4 covers <i className="j-cover-toggle" aria-hidden="true" /></span>
+      Video cover designs <span>{covers.length} covers <i className="j-cover-toggle" aria-hidden="true" /></span>
     </summary>
     <div ref={body} className="j-cover-body">
       <p>Cover designs for my travel content. Select a cover to view it.</p>
-      <div className="j-cover-grid">{covers.map((cover, index) => <figure key={cover.src}><button onClick={() => onOpen(index)} aria-label={`View reel cover: ${cover.caption}`}><img src={cover.src} alt={cover.alt} loading="lazy" width={cover.width} height={cover.height} /></button><figcaption>{cover.caption}<span>Reel cover artwork</span></figcaption></figure>)}</div>
+      <div className="j-cover-grid">{covers.map((cover, index) => <figure key={cover.src}><button onClick={() => onOpen(index)} aria-label={`View video cover: ${cover.caption}`}><img src={cover.src} alt={cover.alt} loading="lazy" width={cover.width} height={cover.height} /></button><figcaption>{cover.caption}<span>{cover.kind}</span></figcaption></figure>)}</div>
     </div>
   </details>;
 }

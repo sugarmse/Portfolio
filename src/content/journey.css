@@ -159,7 +159,12 @@
 .j-original { display: block; margin-top: 8px; text-align: center; color: var(--j-orange); font-size: 10px; text-decoration: underline; }
 .j-viewer-controls { display: flex; justify-content: space-between; align-items: center; gap: 25px; padding-top: 14px; font-size: 12px; }
 .j-viewer-controls button { padding: 8px; font-size: 12px; }
-.journey .j-hero-watch { display: inline-flex; align-items: center; gap: 18px; margin-top: 24px; padding: 13px 18px; background: var(--j-orange); color: var(--j-ink); font-size: 14px; border-radius: 3px; }
+.j-hero-socials { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+.journey .j-hero-social { display: inline-flex; align-items: center; justify-content: space-between; gap: 18px; padding: 12px 18px; border: 1px solid var(--j-orange); background: var(--j-orange); color: var(--j-ink); font-size: 14px; border-radius: 3px; transition: background-color .2s ease, transform .2s ease; }
+.journey .j-hero-social-secondary { color: var(--j-paper); border-color: #e8e2d580; background: #10120f66; }
+.j-hero-social span { transition: transform .2s ease; }
+.j-hero-social:active { transform: translateY(1px); }
+@media (hover: hover) { .j-hero-social:hover span { transform: translate(2px, -2px); } .journey .j-hero-social:hover { background: #f1b47e; } .journey .j-hero-social-secondary:hover { background: #10120fa6; } }
 .j-cover-collection summary { display: flex; justify-content: space-between; gap: 16px; align-items: center; cursor: pointer; font-size: 18px; padding-block: 10px; }
 .j-cover-collection summary span { font-size: 12px; color: var(--j-muted); }
 .j-cover-collection summary { list-style: none; transition: color .2s ease; }
@@ -215,7 +220,7 @@
   .j-departure h1 { font-size: clamp(54px, 15.5vw, 94px); margin: 16px 0 24px; text-shadow: 0 2px 20px #10120f33; }
   .j-departure .j-opening-statement { font-size: 17px; margin-top: auto; max-width: 310px; }
   .j-departure .j-byline, .j-departure .j-application-note, .j-departure-bottom { display: none; }
-  .journey .j-hero-watch { margin-top: 18px; flex-shrink: 0; }
+  .j-hero-socials { margin-top: 18px; flex-shrink: 0; gap: 10px; }
   .j-mobile-context { display: block; padding: 28px 6vw !important; border-bottom: 1px solid #ffffff26; }
   .j-mobile-context > p:not(.j-eyebrow) { color: var(--j-muted); font-size: 13px; margin-top: 12px; max-width: 420px; }
   .j-road { grid-template-columns: 1fr; min-height: auto; } .j-road-visual { min-height: 0; height: 260px; } .j-road-copy { padding: 35px 8vw 55px; } .j-road h2 { font-size: clamp(36px, 10vw, 48px); margin: 24px 0; }

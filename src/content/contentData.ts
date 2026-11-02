@@ -33,10 +33,10 @@ export const kalinchowkPhotos = [
 ];
 // User-supplied cover designs include AI elements. They are artwork, not photography.
 export const covers = [
-  { src: '/content/covers/trip-cost.webp', caption: 'Trip Cost Breakdown', alt: 'Sailung x Kalinchok trip cost breakdown cover design', width: 675, height: 1200, kind: 'Reel cover artwork' },
-  { src: '/content/covers/camping.webp', caption: '−1° Camping', alt: 'Camping reel cover design with a helmeted traveller and tent', width: 670, height: 1200, kind: 'Reel cover artwork' },
-  { src: '/content/covers/destinations.webp', caption: 'Sailung vs Kalinchok', alt: 'Split landscape reel cover design with a rider and motorcycle', width: 670, height: 1200, kind: 'Reel cover artwork' },
-  { src: '/content/covers/sailung-peak.webp', caption: 'Sailung Peak', alt: 'Sailung Peak reel cover design with a traveller facing the mountains', width: 670, height: 1200, kind: 'Reel cover artwork' },
+  { src: '/content/covers/trip-cost.webp', caption: 'Trip Cost Breakdown', alt: 'Sailung and Kalinchowk trip cost breakdown cover design', width: 675, height: 1200, kind: 'Video cover artwork' },
+  { src: '/content/covers/camping.webp', caption: '−1° Camping', alt: 'Camping video cover design with a helmeted traveller and tent', width: 670, height: 1200, kind: 'Video cover artwork' },
+  { src: '/content/covers/destinations.webp', caption: 'Sailung vs Kalinchowk', alt: 'Split landscape video cover design with a rider and motorcycle', width: 670, height: 1200, kind: 'Video cover artwork' },
+  { src: '/content/covers/sailung-peak.webp', caption: 'Sailung Peak', alt: 'Sailung Peak video cover design with a traveller facing the mountains', width: 670, height: 1200, kind: 'Video cover artwork' },
 ];
 export const reelPoster = covers[1];
 export const tiktokReels = TRAVEL_VIDEOS.map(video => ({ ...video, cover: video.thumbnail }));

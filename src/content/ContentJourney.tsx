@@ -8,6 +8,7 @@ import PhotoGallery from './PhotoGallery';
 import TikTokVideos from './TikTokVideos';
 import { photoSrcSet } from './responsiveImages';
 import CoverDesigns from './CoverDesigns';
+import { pageMetadata } from './pageMetadata';
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 const imageCollections = { photos: stills, kalinchowk: kalinchowkPhotos, covers };
@@ -52,16 +53,16 @@ export default function ContentJourney() {
 
   useEffect(() => {
     const previousTitle = document.title;
-    document.title = 'The Long Way Home — Sarthak Shakya';
+    document.title = pageMetadata.title;
     const values: [string, string, string][] = [
-      ['name', 'description', 'A motorcycle, a camera, and the long way through Nepal. An interactive travel story by Sarthak Shakya.'],
-      ['property', 'og:title', 'The Long Way Home — Sarthak Shakya'],
-      ['property', 'og:description', 'A visual journey through Nepal. Watch the reel and discover the frames behind the story.'],
-      ['property', 'og:image', 'https://shakyasarthak.com.np/content/photos/dsc02413.webp'],
+      ['name', 'description', pageMetadata.description],
+      ['property', 'og:title', pageMetadata.title],
+      ['property', 'og:description', pageMetadata.description],
+      ['property', 'og:image', pageMetadata.image],
       ['property', 'og:url', 'https://shakyasarthak.com.np/content'],
-      ['name', 'twitter:title', 'The Long Way Home — Sarthak Shakya'],
-      ['name', 'twitter:description', 'A visual journey through Nepal by Sarthak Shakya.'],
-      ['name', 'twitter:image', 'https://shakyasarthak.com.np/content/photos/dsc02413.webp'],
+      ['name', 'twitter:title', pageMetadata.title],
+      ['name', 'twitter:description', pageMetadata.description],
+      ['name', 'twitter:image', pageMetadata.image],
       ['name', 'theme-color', '#10120f'],
     ];
     const restore = values.map(([attribute, key, value]) => {
@@ -146,19 +147,22 @@ export default function ContentJourney() {
           <p className="j-opening-statement">Exploring Nepal,<br />with a camera along for the ride.</p>
           <p className="j-byline">By Sarthak Shakya · Lalitpur, Nepal</p>
           <p className="j-application-note">Featuring a recent journey through Sailung and Kalinchowk. Prepared for my Nepal Tourism Board creator application.</p>
-          <button className="j-hero-watch" onClick={() => setView('film')}>Watch the reel · {film.durationLabel} <span>↗</span></button>
+          <div className="j-hero-socials" aria-label="Follow my travel content">
+            <a className="j-hero-social" href="https://www.tiktok.com/@who.chinii" target="_blank" rel="noopener noreferrer" aria-label="TikTok, opens in a new tab">TikTok <span aria-hidden="true">↗</span></a>
+            <a className="j-hero-social j-hero-social-secondary" href="https://www.instagram.com/who.chini/" target="_blank" rel="noopener noreferrer" aria-label="Instagram, opens in a new tab">Instagram <span aria-hidden="true">↗</span></a>
+          </div>
         </div>
         <div className="j-departure-bottom"><a href="#road">EXPLORE THE JOURNEY <span>↓</span></a><span>SAILUNG / KALINCHOWK</span></div>
       </section>
       <section className="j-mobile-context" aria-label="About this showcase">
         <p className="j-eyebrow">FEATURED JOURNEY / SAILUNG & KALINCHOWK</p>
-        <p>Travel photographs and a reel by Sarthak Shakya, Lalitpur.</p>
+        <p>Travel photography and videos by Sarthak Shakya, Lalitpur.</p>
         <p>Prepared for my Nepal Tourism Board creator application.</p>
       </section>
       <section id="road" data-chapter className="j-road">
         <div className="j-road-visual"><img className="j-road-image" src={roadPhoto.src} srcSet={photoSrcSet(roadPhoto)} sizes="(max-width: 650px) 100vw, 50vw" alt={roadPhoto.alt} loading="lazy" decoding="async" width={roadPhoto.width} height={roadPhoto.height} /></div>
-        <div className="j-road-copy"><p className="j-eyebrow">01 / THE ROAD</p><h2>The ride.<br />The camp.<br /><em>The camera.</em></h2><p>For this reel, I followed the mountain views, the routines around camp, and the small fixes that keep a trip going.</p><a href="#stories" className="j-text-link">Watch Sailung & Kalinchowk <span>↗</span></a></div>
-        <span className="j-margin-note">FROM MY SAILUNG & KALINCHOWK REEL</span>
+        <div className="j-road-copy"><p className="j-eyebrow">01 / THE ROAD</p><h2>The ride.<br />The camp.<br /><em>The camera.</em></h2><p>Mountain mornings, time around camp, and the small details along the way. My photographs and videos bring together moments from Sailung and Kalinchowk.</p><a href="#stories" className="j-text-link">Explore the videos <span>↗</span></a></div>
+        <span className="j-margin-note">SAILUNG / ON THE RIDGELINE</span>
       </section>
       <section id="places" data-chapter className="j-places">
         <div className="j-places-intro"><p className="j-eyebrow">02 / THE FRAMES</p><h2>Out along<br /><em>the ridgeline.</em></h2><p>Selected photographs from Sailung and Kalinchowk.<br />Open a frame to see it in full.</p></div>
@@ -184,7 +188,7 @@ export default function ContentJourney() {
         <CoverDesigns motion={motion} onOpen={index => setView({ collection: 'covers', index })} />
       </section>
       <section id="person" data-chapter className="j-person">
-        <div className="j-person-photo"><img src="/content/portrait/pfp-640.webp" srcSet="/content/portrait/pfp-640.webp 640w, /content/portrait/pfp-1000.webp 1000w" sizes="(max-width: 650px) 55vw, 35vw" alt="Sarthak Shakya" loading="lazy" decoding="async" width={1000} height={701} /><span>THE PERSON BEHIND THE CAMERA</span></div><div className="j-person-copy"><p className="j-eyebrow">04 / A LITTLE CLOSER</p><h2>I’m <em>Sarthak.</em></h2><p>I enjoy travelling around Nepal by motorcycle, with a camera along for the journey.</p><p>My background is in photography, videography, professional video editing, and digital production. I’m newer to publishing my own travel stories.</p><p>The reel featured here is one example of the travel stories I’ve recently started sharing. I want to spend more time documenting lesser-known places and the people who live there.</p><a href="/#videos" className="j-text-link">More of my editing work <span>↗</span></a><details><summary>My production kit <span>+</span></summary><p>Sony A6700 · Sigma 18–50mm f/2.8<br />DJI Osmo 360 · DJI Mic Mini</p><p>My editing tool: DaVinci Resolve.</p></details></div>
+        <div className="j-person-photo"><img src="/content/portrait/pfp-640.webp" srcSet="/content/portrait/pfp-640.webp 640w, /content/portrait/pfp-1000.webp 1000w" sizes="(max-width: 650px) 55vw, 35vw" alt="Sarthak Shakya" loading="lazy" decoding="async" width={1000} height={701} /><span>THE PERSON BEHIND THE CAMERA</span></div><div className="j-person-copy"><p className="j-eyebrow">04 / A LITTLE CLOSER</p><h2>I’m <em>Sarthak.</em></h2><p>I enjoy travelling around Nepal by motorcycle, with a camera along for the journey.</p><p>My background is in photography, videography, professional video editing, and digital production. I’m newer to publishing my own travel stories.</p><p>The photographs and videos here are from my recent travels. I want to spend more time documenting lesser-known places and the people who live there.</p><a href="/#videos" className="j-text-link">More of my editing work <span>↗</span></a><details><summary>My production kit <span>+</span></summary><p>Sony A6700 · Sigma 18–50mm f/2.8<br />DJI Osmo 360 · DJI Mic Mini</p><p>My editing tool: DaVinci Resolve.</p></details></div>
       </section>
       <section id="next" data-chapter className="j-next">
         <p className="j-eyebrow">05 / WHAT COMES NEXT</p><h2>Where I want<br />to take<br /><em>the camera next.</em></h2>
@@ -193,13 +197,13 @@ export default function ContentJourney() {
       </section>
     </main>
     <footer className="j-footer"><a href="/">Sarthak Shakya ↗</a><a href="mailto:info.sarthakshakya@gmail.com">Email ↗</a><a href="/">Full portfolio ↗</a><a href="#departure">Back to the beginning ↑</a></footer>
-    <dialog ref={dialog} className="j-dialog" aria-label={view === 'film' ? 'Sailung and Kalinchowk reel' : imageView?.collection === 'covers' ? 'Reel cover artwork viewer' : imageView?.collection === 'kalinchowk' ? 'Kalinchowk photography viewer' : 'Sailung photography viewer'} onKeyDown={event => {
+    <dialog ref={dialog} className="j-dialog" aria-label={view === 'film' ? 'Sailung and Kalinchowk reel' : imageView?.collection === 'covers' ? 'Video cover artwork viewer' : imageView?.collection === 'kalinchowk' ? 'Kalinchowk photography viewer' : 'Sailung photography viewer'} onKeyDown={event => {
       if (!imageView || !['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
       event.preventDefault();
       moveViewer(event.key === 'ArrowRight' ? 1 : -1);
     }} onCancel={event => { event.preventDefault(); setView(null); }} onClick={event => { if (event.target === event.currentTarget) setView(null); }}>
       <button autoFocus className="j-dialog-close" onClick={() => setView(null)} aria-label="Close viewer">CLOSE ×</button>
-      {view === 'film' ? <div className="j-player-wrap"><video ref={player} poster={reelPoster.src} controls playsInline preload="metadata"><source src={film.webSrc} type="video/webm" /><source src={film.mp4Src} type="video/mp4" /><source src={film.src} type="video/mp4" /><a href={film.src}>Open the reel</a></video><p>{film.title} / Complete travel reel</p><a className="j-original" href={film.src} target="_blank" rel="noopener noreferrer">Open original quality · 82 MB ↗</a></div> : imageView && currentItem ? <figure><img src={currentItem.src} alt={currentItem.alt} /><figcaption>{currentItem.caption} / {currentItem.kind}</figcaption><div className="j-viewer-controls"><button onClick={() => moveViewer(-1)}>← Previous</button><span>{imageView.index + 1} / {viewerItems.length}</span><button onClick={() => moveViewer(1)}>Next →</button></div></figure> : null}
+      {view === 'film' ? <div className="j-player-wrap"><video ref={player} poster={reelPoster.src} controls playsInline preload="metadata"><source src={film.webSrc} type="video/webm" /><source src={film.mp4Src} type="video/mp4" /><source src={film.src} type="video/mp4" /><a href={film.src}>Open the reel</a></video><p>{film.title} / Complete travel reel</p><p>Filmed, edited, and narrated by me.</p><a className="j-original" href={film.src} target="_blank" rel="noopener noreferrer">Open original quality · 82 MB ↗</a></div> : imageView && currentItem ? <figure><img src={currentItem.src} alt={currentItem.alt} /><figcaption>{currentItem.caption} / {currentItem.kind}</figcaption><div className="j-viewer-controls"><button onClick={() => moveViewer(-1)}>← Previous</button><span>{imageView.index + 1} / {viewerItems.length}</span><button onClick={() => moveViewer(1)}>Next →</button></div></figure> : null}
     </dialog>
   </div>;
 }

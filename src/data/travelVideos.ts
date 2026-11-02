@@ -3,7 +3,7 @@ export const TRAVEL_VIDEOS = [
     id: 'sailung-vs-kalinchowk',
     title: 'Sailung vs Kalinchowk',
     href: 'https://vt.tiktok.com/ZSp17BmN4/',
-    thumbnail: { src: '/content/covers/destinations.webp', alt: 'Sailung vs Kalinchok video thumbnail', width: 670, height: 1200 },
+    thumbnail: { src: '/content/covers/destinations.webp', alt: 'Sailung vs Kalinchowk video thumbnail', width: 670, height: 1200 },
   },
   {
     id: 'minus-one-camping',
@@ -15,7 +15,7 @@ export const TRAVEL_VIDEOS = [
     id: 'trip-cost-breakdown',
     title: 'Trip Cost Breakdown',
     href: 'https://vt.tiktok.com/ZSp17U7Df/',
-    thumbnail: { src: '/content/covers/trip-cost.webp', alt: 'Sailung x Kalinchok trip cost breakdown video thumbnail', width: 675, height: 1200 },
+    thumbnail: { src: '/content/covers/trip-cost.webp', alt: 'Sailung and Kalinchowk trip cost breakdown video thumbnail', width: 675, height: 1200 },
   },
 ];
 

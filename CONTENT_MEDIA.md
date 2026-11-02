@@ -17,7 +17,7 @@ The `/content` experience combines the existing travel reel, original photograph
 - `public/content/frame-*.webp`: browser-extracted stills from the original film at its native 1080 × 1920 resolution, encoded as WebP at quality 0.96. Selected files total approximately 959 KB (frames 2, 7, 19, 32). They retain the original edit and burned-in captions. The viewer presents them as film stills, not original photographs. `scripts/content-frames.cjs` documents reproducible extraction. No per-frame location is invented; Sailung is visible in the first frame's original caption. Fine detail remains limited by the original video, especially when cropped into wide panels.
 - `public/content/fonts/`: locally bundled Poppins at weights 400, 500, and 600, used throughout the content page. Only the opening title's word “home” uses a Georgia italic accent. Poppins is distributed under the included SIL Open Font License.
 - `public/pfp.jpeg`: existing portfolio portrait.
-- Email and full-portfolio destinations come from the existing project. No Instagram, TikTok or YouTube profile URL was present, so those links are omitted.
+- Email and full-portfolio destinations come from the existing project. The hero links to the user-supplied TikTok profile `https://www.tiktok.com/@who.chinii` first, then Instagram `https://www.instagram.com/who.chini/`. No YouTube profile was supplied.
 
 ## Still needed to fulfil the full media direction
 
@@ -29,11 +29,11 @@ The `/content` experience combines the existing travel reel, original photograph
 
 ## Mobile opening
 
-Both screen sizes now use DSC02408 as a full-bleed photographic opening. Mobile keeps its approved crop toward the traveller and contrast gradient. Desktop shows the broader sunrise composition, with text to the right of the traveller and a gentle scale animation instead of the previous inset reveal. The approved mobile screenshot was compared pixel for pixel and remained identical. Only one opening image is requested. The mobile header is simplified, the reel button remains inside the first screen, and application details sit immediately below the opening. No mobile hero scroll animation is added.
+Both screen sizes now use DSC02408 as a full-bleed photographic opening. Mobile keeps its approved crop toward the traveller and contrast gradient. Desktop shows the broader sunrise composition, with text to the right of the traveller and a gentle scale animation instead of the previous inset reveal. The approved mobile screenshot was compared pixel for pixel and remained identical. Only one opening image is requested. The mobile header is simplified, the TikTok and Instagram buttons remain inside the first screen, and application details sit immediately below the opening. No mobile hero scroll animation is added.
 
 ## Production credit
 
-The user confirmed responsibility for shooting, editing, and narration. The page states: “Filmed, edited, and narrated by me.”
+The user confirmed responsibility for shooting, editing, and narration. The local camping reel viewer states: “Filmed, edited, and narrated by me.”
 
 ## Local checks
 
@@ -51,7 +51,7 @@ Screenshots are written to ignored `artifacts/content/`. The Vite build emits de
 
 ## TikTok links
 
-The featured content block links directly to the three short URLs supplied by the user: `https://vt.tiktok.com/ZSp17BmN4/`, `https://vt.tiktok.com/ZSp17HKsX/`, `https://vt.tiktok.com/ZSp17U7Df/`. The user confirmed the mapping: first link = Sailung vs Kalinchowk (destinations cover); second = −1° Camping (camping cover); third = Trip Cost Breakdown (trip-cost cover). The corresponding supplied thumbnails and topic titles are used on the link cards. No TikTok embed or remote media is loaded on entry. The existing camping reel remains available through an explicit on-page alternative and the hero button.
+The featured content block links directly to the three short URLs supplied by the user: `https://vt.tiktok.com/ZSp17BmN4/`, `https://vt.tiktok.com/ZSp17HKsX/`, `https://vt.tiktok.com/ZSp17U7Df/`. The user confirmed the mapping: first link = Sailung vs Kalinchowk (destinations cover); second = −1° Camping (camping cover); third = Trip Cost Breakdown (trip-cost cover). The corresponding supplied thumbnails and topic titles are used on the link cards. No TikTok embed or remote media is loaded on entry. The existing camping reel remains available through an explicit on-page alternative beneath the TikTok cards.
 
 ## Horizontal controls
 
@@ -62,3 +62,7 @@ Photo galleries and TikTok cards share horizontal navigation: native touch swipi
 Preview photographs use 640px and 1200px WebP derivatives at quality 84; the hero also has a 1600px option. Browser `srcset` selection accounts for screen width and pixel density, with a larger mobile hero size hint to retain detail in the tall crop. Full-size gallery images remain unchanged and load when the viewer opens. The About portrait now uses 640px/1000px WebP copies (55/134 KB), replacing the 2.2 MB JPEG request on this route. Reproduce these assets with `python scripts/optimize-content-images.py` (Pillow required). Layout, crop positions, and source photographs are preserved. Existing lazy loading remains enabled below the hero, with asynchronous decoding on the photo previews.
 
 Chapter links animate with GSAP ScrollToPlugin and move keyboard focus to the destination. As requested, the page defaults to Motion on. This explicit page preference overrides system reduced motion consistently across chapter navigation, cover reveals, and CSS transitions; Motion off disables all of these animations. The root motion attribute is restored when leaving the page. Starting a new chapter transition cancels the previous one, and manual scrolling can interrupt the animation.
+
+## Copy consistency
+
+The mobile introduction, Road and About copy, and shared browser/social metadata describe the photography and video collection rather than a single reel. Video covers use consistent labels and Kalinchowk spelling; original source artwork text remains unchanged. The Road image is identified as a Sailung photograph. Nagarkot remains editing in progress. “Reel” refers specifically to the existing local camping video or proposed Instagram work.
